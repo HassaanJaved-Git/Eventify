@@ -1,5 +1,4 @@
-
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -14,18 +13,15 @@ import './Login.css';
 const Login = () => {
   const navigate = useNavigate();
 
-
- 
-
   const loginSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email').required('Email is required'),
+    email: Yup.string().required('Email or Username is required'),
     password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
   });
 
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       await axios.post('http://localhost:5000/api/user/login', values);
-      toast.success('Login successful!', { position: 'top-center' });g
+      toast.success('Login successful!', { position: 'top-center' });
       resetForm();
       setTimeout(() => navigate('/dashboard'), 1000);
     } catch (error) {
@@ -64,12 +60,12 @@ const Login = () => {
                 <Form>
                   <div className="mb-3 position-relative">
                     <Field
-                      type="email"
+                      type="text"
                       name="email"
-                      placeholder="Enter Email"
+                      placeholder="Enter Email or Username"
                       className="form-control login-input"
                     />
-                      <MdMarkEmailUnread className="icon" />
+                    <MdMarkEmailUnread className="icon" />
                     <ErrorMessage
                       name="email"
                       component="div"
@@ -84,7 +80,7 @@ const Login = () => {
                       placeholder="Enter Password"
                       className="form-control login-input"
                     />
-                         <FaLock className='icon' />
+                    <FaLock className='icon' />
                     <ErrorMessage
                       name="password"
                       component="div"
@@ -124,5 +120,3 @@ const Login = () => {
 };
 
 export default Login;
-
-

@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
@@ -19,8 +17,8 @@ const SignUp = () => {
     const signUpSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
         email: Yup.string().email('Invalid email').required('Email is required'),
-        username: Yup.string().required('Username is required'),
-        password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+        userName: Yup.string().min(3, 'Username must be at least 3 characters').max(20, 'Username must be at most 20 characters').matches(/^[a-zA-Z0-9_.-]+$/, 'Username can only contain letters, numbers, underscores, dots, and hyphens').required('Username is required'),
+        password: Yup.string().min(8, 'Password must be at least 8 characters').max(32, 'Password must be at most 32 characters').matches(/[A-Z]/, 'Password must contain at least one uppercase letter').matches(/[a-z]/, 'Password must contain at least one lowercase letter').matches(/[0-9]/, 'Password must contain at least one number').matches(/[@$!%*?&]/, 'Password must contain at least one special character').required('Password is required'),
     });
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
@@ -56,7 +54,7 @@ const SignUp = () => {
                         <h2 className="text-center mb-4 signup-title"> Sign Up</h2>
 
                         <Formik
-                            initialValues={{ name: '', email: '', username: '', password: '' }}
+                            initialValues={{ name: '', email: '', userName: '', password: '' }}
                             validationSchema={signUpSchema}
                             onSubmit={handleSubmit}
                         >
@@ -74,9 +72,9 @@ const SignUp = () => {
                                     </div>
 
                                     <div className="mb-3 position-relative">
-                                        <Field type="text" name="username" placeholder="Enter Username" className="form-control signup-input pe-5" />
+                                        <Field type="text" name="userName" placeholder="Enter Username" className="form-control signup-input pe-5" />
                                         <FaUserTie className="icon" />
-                                        <ErrorMessage name="username" component="div" className="text-danger mt-1 error-message" />
+                                        <ErrorMessage name="userName" component="div" className="text-danger mt-1 error-message" />
                                     </div>
 
                                     <div className="mb-3 position-relative">
@@ -84,19 +82,18 @@ const SignUp = () => {
                                         <FaLock className='icon' />
                                         <ErrorMessage name="password" component="div" className="text-danger mt-1 error-message" />
                                     </div>
-
-                                    
-                  <button
-                    type="submit"
-                    className="btn login-button w-100"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                    ) : (
-                      'SignUp'
-                    )}
-                  </button>
+   
+                                    <button
+                                        type="submit"
+                                        className="btn login-button w-100"
+                                        disabled={isSubmitting}
+                                    >
+                                        {isSubmitting ? (
+                                        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        ) : (
+                                        'SignUp'
+                                        )}
+                                    </button>
                                 </Form>
                             )}
                         </Formik>
