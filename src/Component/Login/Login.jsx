@@ -8,6 +8,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MdMarkEmailUnread } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
+
 import './Login.css';
 
 const Login = () => {
@@ -15,24 +16,30 @@ const Login = () => {
 
   const loginSchema = Yup.object().shape({
     email: Yup.string().required('Email or Username is required'),
-    password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
+    password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
   });
 
-  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-    try {
-      await axios.post('http://localhost:5000/api/user/login', values);
-      toast.success('Login successful!', { position: 'top-center' });
-      resetForm();
-      setTimeout(() => navigate('/dashboard'), 1000);
-    } catch (error) {
-      console.error('Login error:', error.response?.data || error.message);
-      toast.error('Login failed: ' + (error.response?.data?.message || error.message), {
-        position: 'top-center',
+  const handleSubmit = (values, { setSubmitting, resetForm }) => {
+    axios.post('http://localhost:5000/api/user/login', values)
+      .then((response) => {
+        toast.success('Login successful!', { position: 'top-center' });
+        resetForm();
+        const { token, user } = response.data
+        const { name, userName, email } = user
+        localStorage.setItem('token', token)
+        localStorage.setItem('user', JSON.stringify({ name, userName, email }))
+        setTimeout(() => navigate('/'), 1000);
+      })
+      .catch(error => {
+        console.error('Login error:', error.response?.data || error.message);
+        toast.error('Login failed: ' + (error.response?.data?.message || error.message), {
+          position: 'top-center',
+        });
+      })
+      .finally(() => {
+        setSubmitting(false);
       });
-    } finally {
-      setSubmitting(false);
-    }
-  };
+  }
 
   return (
     <>
@@ -104,13 +111,16 @@ const Login = () => {
             </Formik>
 
             <div className="text-center mt-3">
-              <button
-                type="button"
-                onClick={() => navigate('/signup')}
-                className="btn signup-button"
-              >
-                Create an Account
-              </button>
+              <p>
+                Don't have an account? 
+                <button
+                  type="button"
+                  onClick={() => navigate('/signup')}
+                  className="btn login-link"
+                >
+                  Sign Up
+                </button>
+              </p>
             </div>
           </div>
         </div>

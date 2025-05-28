@@ -13,7 +13,6 @@ import { MdMarkEmailUnread } from "react-icons/md";
 const SignUp = () => {
     const navigate = useNavigate();
 
-
     const signUpSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
         email: Yup.string().email('Invalid email').required('Email is required'),
@@ -26,7 +25,7 @@ const SignUp = () => {
             await axios.post('http://localhost:5000/api/user/register', values);
             toast.success('User registered successfully!', { position: 'top-center' });
             resetForm();
-            setTimeout(() => navigate('/login'), 1000);
+            setTimeout(() => navigate('/'), 1000);
         } catch (error) {
             console.error('Registration error:', error.response?.data || error.message);
             toast.error('Registration failed: ' + (error.response?.data?.message || error.message), {
@@ -54,9 +53,9 @@ const SignUp = () => {
                         <h2 className="text-center mb-4 signup-title"> Sign Up</h2>
 
                         <Formik
-                            initialValues={{ name: '', email: '', userName: '', password: '' }}
-                            validationSchema={signUpSchema}
-                            onSubmit={handleSubmit}
+                            initialValues = {{ name: '', email: '', userName: '', password: '' }}
+                            validationSchema = {signUpSchema}
+                            onSubmit = {handleSubmit}
                         >
                             {({ isSubmitting }) => (
                                 <Form>
@@ -99,9 +98,12 @@ const SignUp = () => {
                         </Formik>
 
                         <div className="text-center mt-3">
-                            <button type="button" onClick={() => navigate('/login')} className="btn login-link" >
-                                Already have an account? Login
-                            </button>
+                            <p>
+                                Already have an account? 
+                                <button type="button" onClick={() => navigate('/login')} className="btn login-link" >
+                                    Login
+                                </button>
+                            </p>
                         </div>
                     </div>
                 </div>
