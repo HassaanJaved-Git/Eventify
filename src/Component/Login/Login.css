@@ -9,15 +9,15 @@
 body {
   background: linear-gradient(
     -45deg,
-    #ffecd2,  /* peach-cream */
-    #fcb69f,  /* soft coral */
-    #a18cd1,  /* pastel purple */
-    #fbc2eb,  /* cotton candy pink */
-    #fad0c4,  /* blush pink */
-    #a1c4fd,  /* baby blue */
-    #c2e9fb,  /* ice blue */
-    #d4fc79,  /* spring green */
-    #96e6a1   /* mint green */
+    #d97f00,  /* peach-cream */
+    #8a2200,  /* soft coral */
+    #220071,  /* pastel purple */
+    #880000,  /* cotton candy pink */
+    #3e251e,  /* blush pink */
+    #002767,  /* baby blue */
+    #2b5061,  /* ice blue */
+    #567a00,  /* spring green */
+    #2c2e2d   /* mint green */
   );
   background-size: 600% 600%;
   animation: gradientBG 30s ease-in-out infinite;

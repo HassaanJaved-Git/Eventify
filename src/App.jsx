@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MyNavbar from './Component/Navber/Navbar';
 import SignUp from './Component/SignUp/SignUp';
 import LoginPage from './Component/Login/Login';
-import Dashboard from './Component/Dashboard/Dashboard';
+import Dashboard from './Component/Dashboard/dashboard';
 
 import { AuthProvider } from "./Component/Context/AuthContext";
 import CreateEventPage from './Pages/CreateEventPage';
