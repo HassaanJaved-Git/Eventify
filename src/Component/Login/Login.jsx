@@ -57,7 +57,7 @@ const Login = () => {
       </Helmet>
       <ToastContainer position="top-center" autoClose={3000} theme="colored" />
 
-      <div className="login-background">
+      <div className="signup-login-background">
         <div className="container h-100 d-flex align-items-center justify-content-center">
           <div className="card login-card p-4">
             <h2 className="text-center mb-4 login-title">Login</h2>
@@ -70,27 +70,12 @@ const Login = () => {
               {({ isSubmitting }) => (
                 <Form>
                   <div className="mb-3 position-relative">
-                    <Field
-                      type="text"
-                      name="email"
-                      placeholder="Enter Email or Username"
-                      className="form-control login-input"
-                    />
+                    <Field type="text" name="email" placeholder="Enter Email or Username" className="form-control signup-login-input pe-5" />
                     <MdMarkEmailUnread className="icon" />
-                    <ErrorMessage
-                      name="email"
-                      component="div"
-                      className="text-danger mt-1 error-message"
-                    />
+                    <ErrorMessage name="email" component="div" className="text-danger mt-1 error-message" />
                   </div>
-
                   <div className="mb-3 position-relative">
-                    <Field
-                      type="password"
-                      name="password"
-                      placeholder="Enter Password"
-                      className="form-control login-input"
-                    />
+                    <Field type="password" name="password" placeholder="Enter Password" className="form-control signup-login-input pe-5" />
                     <FaLock className='icon' />
                     <ErrorMessage
                       name="password"
@@ -105,12 +90,7 @@ const Login = () => {
                       Forget password
                     </button>
                   </div>
-
-                  <button
-                    type="submit"
-                    className="btn login-button w-100"
-                    disabled={isSubmitting}
-                  >
+                  <button type="submit" className="btn signup-login-button w-100" disabled={isSubmitting} >
                     {isSubmitting ? (
                       <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     ) : (
