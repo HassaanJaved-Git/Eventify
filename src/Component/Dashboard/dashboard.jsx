@@ -5,9 +5,7 @@ import "./Dashboard.css";
 function Dashboard() {
   return (
     <>
-      <div className="dashboard-wrapper">
         <h3>EVENTIFY</h3>       
-      </div>
     </>
   );
 }

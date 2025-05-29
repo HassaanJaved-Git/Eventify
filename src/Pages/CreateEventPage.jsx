@@ -120,25 +120,23 @@ function CreateEventPage() {
                       value={formData.eventType}
                       onChange={handleChange}
                     >
-                      <option value="in-person">In Person</option>
-                      <option value="online">Online</option>
-                      <option value="hybrid">Hybrid</option>
+                      <option value="in-person">Public</option>
+                      <option value="online">Private</option>
                     </select>
                   </div>
                   
                   <div className="mb-4">
                     <label htmlFor="coverImage" className="form-label fw-bold">Cover Image URL</label>
                     <input
-                      type="url"
+                      type="file"
                       className="form-control"
                       id="coverImage"
                       name="coverImage"
                       value={formData.coverImage}
                       onChange={handleChange}
-                      placeholder="https://example.com/image.jpg"
                     />
                     <div className="form-text">
-                      Add a URL to an image for your event cover
+                      Select a cover image for your event
                     </div>
                   </div>
                   
@@ -157,13 +155,13 @@ function CreateEventPage() {
               {step === 2 && (
                 <div>
                   <div className="mb-4">
-                    <label htmlFor="startDate" className="form-label fw-bold">Start Date</label>
+                    <label htmlFor="startDate" className="form-label fw-bold">Event Date</label>
                     <input
                       type="date"
                       className="form-control"
                       id="startDate"
-                      name="startDate"
-                      value={formData.startDate}
+                      name="eventDate"
+                      value={formData.eventDate}
                       onChange={handleChange}
                       required
                     />
@@ -183,19 +181,6 @@ function CreateEventPage() {
                   </div>
                   
                   <div className="mb-4">
-                    <label htmlFor="endDate" className="form-label fw-bold">End Date</label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      id="endDate"
-                      name="endDate"
-                      value={formData.endDate}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-                  
-                  <div className="mb-4">
                     <label htmlFor="endTime" className="form-label fw-bold">End Time</label>
                     <input
                       type="time"
@@ -209,37 +194,70 @@ function CreateEventPage() {
                   </div>
                   
                   <div className="mb-4">
-                    <label htmlFor="timezone" className="form-label fw-bold">Timezone</label>
-                    <select
-                      className="form-select"
-                      id="timezone"
-                      name="timezone"
-                      value={formData.timezone}
-                      onChange={handleChange}
-                    >
-                      <option value="America/New_York">Eastern Time (ET)</option>
-                      <option value="America/Chicago">Central Time (CT)</option>
-                      <option value="America/Denver">Mountain Time (MT)</option>
-                      <option value="America/Los_Angeles">Pacific Time (PT)</option>
-                      <option value="Europe/London">London (GMT)</option>
-                    </select>
-                  </div>
-                  
-                  <div className="mb-4">
-                    <label htmlFor="locationName" className="form-label fw-bold">Location Name</label>
+                    <label htmlFor="locationName" className="form-label fw-bold">Address</label>
                     <input
                       type="text"
                       className="form-control"
                       id="locationName"
-                      name="locationName"
-                      value={formData.locationName}
+                      name="address"
+                      value={formData.address}
                       onChange={handleChange}
-                      placeholder={formData.eventType === 'online' ? 'Zoom Meeting' : 'Venue Name'}
+                      placeholder= "Venue Address"
                       required
                     />
                   </div>
+                  <div className="mb-4">
+                    <label htmlFor="locationName" className="form-label fw-bold">City</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="city"
+                      name="city"
+                      value={formData.city}
+                      onChange={handleChange}
+                      placeholder= "Venue City"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="locationName" className="form-label fw-bold">State</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="state"
+                      name="state"
+                      value={formData.state}
+                      onChange={handleChange}
+                      placeholder= "Venue State"
+                      required
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="locationName" className="form-label fw-bold">Zip Code</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="zipCode"
+                      name="zipCode"
+                      value={formData.zipCode}
+                      onChange={handleChange}
+                      placeholder= "Zip Code"
+                    />
+                  </div>
+                  <div className="mb-4">
+                    <label htmlFor="locationName" className="form-label fw-bold">Coordinates</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="coordinates"
+                      name="coordinates"
+                      value={formData.coordinates}
+                      onChange={handleChange}
+                      placeholder= "Coordinates"
+                    />
+                  </div>
                   
-                  {formData.eventType !== 'online' && (
+                  {/* {formData.eventType !== 'online' && (
                     <div className="mb-4">
                       <label htmlFor="locationAddress" className="form-label fw-bold">Address</label>
                       <input
@@ -253,7 +271,7 @@ function CreateEventPage() {
                         required={formData.eventType !== 'online'}
                       />
                     </div>
-                  )}
+                  )} */}
                   
                   <div className="d-flex justify-content-between">
                     <button
@@ -311,7 +329,7 @@ function CreateEventPage() {
                     </div>
                   </div>
                   
-                  <div className="mb-4 form-check">
+                  {/* <div className="mb-4 form-check">
                     <input
                       type="checkbox"
                       className="form-check-input"
@@ -323,7 +341,7 @@ function CreateEventPage() {
                     <label className="form-check-label" htmlFor="isPrivate">
                       Make this event private (invitation only)
                     </label>
-                  </div>
+                  </div> */}
                   
                   <div className="d-flex justify-content-between">
                     <button

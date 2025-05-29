@@ -10,7 +10,6 @@ import { MdMarkEmailUnread } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import { AuthContext } from "../Context/AuthContext"; // 🔁 fixed import path
 
-import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
