@@ -9,8 +9,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { MdMarkEmailUnread } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 
-import './Login.css';
-
 const Login = () => {
   const navigate = useNavigate();
 
@@ -52,11 +50,10 @@ const Login = () => {
       </Helmet>
       <ToastContainer position="top-center" autoClose={3000} theme="colored" />
 
-      <div className="login-background">
+      <div className="signup-login-background">
         <div className="container h-100 d-flex align-items-center justify-content-center">
-            {/* <h1>Eventify</h1> */}
-          <div className="card login-card p-4">
-            <h2 className="text-center mb-4 login-title">Login</h2>
+          <div className="card signup-login-card p-4">
+            <h2 className="text-center mb-4 signup-login-title">Login</h2>  
 
             <Formik
               initialValues={{ email: '', password: '' }}
@@ -66,40 +63,16 @@ const Login = () => {
               {({ isSubmitting }) => (
                 <Form>
                   <div className="mb-3 position-relative">
-                    <Field
-                      type="text"
-                      name="email"
-                      placeholder="Enter Email or Username"
-                      className="form-control login-input"
-                    />
+                    <Field type="text" name="email" placeholder="Enter Email or Username" className="form-control signup-login-input pe-5" />
                     <MdMarkEmailUnread className="icon" />
-                    <ErrorMessage
-                      name="email"
-                      component="div"
-                      className="text-danger mt-1 error-message"
-                    />
+                    <ErrorMessage name="email" component="div" className="text-danger mt-1 error-message" />
                   </div>
-
                   <div className="mb-3 position-relative">
-                    <Field
-                      type="password"
-                      name="password"
-                      placeholder="Enter Password"
-                      className="form-control login-input"
-                    />
+                    <Field type="password" name="password" placeholder="Enter Password" className="form-control signup-login-input pe-5" />
                     <FaLock className='icon' />
-                    <ErrorMessage
-                      name="password"
-                      component="div"
-                      className="text-danger mt-1 error-message"
-                    />
+                    <ErrorMessage name="password" component="div" className="text-danger mt-1 error-message" />
                   </div>
-
-                  <button
-                    type="submit"
-                    className="btn login-button w-100"
-                    disabled={isSubmitting}
-                  >
+                  <button type="submit" className="btn signup-login-button w-100" disabled={isSubmitting} >
                     {isSubmitting ? (
                       <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                     ) : (
@@ -113,11 +86,7 @@ const Login = () => {
             <div className="text-center mt-3">
               <p>
                 Don't have an account? 
-                <button
-                  type="button"
-                  onClick={() => navigate('/signup')}
-                  className="btn login-link"
-                >
+                <button type="button" onClick={() => navigate('/signup')} className="btn signup-login-link" >
                   Sign Up
                 </button>
               </p>

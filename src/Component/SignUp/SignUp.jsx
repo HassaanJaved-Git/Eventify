@@ -6,7 +6,6 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import './SignUp.css';
 import { FaUser, FaUserTie, FaLock } from "react-icons/fa";
 import { MdMarkEmailUnread } from "react-icons/md";
 
@@ -20,20 +19,24 @@ const SignUp = () => {
         password: Yup.string().min(8, 'Password must be at least 8 characters').max(32, 'Password must be at most 32 characters').matches(/[A-Z]/, 'Password must contain at least one uppercase letter').matches(/[a-z]/, 'Password must contain at least one lowercase letter').matches(/[0-9]/, 'Password must contain at least one number').matches(/[@$!%*?&]/, 'Password must contain at least one special character').required('Password is required'),
     });
 
-    const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-        try {
-            await axios.post('http://localhost:5000/api/user/register', values);
+    const handleSubmit = (values, { setSubmitting, resetForm }) => {
+        axios.post('http://localhost:5000/api/user/register', values)
+        .then((response) => {
             toast.success('User registered successfully!', { position: 'top-center' });
             resetForm();
             setTimeout(() => navigate('/'), 1000);
-        } catch (error) {
+            const { token, user } = response.data
+            const { name, userName, email } = user
+            localStorage.setItem('token', token)
+            localStorage.setItem('user', JSON.stringify({ name, userName, email }))
+        })
+        .catch ((error) => {
             console.error('Registration error:', error.response?.data || error.message);
-            toast.error('Registration failed: ' + (error.response?.data?.message || error.message), {
-                position: 'top-center',
-            });
-        } finally {
+            toast.error('Registration failed: ' + (error.response?.data?.message || error.message), { position: 'top-center', })
+        })
+        .finally (() => {
             setSubmitting(false);
-        }
+        })
     };
 
     return (
@@ -47,10 +50,10 @@ const SignUp = () => {
             </Helmet>
             <ToastContainer position="top-center" autoClose={3000} theme="colored" />
 
-            <div className="signup-background">
+            <div className="signup-login-background">
                 <div className="container h-100 d-flex align-items-center justify-content-center">
-                    <div className="card signup-card p-4">
-                        <h2 className="text-center mb-4 signup-title"> Sign Up</h2>
+                    <div className="card signup-login-card p-4">
+                        <h2 className="text-center mb-4 signup-login-title"> Sign Up</h2>
 
                         <Formik
                             initialValues = {{ name: '', email: '', userName: '', password: '' }}
@@ -60,37 +63,30 @@ const SignUp = () => {
                             {({ isSubmitting }) => (
                                 <Form>
                                     <div className="mb-3 position-relative">
-                                        <Field type="text" name="name" placeholder="Enter Name" className="form-control signup-input pe-5" />
+                                        <Field type="text" name="name" placeholder="Enter Name" className="form-control signup-login-input pe-5" />
                                         <FaUser className="icon" />
                                         <ErrorMessage name="name" component="div" className="text-danger mt-1 error-message" />
                                     </div>
                                     <div className="mb-3 position-relative">
-                                        <Field type="email" name="email" placeholder="Enter Email" className="form-control signup-input pe-5" />
+                                        <Field type="email" name="email" placeholder="Enter Email" className="form-control signup-login-input pe-5" />
                                         <MdMarkEmailUnread className="icon" />
                                         <ErrorMessage name="email" component="div" className="text-danger mt-1 error-message" />
                                     </div>
-
                                     <div className="mb-3 position-relative">
-                                        <Field type="text" name="userName" placeholder="Enter Username" className="form-control signup-input pe-5" />
+                                        <Field type="text" name="userName" placeholder="Enter Username" className="form-control signup-login-input pe-5" />
                                         <FaUserTie className="icon" />
                                         <ErrorMessage name="userName" component="div" className="text-danger mt-1 error-message" />
                                     </div>
-
                                     <div className="mb-3 position-relative">
-                                        <Field type="password" name="password" placeholder="Enter Password" className="form-control signup-input pe-5" />
+                                        <Field type="password" name="password" placeholder="Enter Password" className="form-control signup-login-input pe-5" />
                                         <FaLock className='icon' />
                                         <ErrorMessage name="password" component="div" className="text-danger mt-1 error-message" />
                                     </div>
-   
-                                    <button
-                                        type="submit"
-                                        className="btn login-button w-100"
-                                        disabled={isSubmitting}
-                                    >
+                                    <button type="submit" className="btn signup-login-button w-100" disabled={isSubmitting} >
                                         {isSubmitting ? (
-                                        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                            <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                         ) : (
-                                        'SignUp'
+                                            'SignUp'
                                         )}
                                     </button>
                                 </Form>
@@ -100,7 +96,7 @@ const SignUp = () => {
                         <div className="text-center mt-3">
                             <p>
                                 Already have an account? 
-                                <button type="button" onClick={() => navigate('/login')} className="btn login-link" >
+                                <button type="button" onClick={() => navigate('/login')} className="btn signup-login-link" >
                                     Login
                                 </button>
                             </p>
