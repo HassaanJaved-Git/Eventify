@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -8,11 +8,13 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MdMarkEmailUnread } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
+import { AuthContext } from "../Context/AuthContext"; // 🔁 fixed import path
 
 import './Login.css';
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useContext(AuthContext); // ✅ context login
 
   const loginSchema = Yup.object().shape({
     email: Yup.string().required('Email or Username is required'),
@@ -24,10 +26,13 @@ const Login = () => {
       .then((response) => {
         toast.success('Login successful!', { position: 'top-center' });
         resetForm();
-        const { token, user } = response.data
-        const { name, userName, email } = user
-        localStorage.setItem('token', token)
-        localStorage.setItem('user', JSON.stringify({ name, userName, email }))
+        
+        const { token, user } = response.data;
+        const { name, userName, email } = user;
+
+        // ✅ Update context so Navbar reacts instantly
+        login(token, { name, userName, email });
+
         setTimeout(() => navigate('/'), 1000);
       })
       .catch(error => {
@@ -39,7 +44,7 @@ const Login = () => {
       .finally(() => {
         setSubmitting(false);
       });
-  }
+  };
 
   return (
     <>
@@ -54,7 +59,6 @@ const Login = () => {
 
       <div className="login-background">
         <div className="container h-100 d-flex align-items-center justify-content-center">
-            {/* <h1>Eventify</h1> */}
           <div className="card login-card p-4">
             <h2 className="text-center mb-4 login-title">Login</h2>
 
@@ -93,6 +97,13 @@ const Login = () => {
                       component="div"
                       className="text-danger mt-1 error-message"
                     />
+                    <button
+                      type="button"
+                      className='forgetpas btn btn-link'
+                      onClick={() => navigate('/')}
+                    >
+                      Forget password
+                    </button>
                   </div>
 
                   <button
@@ -112,7 +123,7 @@ const Login = () => {
 
             <div className="text-center mt-3">
               <p>
-                Don't have an account? 
+                Don't have an account?{' '}
                 <button
                   type="button"
                   onClick={() => navigate('/signup')}

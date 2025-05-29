@@ -163,3 +163,12 @@ body > *:not(body::before) {
     font-size: 0.9rem;
   }
 }
+
+.forgetpas{
+  padding-left: 215px;
+  border: none;
+  background: none;
+}
+.forgetpas:hover{
+  text-decoration:underline ;
+}
