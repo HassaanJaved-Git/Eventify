@@ -9,18 +9,18 @@ function CreateEventPage() {
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    eventType: 'in-person',
-    startDate: '',
+    eventType: 'public',
+    eventDate: '',
     startTime: '',
-    endDate: '',
     endTime: '',
-    timezone: 'America/New_York',
-    locationName: '',
-    locationAddress: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    coordinates: '',
     coverImage: '',
     capacity: 100,
     price: 0,
-    isPrivate: false,
   });
   
   const handleChange = (e) => {
