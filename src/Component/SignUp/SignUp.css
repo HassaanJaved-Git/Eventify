@@ -19,8 +19,7 @@
 
 
 .signup-background::before {
-  content: '';
-  position: absolute;
+
   top: 0;
   left: 0;
   width: 100%;
@@ -177,7 +176,7 @@ body {
 }
 
 /* Optional soft overlay to tone colors down a bit */
-body::before {
+/* body::before {
   content: '';
   position: fixed;
   inset: 0;
@@ -185,7 +184,7 @@ body::before {
   backdrop-filter: blur(3px);
   pointer-events: none;
   z-index: 1;
-}
+} */
 
 /* Ensure all page content stays on top of the overlay */
 #root,
