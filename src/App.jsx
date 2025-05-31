@@ -14,9 +14,19 @@ import CreateEventPage from './Pages/CreateEventPage';
 import ProfilePage from './Pages/ProfilePage';
 import Settings from './Pages/Setting'
 
+import './App.css'
+import Content from './Components/Content/Content'
+import Footer from './Components/Footer/Footer'
+// import tailwindcss from 'tailwindcss'
+import Header from "./Components/Header/Header"
 
 function App() {
   return (
+    <>
+        <Header />
+        <Content />
+        <Footer />
+    
     <BrowserRouter>
       <AuthProvider>
         <MyNavbar />
@@ -30,7 +40,8 @@ function App() {
         </Routes>
       </AuthProvider>
     </BrowserRouter>
+    </>
   );
-}
 
+}
 export default App;
