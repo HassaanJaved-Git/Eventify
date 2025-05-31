@@ -5,12 +5,14 @@ const tabItems = [
   { eventKey: "account", title: "Account" },
 ];
 
+
 export default function Settings() {
   const [activeTab, setActiveTab] = useState("account");
 
   return (
-    <div className="container py-5 text-light" style={{ backgroundColor: "#0b0b0b", minHeight: "100vh" }}>
-      <h2 className="fw-bold mb-4">Settings</h2>
+    <div className="container py-5 text-light"style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", minHeight: "100vh", width: "53%" }}
+>
+      <h2 className="fw-bold mb-4 text-muted">Settings</h2>
 
       <Tab.Container activeKey={activeTab} onSelect={(k) => setActiveTab(k)}>
         <Row>
@@ -55,34 +57,35 @@ function AccountForm() {
 
   return (
     <div>
-      <h5 className="fw-bold mb-3">Your Profile</h5>
+      <h5 className="fw-bold mb-3 text-muted ">Your Profile</h5>
       <p className="text-muted">Choose how you are displayed as a host or guest.</p>
 
       <div className="row mb-3">
         <div className="col-md-6 mb-3">
           <label className="form-label text-muted">First Name</label>
-          <input type="text" className="form-control bg-dark text-light border-secondary" defaultValue="Hassan" />
+          <input type="text" className="form-control  text-light border-secondary" defaultValue="Hassan" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)"}} />
         </div>
         <div className="col-md-6 mb-3">
           <label className="form-label text-muted">Last Name</label>
-          <input type="text" className="form-control bg-dark text-light border-secondary" defaultValue="Ajmal" />
+          <input type="text" className="form-control  text-light border-secondary" defaultValue="Ajmal" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)"}} />
         </div>
       </div>
 
       <div className="mb-3">
         <label className="form-label text-muted">Username</label>
         <div className="input-group">
-          <span className="input-group-text bg-dark text-secondary border-secondary">@</span>
-          <input type="text" className="form-control bg-dark text-light border-secondary" />
+          <span className="input-group-text  text-secondary border-secondary" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)"}}>@</span>
+          <input type="text" className="form-control  text-light border-secondary" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)"}} />
         </div>
       </div>
 
       <div className="mb-3">
         <label className="form-label text-muted">Bio</label>
         <textarea
-          className="form-control bg-dark text-light border-secondary"
+          className="form-control  text-light border-secondary"
           rows="3"
           placeholder="Share a little about your background and interests."
+          style={{ backgroundColor: "rgba(11, 11, 11, 0.1)"}}
         ></textarea>
       </div>
 

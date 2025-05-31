@@ -8,7 +8,7 @@ const ProfilePage = () => {
     
 
       {/* Profile Section */}
-      <Container className="d-flex justify-content-center">
+      <Container className="d-flex justify-content-center " style={{ width: "49%"}}>
         <Card className=" text-white p-4 rounded-4" style={{ width: "400px", backgroundColor:"rgba(180, 180, 180, 0.4)" }}>
           <div className="d-flex flex-column align-items-center">
             {/* Avatar */}
