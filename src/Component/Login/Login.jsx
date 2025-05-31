@@ -8,13 +8,14 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { MdMarkEmailUnread } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
-import { AuthContext } from "../Context/AuthContext"; // 🔁 fixed import path
 
-import './Login.css';
+import { AuthContext } from "../../Context/AuthContext"; 
+import GoogleOAuth from '../GoogleOAuth/GoogleOAuth';
+
 
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); // ✅ context login
+  const { login } = useContext(AuthContext); 
 
   const loginSchema = Yup.object().shape({
     email: Yup.string().required('Email or Username is required'),
@@ -30,7 +31,6 @@ const Login = () => {
         const { token, user } = response.data;
         const { name, userName, email } = user;
 
-        // ✅ Update context so Navbar reacts instantly
         login(token, { name, userName, email });
 
         setTimeout(() => navigate('/'), 1000);
@@ -100,6 +100,12 @@ const Login = () => {
                 </Form>
               )}
             </Formik>
+
+            <div className="text-center my-3">
+              OR
+            </div>
+
+            <GoogleOAuth />
 
             <div className="text-center mt-3">
               <p>

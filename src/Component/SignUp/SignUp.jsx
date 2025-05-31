@@ -9,13 +9,15 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FaUser, FaUserTie, FaLock } from "react-icons/fa";
 import { MdMarkEmailUnread } from "react-icons/md";
 
+import GoogleOAuth from '../GoogleOAuth/GoogleOAuth';
+
+
 const SignUp = () => {
     const navigate = useNavigate();
 
     const signUpSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
         email: Yup.string().email('Invalid email').required('Email is required'),
-        userName: Yup.string().min(3, 'Username must be at least 3 characters').max(20, 'Username must be at most 20 characters').matches(/^[a-zA-Z0-9_.-]+$/, 'Username can only contain letters, numbers, underscores, dots, and hyphens').required('Username is required'),
         password: Yup.string().min(8, 'Password must be at least 8 characters').max(32, 'Password must be at most 32 characters').matches(/[A-Z]/, 'Password must contain at least one uppercase letter').matches(/[a-z]/, 'Password must contain at least one lowercase letter').matches(/[0-9]/, 'Password must contain at least one number').matches(/[@$!%*?&]/, 'Password must contain at least one special character').required('Password is required'),
     });
 
@@ -24,11 +26,11 @@ const SignUp = () => {
         .then((response) => {
             toast.success('User registered successfully!', { position: 'top-center' });
             resetForm();
-            setTimeout(() => navigate('/'), 1000);
+            setTimeout(() => navigate('/username'), 1000);
             const { token, user } = response.data
-            const { name, userName, email } = user
+            const { name, email } = user
             localStorage.setItem('token', token)
-            localStorage.setItem('user', JSON.stringify({ name, userName, email }))
+            localStorage.setItem('user', JSON.stringify({ name, email }))
         })
         .catch ((error) => {
             console.error('Registration error:', error.response?.data || error.message);
@@ -56,7 +58,7 @@ const SignUp = () => {
                         <h2 className="text-center mb-4 signup-login-title"> Sign Up</h2>
 
                         <Formik
-                            initialValues = {{ name: '', email: '', userName: '', password: '' }}
+                            initialValues = {{ name: '', email: '', password: '' }}
                             validationSchema = {signUpSchema}
                             onSubmit = {handleSubmit}
                         >
@@ -73,11 +75,6 @@ const SignUp = () => {
                                         <ErrorMessage name="email" component="div" className="text-danger mt-1 error-message" />
                                     </div>
                                     <div className="mb-3 position-relative">
-                                        <Field type="text" name="userName" placeholder="Enter Username" className="form-control signup-login-input pe-5" />
-                                        <FaUserTie className="icon" />
-                                        <ErrorMessage name="userName" component="div" className="text-danger mt-1 error-message" />
-                                    </div>
-                                    <div className="mb-3 position-relative">
                                         <Field type="password" name="password" placeholder="Enter Password" className="form-control signup-login-input pe-5" />
                                         <FaLock className='icon' />
                                         <ErrorMessage name="password" component="div" className="text-danger mt-1 error-message" />
@@ -92,6 +89,12 @@ const SignUp = () => {
                                 </Form>
                             )}
                         </Formik>
+
+                        <div className="text-center my-3">
+                            OR
+                        </div>
+
+                        <GoogleOAuth />
 
                         <div className="text-center mt-3">
                             <p>

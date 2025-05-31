@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { Navbar, Nav, Container, Button, Dropdown, Image } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../Context/AuthContext"; // Make sure casing is correct
 import Background from "three/src/renderers/common/Background.js";
+
+import { AuthContext } from "../../Context/AuthContext"; // Make sure casing is correct
 
 const MyNavbar = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
