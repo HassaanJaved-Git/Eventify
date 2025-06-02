@@ -27,11 +27,10 @@ const Login = () => {
       .then((response) => {
         toast.success('Login successful!', { position: 'top-center' });
         resetForm();
-        
-        const { token, user } = response.data;
-        const { name, userName, email } = user;
+        const { token } = response.data;
 
-        login(token, { name, userName, email });
+        login(token);
+
 
         setTimeout(() => navigate('/'), 1000);
       })

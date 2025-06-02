@@ -58,10 +58,12 @@ const UserName = () => {
                     Authorization: `Bearer ${token}`
                 }
             })
-            .then(() => {
+            .then((res) => {
                 toast.success('UserName set successfully!', { position: 'top-center' });
                 resetForm();
                 setTimeout(() => navigate('/'), 1000);
+                const token = res.data.token;
+                localStorage.setItem('token', token);
             })
             .catch((error) => {
                 console.error('Setting UserName error:', error.response?.data || error.message);
