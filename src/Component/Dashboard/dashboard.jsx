@@ -1,14 +1,11 @@
-import React from "react";
-// import { useNavigate } from 'react-router-dom';
-import "./Dashboard.css";
+import React from 'react'
 
-function Dashboard() {
+const Dashboard = () => {
   return (
-    <>
-      <div className="dashboard-wrapper">
-        <h3>EVENTIFY</h3>       
-      </div>
-    </>
-  );
+    <div>
+      <h1>dashboard</h1>
+    </div>
+  )
 }
-export default Dashboard;
+
+export default Dashboard
