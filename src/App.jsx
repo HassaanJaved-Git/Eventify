@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { GoogleOAuthProvider } from "@react-oauth/google";
-
+import Content from './Components/Content/Content'
+import Footer from './Components/Footer/Footer'
 import MyNavbar from './Component/Navber/Navbar';
 import SignUp from './Component/SignUp/SignUp';
 import LoginPage from './Component/Login/Login';
@@ -24,7 +25,10 @@ function App() {
           <MyNavbar />
           <Routes>
             <Route path="/*" element={"404"}/>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/" element={<layout>
+              <Content />
+              <Footer />
+            </layout>} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path='/username' element={<UserName />}/>
