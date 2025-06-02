@@ -12,6 +12,7 @@ import UserName from './Component/UserName/UserName'
 import CreateEventPage from './Pages/CreateEventPage';
 
 import { AuthProvider } from "./Context/AuthContext";
+import Settings from './Pages/Setting';
 
 // import ProfilePage from './Pages/ProfilePage';
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path='/username' element={<UserName />}/>
             <Route path="/create-event" element={<CreateEventPage />} />
+             <Route path="/settings" element={<Settings />} />
                   {/* <Route path="/profile" element={<ProfilePage />} /> */}
           </Routes>
         </AuthProvider>
