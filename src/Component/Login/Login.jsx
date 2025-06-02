@@ -30,7 +30,7 @@ const Login = () => {
         const { token, user } = response.data;
         const { name, userName, email } = user;
 
-        // ✅ Update context so Navbar reacts instantly
+      
         login(token, { name, userName, email });
 
         setTimeout(() => navigate('/'), 1000);
@@ -67,6 +67,7 @@ const Login = () => {
               validationSchema={loginSchema}
               onSubmit={handleSubmit}
             >
+            
               {({ isSubmitting }) => (
                 <Form>
                   <div className="mb-3 position-relative">

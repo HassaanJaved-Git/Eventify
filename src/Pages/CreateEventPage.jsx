@@ -1,3 +1,4 @@
+
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -5,7 +6,7 @@ function CreateEventPage() {
   const navigate = useNavigate();
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -22,7 +23,7 @@ function CreateEventPage() {
     capacity: 100,
     price: 0,
   });
-  
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -30,43 +31,43 @@ function CreateEventPage() {
       [name]: type === 'checkbox' ? checked : value
     }));
   };
-  
+
   const handleNextStep = () => {
     setStep(step + 1);
     window.scrollTo(0, 0);
   };
-  
+
   const handlePrevStep = () => {
     setStep(step - 1);
     window.scrollTo(0, 0);
   };
-  
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     // Simulate API call to create event
     setTimeout(() => {
       // Generate random ID for new event
       const newEventId = 'evt-' + Math.random().toString(36).substring(2, 10);
-      
+
       // Redirect to the new event page
       navigate(`/event/${newEventId}`);
     }, 2000);
   };
-  
+
   return (
-    <div className="container py-4">
+    <div className="container w-50">
       <div className="row justify-content-center">
         <div className="col-12 col-lg-8">
-          <div className="bg-white rounded-4 shadow p-4 p-md-5">
+          <div className=" rounded-4 shadow p-4 p-md-5" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)" }}>
             <h1 className="fw-bold mb-4">Create New Event</h1>
-            
+
             <div className="mb-4">
               <div className="progress" style={{ height: '8px' }}>
-                <div 
-                  className="progress-bar" 
-                  role="progressbar" 
+                <div
+                  className="progress-bar"
+                  role="progressbar"
                   style={{ width: `${step * 33.33}%` }}
                   aria-valuenow={step * 33.33}
                   aria-valuemin="0"
@@ -79,12 +80,12 @@ function CreateEventPage() {
                 <span className={`small ${step >= 3 ? 'fw-bold' : 'text-muted'}`}>Settings</span>
               </div>
             </div>
-            
+
             <form onSubmit={handleSubmit}>
               {step === 1 && (
                 <div>
                   <div className="mb-4">
-                    <label htmlFor="title\" className="form-label fw-bold">Event Title</label>
+                    <label htmlFor="title\" className="form-label fw-bold" >Event Title</label>
                     <input
                       type="text"
                       className="form-control form-control-lg"
@@ -94,9 +95,11 @@ function CreateEventPage() {
                       onChange={handleChange}
                       placeholder="Give your event a title"
                       required
+                      style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
+
                     />
                   </div>
-                  
+
                   <div className="mb-4">
                     <label htmlFor="description" className="form-label fw-bold">Description</label>
                     <textarea
@@ -108,9 +111,10 @@ function CreateEventPage() {
                       onChange={handleChange}
                       placeholder="Describe your event"
                       required
+                      style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     ></textarea>
                   </div>
-                  
+
                   <div className="mb-4">
                     <label htmlFor="eventType" className="form-label fw-bold">Event Type</label>
                     <select
@@ -119,14 +123,15 @@ function CreateEventPage() {
                       name="eventType"
                       value={formData.eventType}
                       onChange={handleChange}
+                      style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     >
                       <option value="in-person">Public</option>
                       <option value="online">Private</option>
                     </select>
                   </div>
-                  
+
                   <div className="mb-4">
-                    <label htmlFor="coverImage" className="form-label fw-bold">Cover Image URL</label>
+                    <label htmlFor="coverImage" className="form-label fw-bold">Cover Image</label>
                     <input
                       type="file"
                       className="form-control"
@@ -134,24 +139,27 @@ function CreateEventPage() {
                       name="coverImage"
                       value={formData.coverImage}
                       onChange={handleChange}
+                      style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
+
                     <div className="form-text">
                       Select a cover image for your event
                     </div>
                   </div>
-                  
+
                   <div className="d-flex justify-content-end">
                     <button
                       type="button"
                       className="btn btn-primary px-4"
                       onClick={handleNextStep}
+                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     >
                       Next
                     </button>
                   </div>
                 </div>
               )}
-              
+
               {step === 2 && (
                 <div>
                   <div className="mb-4">
@@ -164,9 +172,10 @@ function CreateEventPage() {
                       value={formData.eventDate}
                       onChange={handleChange}
                       required
+                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
                   </div>
-                  
+
                   <div className="mb-4">
                     <label htmlFor="startTime" className="form-label fw-bold">Start Time</label>
                     <input
@@ -177,9 +186,24 @@ function CreateEventPage() {
                       value={formData.startTime}
                       onChange={handleChange}
                       required
+                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
                   </div>
-                  
+
+                  <div className="mb-4">
+                    <label htmlFor="endDate" className="form-label fw-bold">End Date</label>
+                    <input
+                      type="date"
+                      className="form-control"
+                      id="endDate"
+                      name="endDate"
+                      value={formData.endDate}
+                      onChange={handleChange}
+                      required
+                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
+                    />
+                  </div>
+
                   <div className="mb-4">
                     <label htmlFor="endTime" className="form-label fw-bold">End Time</label>
                     <input
@@ -190,9 +214,10 @@ function CreateEventPage() {
                       value={formData.endTime}
                       onChange={handleChange}
                       required
+                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
                   </div>
-                  
+
                   <div className="mb-4">
                     <label htmlFor="locationName" className="form-label fw-bold">Address</label>
                     <input
@@ -215,10 +240,18 @@ function CreateEventPage() {
                       name="city"
                       value={formData.city}
                       onChange={handleChange}
-                      placeholder= "Venue City"
+                       placeholder= "Venue City"
                       required
-                    />
+                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
+                    >
+                      <option value="America/New_York">Eastern Time (ET)</option>
+                      <option value="America/Chicago">Central Time (CT)</option>
+                      <option value="America/Denver">Mountain Time (MT)</option>
+                      <option value="America/Los_Angeles">Pacific Time (PT)</option>
+                      <option value="Europe/London">London (GMT)</option>
+                    </select>
                   </div>
+
                   <div className="mb-4">
                     <label htmlFor="locationName" className="form-label fw-bold">State</label>
                     <input
@@ -230,6 +263,7 @@ function CreateEventPage() {
                       onChange={handleChange}
                       placeholder= "Venue State"
                       required
+                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
                   </div>
                   <div className="mb-4">
@@ -244,20 +278,8 @@ function CreateEventPage() {
                       placeholder= "Zip Code"
                     />
                   </div>
-                  <div className="mb-4">
-                    <label htmlFor="locationName" className="form-label fw-bold">Coordinates</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      id="coordinates"
-                      name="coordinates"
-                      value={formData.coordinates}
-                      onChange={handleChange}
-                      placeholder= "Coordinates"
-                    />
-                  </div>
-                  
-                  {/* {formData.eventType !== 'online' && (
+
+                  {formData.eventType !== 'online' && (
                     <div className="mb-4">
                       <label htmlFor="locationAddress" className="form-label fw-bold">Address</label>
                       <input
@@ -269,10 +291,11 @@ function CreateEventPage() {
                         onChange={handleChange}
                         placeholder="123 Main St, City, State, ZIP"
                         required={formData.eventType !== 'online'}
+                          style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                       />
                     </div>
-                  )} */}
-                  
+                  )}
+
                   <div className="d-flex justify-content-between">
                     <button
                       type="button"
@@ -285,13 +308,14 @@ function CreateEventPage() {
                       type="button"
                       className="btn btn-primary px-4"
                       onClick={handleNextStep}
+                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     >
                       Next
                     </button>
                   </div>
                 </div>
               )}
-              
+
               {step === 3 && (
                 <div>
                   <div className="mb-4">
@@ -305,12 +329,13 @@ function CreateEventPage() {
                       value={formData.capacity}
                       onChange={handleChange}
                       required
+                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
                     <div className="form-text">
                       Maximum number of attendees
                     </div>
                   </div>
-                  
+
                   <div className="mb-4">
                     <label htmlFor="price" className="form-label fw-bold">Price ($)</label>
                     <input
@@ -323,26 +348,13 @@ function CreateEventPage() {
                       value={formData.price}
                       onChange={handleChange}
                       required
+                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
                     <div className="form-text">
                       Set to 0 for free events
                     </div>
                   </div>
-                  
-                  {/* <div className="mb-4 form-check">
-                    <input
-                      type="checkbox"
-                      className="form-check-input"
-                      id="isPrivate"
-                      name="isPrivate"
-                      checked={formData.isPrivate}
-                      onChange={handleChange}
-                    />
-                    <label className="form-check-label" htmlFor="isPrivate">
-                      Make this event private (invitation only)
-                    </label>
-                  </div> */}
-                  
+
                   <div className="d-flex justify-content-between">
                     <button
                       type="button"
@@ -353,8 +365,10 @@ function CreateEventPage() {
                     </button>
                     <button
                       type="submit"
-                      className="btn btn-success px-4"
+                      className="btn login-button  px-4"
+                      // className="btn btn-success px-4"
                       disabled={isSubmitting}
+                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     >
                       {isSubmitting ? (
                         <>

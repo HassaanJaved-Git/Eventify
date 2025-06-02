@@ -11,7 +11,8 @@ import Dashboard from './Component/Dashboard/dashboard';
 import { AuthProvider } from "./Component/Context/AuthContext";
 import CreateEventPage from './Pages/CreateEventPage';
 
-// import ProfilePage from './Pages/ProfilePage';
+import ProfilePage from './Pages/ProfilePage';
+import Settings from './Pages/Setting'
 
 
 function App() {
@@ -24,7 +25,8 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignUp />} />
            <Route path="/create-event" element={<CreateEventPage />} />
-                {/* <Route path="/profile" element={<ProfilePage />} /> */}
+                <Route path="/profile" element={<ProfilePage />} />
+                     <Route path="/settings" element={<Settings />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
