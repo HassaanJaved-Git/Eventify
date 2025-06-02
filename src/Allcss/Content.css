@@ -1,0 +1,30 @@
+.Content-main,.Parent-div{
+    background-color: rgb(19, 21, 23);
+}
+
+.empty-image{
+    height: 200px;
+    margin: auto;
+}
+
+.card{
+   background-color: rgb(19, 25, 62);
+}
+
+.card {
+  transition: all 0.9s ease;
+  max-width: 100% !important;
+}
+
+.expanded-card {
+  background-color: #233b62;
+}
+
+.additional-details {
+  border-top: 1px solid #ffffff33;
+  padding-top: 10px;
+}
+
+.card:hover {
+  transform: scale(1.02);
+}
