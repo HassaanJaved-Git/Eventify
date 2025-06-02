@@ -240,10 +240,11 @@ function CreateEventPage() {
                       name="city"
                       value={formData.city}
                       onChange={handleChange}
-                       placeholder= "Venue City"
+                      placeholder= "Venue City"
                       required
                         style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
-                    >
+                    />
+                      <select>
                       <option value="America/New_York">Eastern Time (ET)</option>
                       <option value="America/Chicago">Central Time (CT)</option>
                       <option value="America/Denver">Mountain Time (MT)</option>
