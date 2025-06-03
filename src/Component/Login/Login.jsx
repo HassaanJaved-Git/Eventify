@@ -83,13 +83,17 @@ const Login = () => {
                       component="div"
                       className="text-danger mt-1 error-message"
                     />
-                    <button
+                    <div className='forget'>
+                      <div className='forget-link'>
+                        <button
                       type="button"
                       className='forgetpas btn btn-link'
                       onClick={() => navigate('/forget-password')}
                     >
                       Forget password
                     </button>
+                      </div>
+                    </div>
                   </div>
                   <button type="submit" className="btn signup-login-button w-100" disabled={isSubmitting} >
                     {isSubmitting ? (
