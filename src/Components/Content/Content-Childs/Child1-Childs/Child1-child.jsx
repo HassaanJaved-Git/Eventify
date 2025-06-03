@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import im from '../../../../assets/prepared-wedding-hall.jpg';
 
-const Child1Child = () => {
+const Child1Child = ({user}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -30,6 +30,9 @@ const Child1Child = () => {
             {isExpanded && (
               <div className="additional-details mt-3">
                 <h6>Event Details</h6>
+                <p>{user.name}</p>
+                <p>{user.username}</p>
+                <p>{user.email}</p>
                 <p><strong>Date:</strong> June 15, 2025</p>
                 <p><strong>Time:</strong> 6:00 PM - 11:00 PM</p>
                 <p><strong>Location:</strong> Grand Hall, City Center</p>

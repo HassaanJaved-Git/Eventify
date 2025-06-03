@@ -1,16 +1,19 @@
 import React from 'react';
+import './APP.css'
+import {lazy,Suspense} from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { GoogleOAuthProvider } from "@react-oauth/google";
+
+const SignUp = lazy(()=>import('./Component/SignUp/SignUp'));
+const LoginPage = lazy(()=>import('./Component/Login/Login'));
+const Dashboard = lazy(()=>import('./Component/Dashboard/dashboard'));
+const CreateEventPage = lazy(()=>import('./Pages/CreateEventPage'));
+
 import Content from './Components/Content/Content'
 import Footer from './Components/Footer/Footer'
 import MyNavbar from './Component/Navber/Navbar';
-import SignUp from './Component/SignUp/SignUp';
-import LoginPage from './Component/Login/Login';
-import Dashboard from './Component/Dashboard/dashboard';
 import UserName from './Component/UserName/UserName'
-
-import CreateEventPage from './Pages/CreateEventPage';
 
 import { AuthProvider } from "./Context/AuthContext";
 import Settings from './Pages/Setting';
@@ -19,6 +22,7 @@ import Settings from './Pages/Setting';
 
 function App() {
   return (
+    <Suspense fallback={<div className='loadDiv'>Loading...</div>} >
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <BrowserRouter>
         <AuthProvider>
@@ -39,6 +43,7 @@ function App() {
         </AuthProvider>
       </BrowserRouter>
     </GoogleOAuthProvider>
+    </Suspense>
   );
 }
 

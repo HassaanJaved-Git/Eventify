@@ -1,0 +1,42 @@
+ .skeleton {
+    background-color: #424040;
+    border-radius: 4px;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -150px;
+    width: 100px;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: shimmer 1.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      left: -150px;
+    }
+    100% {
+      left: 100%;
+    }
+  }
+
+  .skeleton-img {
+    height: 180px;
+  }
+
+  .skeleton-text {
+    height: 16px;
+    margin-bottom: 10px;
+  }
+
+  .skeleton-small {
+    height: 12px;
+    width: 60%;
+  }
