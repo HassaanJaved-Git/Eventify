@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import im from '../../../../assets/prepared-wedding-hall.jpg';
 
-const Child1Child = ({user}) => {
+
+const Child1Child = ({user , image}) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -16,7 +16,7 @@ const Child1Child = ({user}) => {
     >
       <div className="row g-0">
         <div className="col-md-4">
-          <img src={im} className="img-fluid rounded-start" alt="Event" />
+          <img src={image} className="img-fluid rounded-start" alt="Event" />
         </div>
         <div className="col-md-8">
           <div className="card-body">
