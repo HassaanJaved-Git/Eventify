@@ -5,9 +5,6 @@ import axios from 'axios';
 
 
 const Content = () => {
-
-  
-
   return (
     <>
       <div className='container-fluid Content-main'>
