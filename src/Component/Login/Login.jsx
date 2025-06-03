@@ -107,12 +107,10 @@ const Login = () => {
 
             <GoogleOAuth />
 
-            <div className="text-center mt-1">
-              <p>
+            <div className="text-center mt-3">
                 <button type="button" className="btn btn-link"  onClick={() => navigate('/forget-password')} >
                   Forget password
                 </button>
-              </p>
             </div>
 
             <div className="text-center mt-1">
