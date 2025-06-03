@@ -72,7 +72,7 @@ const Login = () => {
                 <Form>
                   <div className="mb-3 position-relative">
                     <Field type="text" name="email" placeholder="Enter Email or Username" className="form-control signup-login-input pe-5" />
-                    <MdMarkEmailUnread className="icon" />
+                    <MdMarkEmailUnread className="icon1 icon" />
                     <ErrorMessage name="email" component="div" className="text-danger mt-1 error-message" />
                   </div>
                   <div className="mb-3 position-relative">

@@ -25,7 +25,7 @@ const Child1Child = ({user}) => {
               This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
             </p>
             <p className="card-text">
-              <small className="text-body-secondary">Last updated 3 mins ago</small>
+              <small className="text-body-light">Last updated 3 mins ago</small>
             </p>
             {isExpanded && (
               <div className="additional-details mt-3">

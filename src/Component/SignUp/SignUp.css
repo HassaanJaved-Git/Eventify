@@ -34,9 +34,9 @@
   z-index: 2;
 }
 
-.signup-card {
-  max-width: 400px;
-  width: 100%;
+.signup-login-card {
+  max-width: 50%;
+  width: 45%;
   /* Transparent white with 50% opacity */
   background: rgba(255, 255, 255, 0.5);
   /* Optional: add a slight blur behind the card */
