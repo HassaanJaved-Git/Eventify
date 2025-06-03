@@ -23,7 +23,11 @@ import Settings from './Pages/Setting';
 
 function App() {
   return (
-    <Suspense fallback={<div className='loadDiv'>Loading...</div>} >
+    <Suspense fallback={<div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="spinner-border text-primary">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>} >
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <BrowserRouter>
         <AuthProvider>
