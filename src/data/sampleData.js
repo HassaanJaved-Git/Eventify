@@ -19,8 +19,6 @@ export const sampleEvents = [
     host: {
       id: 'usr-1',
       name: 'John Doe',
-      bio: 'Event organizer & tech enthusiast',
-      avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
     }
   },
   {
@@ -43,8 +41,6 @@ export const sampleEvents = [
     host: {
       id: 'usr-1',
       name: 'John Doe',
-      bio: 'Event organizer & tech enthusiast',
-      avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
     }
   },
   {
@@ -67,8 +63,6 @@ export const sampleEvents = [
     host: {
       id: 'usr-1',
       name: 'John Doe',
-      bio: 'Event organizer & tech enthusiast',
-      avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
     }
   },
   {
@@ -91,8 +85,6 @@ export const sampleEvents = [
     host: {
       id: 'usr-1',
       name: 'John Doe',
-      bio: 'Event organizer & tech enthusiast',
-      avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
     }
   },
   {
@@ -115,8 +107,6 @@ export const sampleEvents = [
     host: {
       id: 'usr-1',
       name: 'John Doe',
-      bio: 'Event organizer & tech enthusiast',
-      avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
     }
   },
   {
@@ -139,8 +129,6 @@ export const sampleEvents = [
     host: {
       id: 'usr-1',
       name: 'John Doe',
-      bio: 'Event organizer & tech enthusiast',
-      avatar: 'https://randomuser.me/api/portraits/men/32.jpg'
     }
   }
 ];

@@ -172,9 +172,15 @@ body > *:not(body::before) {
     font-size: 0.9rem;
   }
 }
-
+.forget{
+  width: 100%;
+}
+.forget-link{
+  width: 30%;
+  margin:2% auto;
+}
 .forgetpas{
-  padding-left: 215px;
+  width: 100%;
   border: none;
   background: none;
 }

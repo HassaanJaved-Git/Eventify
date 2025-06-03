@@ -1,183 +1,128 @@
 import React, { useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import { Helmet } from 'react-helmet';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNavigate } from 'react-router-dom';
+
+import '../Login/Login.css'
 
 const ForgetPassword = () => {
+  const navigate = useNavigate();
+  const [emailState, setEmailState] = useState('');
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  const [apiError, setApiError] = useState('');
-  const [successMessage, setSuccessMessage] = useState('');
 
-  // Simulate API call helper (replace with real fetch/axios)
-  const fakeApiCall = (response, delay = 1500) =>
-    new Promise((resolve) => setTimeout(() => resolve(response), delay));
+  const sendOtpSchema = Yup.object({
+    email: Yup.string().email('Invalid email address').required('Email is required'),
+  });
 
-  // Step 1: Send OTP
-  const handleSendOtp = async (values, { setSubmitting }) => {
+  const resetPasswordSchema = Yup.object({
+    otp: Yup.string().required('OTP is required'),
+    email: Yup.string().email('Invalid email').required('Email is required'),
+    password: Yup.string().min(8, 'Password must be at least 8 characters').max(32, 'Password must be at most 32 characters').matches(/[A-Z]/, 'Password must contain at least one uppercase letter').matches(/[a-z]/, 'Password must contain at least one lowercase letter').matches(/[0-9]/, 'Password must contain at least one number').matches(/[@$!%*?&]/, 'Password must contain at least one special character').required('Password is required'),
+  });
+
+  const handleSendOtp = (values, { setSubmitting }) => {
     setLoading(true);
-    setApiError('');
-    setSuccessMessage('');
-    try {
-      // Replace this with your real API call to send OTP
-      // Example: await axios.post('/api/send-otp', { email: values.email });
-      await fakeApiCall({ success: true });
 
-      setSuccessMessage('OTP has been sent to your email.');
+    axios.post('http://localhost:5000/api/user/send-OTP-without-Token', 
+      { email: values.email },
+      { withCredentials: true }
+    )
+    .then(() => {
+      toast.success('OTP has been sent to your email.');
+      setEmailState(values.email);
       setStep(2);
-    } catch (error) {
-      setApiError('Failed to send OTP. Please try again.');
-    } finally {
+    })
+    .catch(() => {
+      toast.error('Failed to send OTP. Please try again.');
+    })
+    .finally(() => {
       setLoading(false);
       setSubmitting(false);
-    }
+    });
   };
 
-  // Step 2: Verify OTP and save new password
-  const handleSavePassword = async (values, { setSubmitting }) => {
+  const handleSavePassword = (values, { setSubmitting }) => {
     setLoading(true);
-    setApiError('');
-    setSuccessMessage('');
-    try {
-      // Replace this with your real API call to verify OTP & save password
-      // Example: await axios.post('/api/reset-password', { email: values.email, otp: values.otp, newPassword: values.newPassword });
-      await fakeApiCall({ success: true });
 
-      setSuccessMessage('Your password has been reset successfully!');
-      setStep(1); // Optionally reset to step 1 or redirect user
-    } catch (error) {
-      setApiError('Failed to reset password. Please check OTP and try again.');
-    } finally {
+    axios.post('http://localhost:5000/api/user/reset-password', {
+        email: values.email,
+        otp: values.otp,
+        newPassword: values.newPassword,
+      },
+      { withCredentials: true }
+    )
+    .then(() => {
+      toast.success('Your password has been reset successfully!');
+      navigate('/login'); 
+    })
+    .catch(() => {
+      toast.error('Failed to reset password. Please check OTP and try again.');
+    })
+    .finally(() => {
       setLoading(false);
       setSubmitting(false);
-    }
+    });
   };
 
   return (
-    <div className="container mt-5" style={{ maxWidth: '400px' }}>
-      <div className="card p-4">
-        <h2 className="mb-4 text-center text-light">Forgot Password</h2>
+    <>
+      <Helmet>
+        <title>Forgot Password - Eventify</title>
+      </Helmet>
+      <ToastContainer position="top-center" autoClose={3000} theme="colored" />
 
-        {step === 1 && (
-          <Formik
-            initialValues={{ email: '' }}
-            validate={(values) => {
-              const errors = {};
-              if (!values.email) {
-                errors.email = 'Email is required';
-              } else if (
-                !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-              ) {
-                errors.email = 'Invalid email address';
-              }
-              return errors;
-            }}
-            onSubmit={handleSendOtp}
-          >
-            {({ isSubmitting }) => (
-              <Form>
-                <div className="mb-3">
-                  <label htmlFor="email" className="form-label  text-light">
-                    Email address
-                  </label>
-                  <Field
-                    type="email"
-                    name="email"
-                    id="email"
-                    disabled={loading}
-                    className="form-control"
-                  />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className="form-text text-danger"
-                  />
-                </div>
+      <div className="signup-login-background">
+        <div className="container h-100 d-flex align-items-center justify-content-center">
+          <div className="card login-card p-4">
+            <h2 className="text-center mb-4 login-title">Forgot Password</h2>
 
-                {apiError && <div className="alert alert-danger">{apiError}</div>}
-                {successMessage && <div className="alert alert-success">{successMessage}</div>}
+            {step === 1 && (
+              <Formik initialValues={{ email: '' }} validationSchema={sendOtpSchema} onSubmit={handleSendOtp} >
+                {({ isSubmitting }) => (
+                  <Form>
+                    <div className="mb-3">
+                      <Field type="email" name="email" id="email" disabled={loading} placeholder="Email" className="form-control signup-login-input" />
+                      <ErrorMessage name="email" component="div" className="form-text text-danger" />
+                    </div>
 
-                <button
-                  type="submit"
-                  className="btn btn-primary w-100"
-                  disabled={isSubmitting || loading}
-                >
-                  {loading ? 'Sending OTP...' : 'Send OTP'}
-                </button>
-              </Form>
+                    <button type="submit" className="btn signup-login-button w-100" disabled={isSubmitting || loading} >
+                      {loading ? 'Sending OTP...' : 'Send OTP'}
+                    </button>
+                  </Form>
+                )}
+              </Formik>
             )}
-          </Formik>
-        )}
 
-        {step === 2 && (
-          <Formik
-            initialValues={{ otp: '', newPassword: '' }}
-            validate={(values) => {
-              const errors = {};
-              if (!values.otp) {
-                errors.otp = 'OTP is required';
-              }
-              if (!values.newPassword) {
-                errors.newPassword = 'New password is required';
-              } else if (values.newPassword.length < 6) {
-                errors.newPassword = 'Password must be at least 6 characters';
-              }
-              return errors;
-            }}
-            onSubmit={handleSavePassword}
-          >
-            {({ isSubmitting }) => (
-              <Form>
-                <div className="mb-3">
-                  <label htmlFor="otp" className="form-label  text-light">
-                    Enter OTP
-                  </label>
-                  <Field
-                    type="text"
-                    name="otp"
-                    id="otp"
-                    disabled={loading}
-                    className="form-control"
-                  />
-                  <ErrorMessage
-                    name="otp"
-                    component="div"
-                    className="form-text text-danger"
-                  />
-                </div>
+            {step === 2 && (
+              <Formik initialValues={{ email: emailState, otp: '', newPassword: '' }} validationSchema={resetPasswordSchema} onSubmit={handleSavePassword} >
+                {({ isSubmitting }) => (
+                  <Form>
+                    <div className="mb-3">
+                      <Field type="text" name="otp" id="otp" disabled={loading} placeholder="Enter OTP" className="form-control" />
+                      <ErrorMessage name="otp" component="div" className="form-text text-danger" />
+                    </div>
 
-                <div className="mb-3">
-                  <label htmlFor="newPassword" className="form-label  text-light">
-                    New Password
-                  </label>
-                  <Field
-                    type="password"
-                    name="newPassword"
-                    id="newPassword"
-                    disabled={loading}
-                    className="form-control"
-                  />
-                  <ErrorMessage
-                    name="newPassword"
-                    component="div"
-                    className="form-text text-danger"
-                  />
-                </div>
+                    <div className="mb-3">
+                      <Field type="password" name="newPassword" id="newPassword" disabled={loading} placeholder="Enter Password" className="form-control" />
+                      <ErrorMessage name="newPassword" component="div" className="form-text text-danger" />
+                    </div>
 
-                {apiError && <div className="alert alert-danger">{apiError}</div>}
-                {successMessage && <div className="alert alert-success">{successMessage}</div>}
-
-                <button
-                  type="submit"
-                  className="btn btn-success w-100"
-                  disabled={isSubmitting || loading}
-                >
-                  {loading ? 'Saving Password...' : 'Save Password'}
-                </button>
-              </Form>
+                    <button type="submit" className="btn btn-success w-100" disabled={isSubmitting || loading} >
+                      {loading ? 'Saving Password...' : 'Save Password'}
+                    </button>
+                  </Form>
+                )}
+              </Formik>
             )}
-          </Formik>
-        )}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 
