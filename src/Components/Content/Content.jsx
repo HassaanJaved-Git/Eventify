@@ -1,4 +1,4 @@
-import {React,useEffect,useState} from 'react'
+import {React, useEffect, useState} from 'react'
 import '../../Allcss/Content.css'
 import ContentChild1 from './Content-Childs/Content-Child-1'
 import axios from 'axios';
