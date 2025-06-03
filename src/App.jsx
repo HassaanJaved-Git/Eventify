@@ -11,13 +11,13 @@ const Dashboard = lazy(()=>import('./Component/Dashboard/dashboard'));
 const CreateEventPage = lazy(()=>import('./Pages/CreateEventPage'));
 const ForgetPassword = lazy(()=>import('./Component/Forget-Password/ForgetPassword'))
 
-import Content from './Components/Content/Content'
-import Footer from './Components/Footer/Footer'
+// import Content from './Components/Content/Content'
+// import Footer from './Components/Footer/Footer'
 import MyNavbar from './Component/Navber/Navbar';
 import UserName from './Component/UserName/UserName'
 
 import { AuthProvider } from "./Context/AuthContext";
-import Settings from './Pages/Setting';
+// import Settings from '../src/Pages/Setting';
 
 import ProfilePage from './Pages/ProfilePage';
 import Settings from './Pages/Setting'
