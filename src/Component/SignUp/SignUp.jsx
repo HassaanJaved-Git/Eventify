@@ -11,7 +11,7 @@ import { MdMarkEmailUnread } from "react-icons/md";
 
 import GoogleOAuth from '../GoogleOAuth/GoogleOAuth';
 
-
+import './SignUp.css'
 const SignUp = () => {
     const navigate = useNavigate();
 

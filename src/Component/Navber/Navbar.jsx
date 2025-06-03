@@ -48,13 +48,14 @@ const MyNavbar = () => {
             {isLoggedIn ? (
               <Dropdown align="end">
                 <Dropdown.Toggle
-                  variant="light"
+                  // variant="light"
                   id="dropdown-basic"
-                  className="d-flex align-items-center border-0"
+                  // className="d-flex align-items-center border-0"
                 >
                   <Image
                     src="https://via.placeholder.com/32"
                     roundedCircle
+
                     width="32"
                     height="32"
                     className="me-2"
@@ -74,8 +75,8 @@ const MyNavbar = () => {
               <Button
                 as={Link}
                 to="/signup"
-                variant="outline-primary"
-                className="px-3"
+                // variant="outline-primary"
+                // className="px-3"
               >
                 SignUp
               </Button>
@@ -83,8 +84,8 @@ const MyNavbar = () => {
               <Button
                 as={Link}
                 to="/login"
-                variant="outline-primary"
-                className="px-3"
+                // variant="outline-primary"
+                // className="px-3"
               >
                 Login
               </Button>
