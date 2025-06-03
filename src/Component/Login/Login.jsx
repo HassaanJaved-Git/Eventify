@@ -12,7 +12,7 @@ import { FaLock } from "react-icons/fa";
 import { AuthContext } from "../../Context/AuthContext"; 
 import GoogleOAuth from '../GoogleOAuth/GoogleOAuth';
 
-
+import './Login.css';
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext); 
@@ -71,7 +71,7 @@ const Login = () => {
                 <Form>
                   <div className="mb-3 position-relative">
                     <Field type="text" name="email" placeholder="Enter Email or Username" className="form-control signup-login-input pe-5" />
-                    <MdMarkEmailUnread className="icon" />
+                    <MdMarkEmailUnread className="icon1 icon" />
                     <ErrorMessage name="email" component="div" className="text-danger mt-1 error-message" />
                   </div>
                   <div className="mb-3 position-relative">

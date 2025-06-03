@@ -1,0 +1,184 @@
+@keyframes gradientBG {
+  0%   { background-position: 0% 50%; }
+  25%  { background-position: 50% 50%; }
+  50%  { background-position: 100% 50%; }
+  75%  { background-position: 50% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.icon, .icon1{
+  position: absolute;
+  top: 25%;
+  right: 1%;
+}
+.icon1{ 
+  top: 18px;
+}
+body {
+  background: linear-gradient(
+    -45deg,
+    #ffecd2,  /* peach-cream */
+    #fcb69f,  /* soft coral */
+    #a18cd1,  /* pastel purple */
+    #fbc2eb,  /* cotton candy pink */
+    #fad0c4,  /* blush pink */
+    #a1c4fd,  /* baby blue */
+    #c2e9fb,  /* ice blue */
+    #d4fc79,  /* spring green */
+    #96e6a1   /* mint green */
+  );
+  background-size: 600% 600%;
+  animation: gradientBG 30s ease-in-out infinite;
+  transition: background 0.5s ease;
+  position: relative;
+  min-height: 100vh;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Optional soft overlay to tone colors down a bit */
+/* body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(3px);
+  pointer-events: none;
+  z-index: 1;
+} */
+
+/* Ensure all page content stays on top of the overlay */
+#root,
+body > *:not(body::before) {
+  position: relative;
+  z-index: 2;
+}
+
+.login-background {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.container {
+  position: relative;
+  z-index: 0;
+
+}
+
+.login-card {
+  max-width: 50%;
+  width: 45%;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.login-title {
+  font-weight: 700;
+  font-size: 1.75rem;
+  color: #333;
+  text-align: center;
+}
+
+.login-input {
+  background: #fff;
+  border: 1px solid #ced4da;
+  border-radius: 8px;
+  padding: 0.75rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.login-input:hover {
+  border-color: #a18cd1;
+  box-shadow: 0 0 8px rgba(161, 140, 209, 0.2);
+}
+
+.login-input:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.login-button {
+  background: linear-gradient(90deg, #a1c4fd, #c2e9fb);
+  color: #fff;
+  font-weight: 600;
+  transition: background 0.4s ease;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem;
+}
+
+.login-button:hover {
+  background: linear-gradient(90deg, #89f7fe, #66a6ff);
+}
+
+.signup-button {
+  background: none;
+  border: none;
+  color: #007bff;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.signup-button:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+.error-message {
+  font-size: 0.85rem;
+  color: #dc3545;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fade-in delay for fields */
+.login-card form > div {
+  animation: fadeIn 1s ease forwards;
+  opacity: 0;
+}
+.login-card form > div:nth-child(1) { animation-delay: 0.2s; }
+.login-card form > div:nth-child(2) { animation-delay: 0.4s; }
+.login-card form > button          { animation-delay: 0.6s; }
+
+/* Responsive */
+@media (max-width: 576px) {
+  .login-card {
+    padding: 1.5rem;
+    border-radius: 10px;
+  }
+  .login-title {
+    font-size: 1.5rem;
+  }
+  .login-button,
+  .signup-button {
+    
+    font-size: 0.9rem;
+  }
+}
+
+.forgetpas{
+  padding-left: 215px;
+  border: none;
+  background: none;
+}
+.forgetpas:hover{
+  text-decoration:underline ;
+}
+
