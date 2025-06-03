@@ -1,0 +1,113 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
+import axios from 'axios';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import './SignUp.css';
+import { FaUser, FaUserTie, FaLock } from "react-icons/fa";
+import { MdMarkEmailUnread } from "react-icons/md";
+
+const SignUp = () => {
+    const navigate = useNavigate();
+
+
+    const signUpSchema = Yup.object().shape({
+        name: Yup.string().required('Name is required'),
+        email: Yup.string().email('Invalid email').required('Email is required'),
+        userName: Yup.string().min(3, 'Username must be at least 3 characters').max(20, 'Username must be at most 20 characters').matches(/^[a-zA-Z0-9_.-]+$/, 'Username can only contain letters, numbers, underscores, dots, and hyphens').required('Username is required'),
+        password: Yup.string().min(8, 'Password must be at least 8 characters').max(32, 'Password must be at most 32 characters').matches(/[A-Z]/, 'Password must contain at least one uppercase letter').matches(/[a-z]/, 'Password must contain at least one lowercase letter').matches(/[0-9]/, 'Password must contain at least one number').matches(/[@$!%*?&]/, 'Password must contain at least one special character').required('Password is required'),
+    });
+
+    const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+        try {
+            await axios.post('http://localhost:5000/api/user/register', values);
+            toast.success('User registered successfully!', { position: 'top-center' });
+            resetForm();
+            setTimeout(() => navigate('/login'), 1000);
+        } catch (error) {
+            console.error('Registration error:', error.response?.data || error.message);
+            toast.error('Registration failed: ' + (error.response?.data?.message || error.message), {
+                position: 'top-center',
+            });
+        } finally {
+            setSubmitting(false);
+        }
+    };
+
+    return (
+        <>
+            <Helmet>
+                <title>Sign Up</title>
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+                    rel="stylesheet"
+                />
+            </Helmet>
+            <ToastContainer position="top-center" autoClose={3000} theme="colored" />
+
+            <div className="signup-background">
+                <div className="container h-100 d-flex align-items-center justify-content-center">
+                    <div className="card signup-card p-4">
+                        <h2 className="text-center mb-4 signup-title"> Sign Up</h2>
+
+                        <Formik
+                            initialValues={{ name: '', email: '', userName: '', password: '' }}
+                            validationSchema={signUpSchema}
+                            onSubmit={handleSubmit}
+                        >
+                            {({ isSubmitting }) => (
+                                <Form>
+                                    <div className="mb-3 position-relative">
+                                        <Field type="text" name="name" placeholder="Enter Name" className="form-control signup-input pe-5" />
+                                        <FaUser className="icon" />
+                                        <ErrorMessage name="name" component="div" className="text-danger mt-1 error-message" />
+                                    </div>
+                                    <div className="mb-3 position-relative">
+                                        <Field type="email" name="email" placeholder="Enter Email" className="form-control signup-input pe-5" />
+                                        <MdMarkEmailUnread className="icon" />
+                                        <ErrorMessage name="email" component="div" className="text-danger mt-1 error-message" />
+                                    </div>
+
+                                    <div className="mb-3 position-relative">
+                                        <Field type="text" name="userName" placeholder="Enter Username" className="form-control signup-input pe-5" />
+                                        <FaUserTie className="icon" />
+                                        <ErrorMessage name="userName" component="div" className="text-danger mt-1 error-message" />
+                                    </div>
+
+                                    <div className="mb-3 position-relative">
+                                        <Field type="password" name="password" placeholder="Enter Password" className="form-control signup-input pe-5" />
+                                        <FaLock className='icon' />
+                                        <ErrorMessage name="password" component="div" className="text-danger mt-1 error-message" />
+                                    </div>
+   
+                                    <button
+                                        type="submit"
+                                        className="btn login-button w-100"
+                                        disabled={isSubmitting}
+                                    >
+                                        {isSubmitting ? (
+                                        <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                        ) : (
+                                        'SignUp'
+                                        )}
+                                    </button>
+                                </Form>
+                            )}
+                        </Formik>
+
+                        <div className="text-center mt-3">
+                            <button type="button" onClick={() => navigate('/login')} className="btn login-link" >
+                                Already have an account? Login
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+};
+
+export default SignUp;
