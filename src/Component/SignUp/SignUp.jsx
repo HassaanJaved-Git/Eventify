@@ -8,7 +8,7 @@ import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { FaUser, FaUserTie, FaLock } from "react-icons/fa";
 import { MdMarkEmailUnread } from "react-icons/md";
-
+import './SignUp.css';
 import GoogleOAuth from '../GoogleOAuth/GoogleOAuth';
 
 import './SignUp.css'

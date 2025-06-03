@@ -34,9 +34,15 @@
   z-index: 2;
 }
 
+<<<<<<< HEAD
 .signup-card {
   max-width: 400px;
   width: 100%;
+=======
+.signup-login-card {
+  max-width: 50%;
+  width: 45%;
+>>>>>>> 9a0039fd516e02165d2d58ed98af0eb3e2d54d95
   /* Transparent white with 50% opacity */
   background: rgba(255, 255, 255, 0.5);
   /* Optional: add a slight blur behind the card */
@@ -188,6 +194,7 @@ body {
 } */
 
 /* Ensure all page content stays on top of the overlay */
+<<<<<<< HEAD
 /* #root,
 body > *:not(body::before) {
   position: relative;
@@ -199,3 +206,10 @@ body > *:not(body::before) {
   z-index: 3;
 }
 
+=======
+#root,
+body > *:not(body::before) {
+  position: relative;
+  z-index: 2;
+}
+>>>>>>> 9a0039fd516e02165d2d58ed98af0eb3e2d54d95
