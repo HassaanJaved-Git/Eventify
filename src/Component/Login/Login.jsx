@@ -61,11 +61,7 @@ const Login = () => {
           <div className="card login-card p-4">
             <h2 className="text-center mb-4 login-title">Login</h2>
 
-            <Formik
-              initialValues={{ email: '', password: '' }}
-              validationSchema={loginSchema}
-              onSubmit={handleSubmit}
-            >
+            <Formik initialValues={{ email: '', password: '' }} validationSchema={loginSchema} onSubmit={handleSubmit} >
             
               {({ isSubmitting }) => (
                 <Form>
@@ -77,18 +73,7 @@ const Login = () => {
                   <div className="mb-3 position-relative">
                     <Field type="password" name="password" placeholder="Enter Password" className="form-control signup-login-input pe-5" />
                     <FaLock className='icon' />
-                    <ErrorMessage
-                      name="password"
-                      component="div"
-                      className="text-danger mt-1 error-message"
-                    />
-                    <button
-                      type="button"
-                      className='forgetpas btn btn-link'
-                      onClick={() => navigate('/')}
-                    >
-                      Forget password
-                    </button>
+                    <ErrorMessage name="password" component="div" className="text-danger mt-1 error-message" />
                   </div>
                   <button type="submit" className="btn signup-login-button w-100" disabled={isSubmitting} >
                     {isSubmitting ? (
@@ -107,14 +92,18 @@ const Login = () => {
 
             <GoogleOAuth />
 
-            <div className="text-center mt-3">
+            <div className="text-center mt-1">
               <p>
-                Don't have an account?{' '}
-                <button
-                  type="button"
-                  onClick={() => navigate('/signup')}
-                  className="btn login-link"
-                >
+                <button type="button" className="btn btn-link"  onClick={() => navigate('/forget-password')} >
+                  Forget password
+                </button>
+              </p>
+            </div>
+
+            <div className="text-center mt-1">
+              <p>
+                Don't have an account?
+                <button type="button" onClick={() => navigate('/signup')} className="btn btn-link" >
                   Sign Up
                 </button>
               </p>

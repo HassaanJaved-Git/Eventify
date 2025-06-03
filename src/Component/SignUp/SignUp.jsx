@@ -57,11 +57,7 @@ const SignUp = () => {
                     <div className="card signup-login-card p-4">
                         <h2 className="text-center mb-4 signup-login-title"> Sign Up</h2>
 
-                        <Formik
-                            initialValues = {{ name: '', email: '', password: '' }}
-                            validationSchema = {signUpSchema}
-                            onSubmit = {handleSubmit}
-                        >
+                        <Formik initialValues = {{ name: '', email: '', password: '' }} validationSchema = {signUpSchema} onSubmit = {handleSubmit} >
                             {({ isSubmitting }) => (
                                 <Form>
                                     <div className="mb-3 position-relative">
@@ -90,7 +86,7 @@ const SignUp = () => {
                             )}
                         </Formik>
 
-                        <div className="text-center my-3">
+                        <div className="text-center my-1">
                             OR
                         </div>
 
@@ -99,7 +95,7 @@ const SignUp = () => {
                         <div className="text-center mt-3">
                             <p>
                                 Already have an account? 
-                                <button type="button" onClick={() => navigate('/login')} className="btn signup-login-link" >
+                                <button type="button" onClick={() => navigate('/login')} className="btn btn-link" >
                                     Login
                                 </button>
                             </p>

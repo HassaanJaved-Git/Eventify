@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
-import { Formik, Form, Field, ErrorMessage, useFormikContext } from 'formik';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
@@ -12,19 +12,13 @@ import debounce from 'lodash.debounce';
 const UserName = () => {
     const navigate = useNavigate();
 
-    // const { values } = useFormikContext();
-
     const [usernameAvailable, setUsernameAvailable] = useState(null);
     const [checking, setChecking] = useState(false);
 
     const token = localStorage.getItem("token");
 
     const userNameSchema = Yup.object().shape({
-        userName: Yup.string()
-            .min(3, 'At least 3 characters')
-            .max(20, 'Max 20 characters')
-            .matches(/^[a-zA-Z0-9_.-]+$/, 'Invalid characters')
-            .required('Required'),
+        userName: Yup.string().min(3, 'At least 3 characters').max(20, 'Max 20 characters').matches(/^[a-zA-Z0-9_.-]+$/, 'Invalid characters').required('Required'),
     });
 
     const checkUsername = useCallback(
@@ -62,7 +56,7 @@ const UserName = () => {
                 toast.success('UserName set successfully!', { position: 'top-center' });
                 resetForm();
                 setTimeout(() => navigate('/'), 1000);
-                const token = res.data.token;
+                const token = res.data.toke 
                 localStorage.setItem('token', token);
             })
             .catch((error) => {
@@ -87,11 +81,7 @@ const UserName = () => {
                     <div className="card signup-login-card p-4">
                         <h2 className="text-center mb-4 signup-login-title">Set UserName</h2>
 
-                        <Formik
-                            initialValues={{ userName: '' }}
-                            validationSchema={userNameSchema}
-                            onSubmit={handleSubmit}
-                        >
+                        <Formik initialValues={{ userName: '' }} validationSchema={userNameSchema} onSubmit={handleSubmit} >
                             {({ isSubmitting, values, handleChange }) => {
                                 useEffect(() => {
                                     if (values.userName.trim().length >= 3) {
@@ -104,13 +94,7 @@ const UserName = () => {
                                 return (
                                     <Form>
                                         <div className="mb-3 position-relative">
-                                            <Field
-                                                type="text"
-                                                name="userName"
-                                                placeholder="Enter Username"
-                                                className="form-control signup-login-input pe-5"
-                                                onChange={handleChange}
-                                            />
+                                            <Field type="text" name="userName" placeholder="Enter Username" className="form-control signup-login-input pe-5" onChange={handleChange} />
                                             <FaUserTie className="icon" />
                                             <ErrorMessage name="userName" component="div" className="text-danger mt-1 error-message" />
 

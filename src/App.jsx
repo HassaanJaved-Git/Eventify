@@ -9,6 +9,7 @@ const SignUp = lazy(()=>import('./Component/SignUp/SignUp'));
 const LoginPage = lazy(()=>import('./Component/Login/Login'));
 const Dashboard = lazy(()=>import('./Component/Dashboard/dashboard'));
 const CreateEventPage = lazy(()=>import('./Pages/CreateEventPage'));
+const ForgetPassword = lazy(()=>import('./Component/Forget-Password/ForgetPassword'))
 
 import Content from './Components/Content/Content'
 import Footer from './Components/Footer/Footer'
@@ -37,6 +38,7 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path='/username' element={<UserName />}/>
             <Route path="/create-event" element={<CreateEventPage />} />
+            <Route path="/forget-password" element={<ForgetPassword />} />
              <Route path="/settings" element={<Settings />} />
                   {/* <Route path="/profile" element={<ProfilePage />} /> */}
           </Routes>
