@@ -86,7 +86,7 @@ const Login = () => {
                     <button
                       type="button"
                       className='forgetpas btn btn-link'
-                      onClick={() => navigate('/')}
+                      onClick={() => navigate('/forget-password')}
                     >
                       Forget password
                     </button>
