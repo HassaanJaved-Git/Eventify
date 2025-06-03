@@ -8,6 +8,13 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.env
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
+package.json
+package-lock.json
 dist
 dist-ssr
 *.local
