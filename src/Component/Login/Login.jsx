@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -16,14 +16,19 @@ import './Login.css';
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext); 
-
+   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      navigate('/'); 
+    }
+  }, [navigate]);
   const loginSchema = Yup.object().shape({
     email: Yup.string().required('Email or Username is required'),
     password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
   });
-
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     axios.post('http://localhost:5000/api/user/login', values)
+    
       .then((response) => {
         toast.success('Login successful!', { position: 'top-center' });
         resetForm();
