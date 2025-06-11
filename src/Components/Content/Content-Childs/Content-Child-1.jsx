@@ -1,42 +1,26 @@
-import {React,useState,useEffect} from 'react'
-// import img from '../../../assets/calendar.png'
-import im from '../../../assets/prepared-wedding-hall.jpg'
-import im2 from '../../../assets/event-pictures/e1.jpg';
-import im3 from '../../../assets/event-pictures/e2.jpg';
-import im4 from '../../../assets/event-pictures/e3.jpg';
-import im5 from '../../../assets/event-pictures/e4.jpg';
-import im6 from '../../../assets/event-pictures/e5.jpg';
-import im7 from '../../../assets/event-pictures/e6.jpg';
-import im8 from '../../../assets/event-pictures/e7.jpg';
-import im9 from '../../../assets/event-pictures/e8.jpg';
-import im10 from '../../../assets/event-pictures/e9.jpg';
-
-const images = [im,im2,im3,im4,im5,im6,im7,im8,im9,im10];
-
-import SkeletonCard from './Child1-Childs/Skeleton-Card'
-import Child1Child from './Child1-Childs/Child1-child'
-
-
+import React, { useState, useEffect } from "react";
+import SkeletonCard from "./Child1-Childs/Skeleton-Card";
+import Child1Child from "./Child1-Childs/Child1-child";
 
 const ContentChild1 = () => {
+  const [events, setEvents] = useState([]);
+  const [isLoading, setLoading] = useState(true);
 
-  const [data , setData] = useState(null);
-  const [isLoading,setLoading] = useState(true);
-  useEffect(()=>{
+  useEffect(() => {
     setLoading(true);
+    fetch("http://localhost:5000/api/event/") // Replace with your actual backend URL
+      .then((res) => res.json())
+      .then((data) => {
+        setEvents(data.events || []);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch events:", err);
+        setLoading(false);
+      });
+  }, []);
 
-    fetch('https://jsonplaceholder.typicode.com/users')
-    .then((res=>res.json()))
-    .then((data)=>{
-      setData(data)
-      setLoading(false)
-    })
-    
-  },[])
-
-
-
-    return (
+  return (
     <div className="col-lg-12 col-md-12 col-sm-12 col-12">
       <div className="bg-dark text-light text-left py-5 rounded card-lists">
         {isLoading ? (
@@ -45,20 +29,30 @@ const ContentChild1 = () => {
               <SkeletonCard key={i} />
             ))}
           </>
-        ) : data && data.length > 0 ? (
-          data.map((user, index) => (
-            <Child1Child
-              key={user.id}
-              user={user}
-              image={images[index % images.length]} // Pass image cyclically
-            />
-          ))
+        ) : events.length > 0 ? (
+          events.map((event) => (
+  <Child1Child
+    key={event._id}
+    title={event.title}
+    description={event.description}
+    /* 👇 pick Cloudinary URL when present */
+    image={
+      event.image?.imageURL ||
+      `http://localhost:5000/uploads/${event.image?.fileName}`
+    }
+    date={event.date}
+    startTime={event.startTime}
+    endTime={event.endTime}
+    organizer={event.organizer?.name || 'Unknown'}
+    location={event.location?.city || 'TBD'}
+  />
+))
         ) : (
-          <p>No users found.</p>
+          <p>No events found.</p>
         )}
       </div>
     </div>
   );
-}
+};
 
-export default ContentChild1
+export default ContentChild1;

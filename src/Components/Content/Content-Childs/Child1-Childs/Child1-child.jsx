@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-
-const Child1Child = ({user , image}) => {
+const Child1Child = ({ title, description, image, date, organizer, location }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -11,7 +10,7 @@ const Child1Child = ({user , image}) => {
   return (
     <div
       className={`card mb-3 text-light ${isExpanded ? 'expanded-card' : ''}`}
-      style={{cursor: 'pointer' }}
+      style={{ cursor: 'pointer' }}
       onClick={toggleExpand}
     >
       <div className="row g-0">
@@ -20,23 +19,19 @@ const Child1Child = ({user , image}) => {
         </div>
         <div className="col-md-8">
           <div className="card-body">
-            <h5 className="card-title">Card title</h5>
+            <h5 className="card-title">{title}</h5>
+            <p className="card-text">{description.slice(0, 100)}...</p>
             <p className="card-text">
-              This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.
+              <small className="text-body-light">Event by {organizer}</small>
             </p>
-            <p className="card-text">
-              <small className="text-body-light">Last updated 3 mins ago</small>
-            </p>
+
             {isExpanded && (
               <div className="additional-details mt-3">
                 <h6>Event Details</h6>
-                <p>{user.name}</p>
-                <p>{user.username}</p>
-                <p>{user.email}</p>
-                <p><strong>Date:</strong> June 15, 2025</p>
-                <p><strong>Time:</strong> 6:00 PM - 11:00 PM</p>
-                <p><strong>Location:</strong> Grand Hall, City Center</p>
-                <p><strong>Description:</strong> A beautiful wedding event with live music, dinner, and dancing. Join us to celebrate this special occasion!</p>
+                <p><strong>Date:</strong> {new Date(date).toLocaleDateString()}</p>
+                <p><strong>Time:</strong> {new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                <p><strong>Location:</strong> {location}</p>
+                <p><strong>Description:</strong> {description}</p>
               </div>
             )}
           </div>
