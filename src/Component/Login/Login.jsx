@@ -19,7 +19,7 @@ const Login = () => {
    useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
-      navigate('/'); // Or navigate('/dashboard')
+      navigate('/'); 
     }
   }, [navigate]);
   const loginSchema = Yup.object().shape({
