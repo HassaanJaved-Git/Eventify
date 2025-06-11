@@ -1,9 +1,16 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function CreateEventPage() {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login');
+    }
+  }, [navigate]);
+
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -12,23 +19,24 @@ function CreateEventPage() {
     description: '',
     eventType: 'public',
     eventDate: '',
+    endDate: '',
     startTime: '',
     endTime: '',
     address: '',
     city: '',
     state: '',
     zipCode: '',
-    coordinates: '',
-    coverImage: '',
+    country: '',
+    image: '',
     capacity: 100,
     price: 0,
   });
 
   const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+    const { name, value, type, files } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: type === 'checkbox' ? checked : value
+      [name]: type === 'file' ? files[0] : value,
     }));
   };
 
@@ -42,25 +50,70 @@ function CreateEventPage() {
     window.scrollTo(0, 0);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call to create event
-    setTimeout(() => {
-      // Generate random ID for new event
-      const newEventId = 'evt-' + Math.random().toString(36).substring(2, 10);
+    const token = localStorage.getItem("token");
 
-      // Redirect to the new event page
-      navigate(`/event/${newEventId}`);
-    }, 2000);
+    const form = new FormData();
+    form.append("title", formData.title);
+    form.append("description", formData.description);
+    form.append("eventType", formData.eventType);
+    form.append("date", formData.eventDate);
+
+    // Combine date + time
+    const startISO = new Date(`${formData.eventDate}T${formData.startTime}`);
+    const endISO = new Date(`${formData.endDate || formData.eventDate}T${formData.endTime}`);
+
+    form.append("startTime", startISO.toISOString());
+    form.append("endTime", endISO.toISOString());
+
+    form.append("location", JSON.stringify({
+      address: formData.address,
+      city: formData.city,
+      state: formData.state,
+      zipCode: formData.zipCode,
+      country: formData.country || 'India', // Default fallback
+    }));
+
+    form.append("category", "General");
+    form.append("price", formData.price);
+    form.append("totalTickets", formData.capacity);
+
+    if (formData.image) {
+      form.append("image", formData.image);
+    }
+
+    try {
+      const res = await fetch("http://localhost:5000/api/event/create", {
+        method: "POST",
+        body: form,
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        console.log("Event created:", data);
+        navigate(`/event/${data.event._id}`);
+      } else {
+        console.error("Create event failed:", data);
+      }
+    } catch (err) {
+      console.error("Request error:", err);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="container w-50">
       <div className="row justify-content-center">
         <div className="col-12 col-lg-8">
-          <div className=" rounded-4 shadow p-4 p-md-5" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)" }}>
+          <div className="rounded-4 shadow p-4 p-md-5" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)" }}>
             <h1 className="fw-bold mb-4">Create New Event</h1>
 
             <div className="mb-4">
@@ -85,26 +138,23 @@ function CreateEventPage() {
               {step === 1 && (
                 <div>
                   <div className="mb-4">
-                    <label htmlFor="title\" className="form-label fw-bold" >Event Title</label>
+                    <label className="form-label fw-bold">Event Title</label>
                     <input
                       type="text"
                       className="form-control form-control-lg"
-                      id="title"
                       name="title"
                       value={formData.title}
                       onChange={handleChange}
                       placeholder="Give your event a title"
                       required
                       style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
-
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label htmlFor="description" className="form-label fw-bold">Description</label>
+                    <label className="form-label fw-bold">Description</label>
                     <textarea
                       className="form-control"
-                      id="description"
                       name="description"
                       rows="5"
                       value={formData.description}
@@ -116,10 +166,9 @@ function CreateEventPage() {
                   </div>
 
                   <div className="mb-4">
-                    <label htmlFor="eventType" className="form-label fw-bold">Event Type</label>
+                    <label className="form-label fw-bold">Event Type</label>
                     <select
                       className="form-select"
-                      id="eventType"
                       name="eventType"
                       value={formData.eventType}
                       onChange={handleChange}
@@ -131,29 +180,19 @@ function CreateEventPage() {
                   </div>
 
                   <div className="mb-4">
-                    <label htmlFor="coverImage" className="form-label fw-bold">Cover Image</label>
+                    <label className="form-label fw-bold">Cover Image</label>
                     <input
                       type="file"
                       className="form-control"
-                      id="coverImage"
-                      name="coverImage"
-                      value={formData.coverImage}
+                      name="image"
                       onChange={handleChange}
                       style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
-
-                    <div className="form-text">
-                      Select a cover image for your event
-                    </div>
+                    <div className="form-text">Select a cover image for your event</div>
                   </div>
 
                   <div className="d-flex justify-content-end">
-                    <button
-                      type="button"
-                      className="btn btn-primary px-4"
-                      onClick={handleNextStep}
-                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
-                    >
+                    <button type="button" className="btn btn-primary px-4" onClick={handleNextStep}>
                       Next
                     </button>
                   </div>
@@ -163,154 +202,119 @@ function CreateEventPage() {
               {step === 2 && (
                 <div>
                   <div className="mb-4">
-                    <label htmlFor="startDate" className="form-label fw-bold">Event Date</label>
+                    <label className="form-label fw-bold">Event Date</label>
                     <input
                       type="date"
                       className="form-control"
-                      id="startDate"
                       name="eventDate"
                       value={formData.eventDate}
                       onChange={handleChange}
                       required
-                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label htmlFor="startTime" className="form-label fw-bold">Start Time</label>
+                    <label className="form-label fw-bold">Start Time</label>
                     <input
                       type="time"
                       className="form-control"
-                      id="startTime"
                       name="startTime"
                       value={formData.startTime}
                       onChange={handleChange}
                       required
-                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label htmlFor="endDate" className="form-label fw-bold">End Date</label>
+                    <label className="form-label fw-bold">End Date</label>
                     <input
                       type="date"
                       className="form-control"
-                      id="endDate"
                       name="endDate"
                       value={formData.endDate}
                       onChange={handleChange}
                       required
-                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label htmlFor="endTime" className="form-label fw-bold">End Time</label>
+                    <label className="form-label fw-bold">End Time</label>
                     <input
                       type="time"
                       className="form-control"
-                      id="endTime"
                       name="endTime"
                       value={formData.endTime}
                       onChange={handleChange}
                       required
-                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
                   </div>
 
                   <div className="mb-4">
-                    <label htmlFor="locationName" className="form-label fw-bold">Address</label>
+                    <label className="form-label fw-bold">Address</label>
                     <input
                       type="text"
                       className="form-control"
-                      id="locationName"
                       name="address"
                       value={formData.address}
                       onChange={handleChange}
-                      placeholder= "Venue Address"
+                      placeholder="Venue Address"
                       required
                     />
                   </div>
+
                   <div className="mb-4">
-                    <label htmlFor="locationName" className="form-label fw-bold">City</label>
+                    <label className="form-label fw-bold">City</label>
                     <input
                       type="text"
                       className="form-control"
-                      id="city"
                       name="city"
                       value={formData.city}
                       onChange={handleChange}
-                      placeholder= "Venue City"
                       required
-                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
-                      <select>
-                      <option value="America/New_York">Eastern Time (ET)</option>
-                      <option value="America/Chicago">Central Time (CT)</option>
-                      <option value="America/Denver">Mountain Time (MT)</option>
-                      <option value="America/Los_Angeles">Pacific Time (PT)</option>
-                      <option value="Europe/London">London (GMT)</option>
-                    </select>
                   </div>
 
                   <div className="mb-4">
-                    <label htmlFor="locationName" className="form-label fw-bold">State</label>
+                    <label className="form-label fw-bold">State</label>
                     <input
                       type="text"
                       className="form-control"
-                      id="state"
                       name="state"
                       value={formData.state}
                       onChange={handleChange}
-                      placeholder= "Venue State"
                       required
-                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
                   </div>
+
                   <div className="mb-4">
-                    <label htmlFor="locationName" className="form-label fw-bold">Zip Code</label>
+                    <label className="form-label fw-bold">Zip Code</label>
                     <input
                       type="text"
                       className="form-control"
-                      id="zipCode"
                       name="zipCode"
                       value={formData.zipCode}
                       onChange={handleChange}
-                      placeholder= "Zip Code"
                     />
                   </div>
 
-                  {formData.eventType !== 'online' && (
-                    <div className="mb-4">
-                      <label htmlFor="locationAddress" className="form-label fw-bold">Address</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="locationAddress"
-                        name="locationAddress"
-                        value={formData.locationAddress}
-                        onChange={handleChange}
-                        placeholder="123 Main St, City, State, ZIP"
-                        required={formData.eventType !== 'online'}
-                          style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
-                      />
-                    </div>
-                  )}
+                  <div className="mb-4">
+                    <label className="form-label fw-bold">Country</label>
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="country"
+                      value={formData.country}
+                      onChange={handleChange}
+                      placeholder="e.g. India, USA"
+                      required
+                    />
+                  </div>
 
                   <div className="d-flex justify-content-between">
-                    <button
-                      type="button"
-                      className="btn btn-outline-secondary px-4"
-                      onClick={handlePrevStep}
-                    >
+                    <button type="button" className="btn btn-outline-secondary px-4" onClick={handlePrevStep}>
                       Back
                     </button>
-                    <button
-                      type="button"
-                      className="btn btn-primary px-4"
-                      onClick={handleNextStep}
-                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
-                    >
+                    <button type="button" className="btn btn-primary px-4" onClick={handleNextStep}>
                       Next
                     </button>
                   </div>
@@ -320,60 +324,45 @@ function CreateEventPage() {
               {step === 3 && (
                 <div>
                   <div className="mb-4">
-                    <label htmlFor="capacity" className="form-label fw-bold">Capacity</label>
+                    <label className="form-label fw-bold">Capacity</label>
                     <input
                       type="number"
                       className="form-control"
-                      id="capacity"
                       name="capacity"
                       min="1"
                       value={formData.capacity}
                       onChange={handleChange}
                       required
-                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
-                    <div className="form-text">
-                      Maximum number of attendees
-                    </div>
                   </div>
 
                   <div className="mb-4">
-                    <label htmlFor="price" className="form-label fw-bold">Price ($)</label>
+                    <label className="form-label fw-bold">Price ($)</label>
                     <input
                       type="number"
                       className="form-control"
-                      id="price"
                       name="price"
                       min="0"
                       step="0.01"
                       value={formData.price}
                       onChange={handleChange}
                       required
-                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
-                    <div className="form-text">
-                      Set to 0 for free events
-                    </div>
+                    <div className="form-text">Set to 0 for free events</div>
                   </div>
 
                   <div className="d-flex justify-content-between">
-                    <button
-                      type="button"
-                      className="btn btn-outline-secondary px-4"
-                      onClick={handlePrevStep}
-                    >
+                    <button type="button" className="btn btn-outline-secondary px-4" onClick={handlePrevStep}>
                       Back
                     </button>
                     <button
                       type="submit"
-                      className="btn login-button  px-4"
-                      // className="btn btn-success px-4"
+                      className="btn btn-success px-4"
                       disabled={isSubmitting}
-                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     >
                       {isSubmitting ? (
                         <>
-                          <span className="spinner-border spinner-border-sm me-2\" role="status\" aria-hidden="true"></span>
+                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
                           Creating...
                         </>
                       ) : (
