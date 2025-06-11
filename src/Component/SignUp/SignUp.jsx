@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -14,6 +14,12 @@ import GoogleOAuth from '../GoogleOAuth/GoogleOAuth';
 
 const SignUp = () => {
     const navigate = useNavigate();
+       useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+          navigate('/'); // Or navigate('/dashboard')
+        }
+      }, [navigate]);
 
     const signUpSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
