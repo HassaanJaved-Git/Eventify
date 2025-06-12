@@ -264,9 +264,10 @@ function CreateEventPage() {
                       onChange={handleChange}
                       placeholder= "Venue State"
                       required
-                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
+                      style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     />
                   </div>
+
                   <div className="mb-4">
                     <label htmlFor="locationName" className="form-label fw-bold">Zip Code</label>
                     <input
@@ -292,7 +293,7 @@ function CreateEventPage() {
                         onChange={handleChange}
                         placeholder="123 Main St, City, State, ZIP"
                         required={formData.eventType !== 'online'}
-                          style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
+                        style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                       />
                     </div>
                   )}
@@ -367,7 +368,6 @@ function CreateEventPage() {
                     <button
                       type="submit"
                       className="btn login-button  px-4"
-                      // className="btn btn-success px-4"
                       disabled={isSubmitting}
                         style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
                     >

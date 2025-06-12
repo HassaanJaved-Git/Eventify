@@ -18,7 +18,7 @@ const Header = () => {
         </a>
 
         <a href="#" className="nav-link text-white d-flex align-items-center me-4">
-          <i className="bi bi-calendar-event me-1"></i> Calendars
+          <i className="bi bi-calendar-event me-1"></i>Calendars
         </a>
 
         <a href="#" className="nav-link text-white d-flex align-items-center">
