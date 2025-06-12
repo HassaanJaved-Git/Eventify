@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function CreateEventPage() {
   const navigate = useNavigate();
@@ -74,7 +76,7 @@ function CreateEventPage() {
       city: formData.city,
       state: formData.state,
       zipCode: formData.zipCode,
-      country: formData.country || 'India', // Default fallback
+      country: formData.country || 'Pakistan', // Default fallback
     }));
 
     form.append("category", "General");
@@ -98,8 +100,11 @@ function CreateEventPage() {
 
       if (res.ok) {
         console.log("Event created:", data);
-        navigate(`/event/${data.event._id}`);
+        alert("Event Created Successfully");
+        // toast.success('Event Added Successfully', { position: 'top-center' });
+        navigate(`/`);
       } else {
+        toast.error('Error Creating Event', { position: 'top-center' });
         console.error("Create event failed:", data);
       }
     } catch (err) {
@@ -110,6 +115,8 @@ function CreateEventPage() {
   };
 
   return (
+    <>
+    <ToastContainer position="top-center" autoClose={3000} theme="colored" />
     <div className="container w-50">
       <div className="row justify-content-center">
         <div className="col-12 col-lg-8">
@@ -225,7 +232,7 @@ function CreateEventPage() {
                     />
                   </div>
 
-                  <div className="mb-4">
+                  {/* <div className="mb-4">
                     <label className="form-label fw-bold">End Date</label>
                     <input
                       type="date"
@@ -235,7 +242,7 @@ function CreateEventPage() {
                       onChange={handleChange}
                       required
                     />
-                  </div>
+                  </div> */}
 
                   <div className="mb-4">
                     <label className="form-label fw-bold">End Time</label>
@@ -377,6 +384,7 @@ function CreateEventPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
 
