@@ -13,7 +13,8 @@ const ForgetPassword = lazy(()=>import('./Component/Forget-Password/ForgetPasswo
 
 import Content from './Components/Content/Content'
 import Footer from './Components/Footer/Footer'
-import MyNavbar from './Component/Navber/Navbar';
+import Header from './Components/Header/Header.jsx';
+
 import UserName from './Component/UserName/UserName'
 
 import { AuthProvider } from "./Context/AuthContext";
@@ -23,11 +24,15 @@ import Settings from './Pages/Setting';
 
 function App() {
   return (
-    <Suspense fallback={<div className='loadDiv'>Loading...</div>} >
+    <Suspense fallback={<div className="d-flex justify-content-center align-items-center vh-100">
+      <div className="spinner-border text-primary">
+        <span className="visually-hidden">Loading...</span>
+      </div>
+    </div>} >
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <BrowserRouter>
         <AuthProvider>
-          <MyNavbar />
+          <Header />
           <Routes>
             <Route path="/*" element={"404"}/>
             <Route path="/" element={<layout>
