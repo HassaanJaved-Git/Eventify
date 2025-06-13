@@ -1,0 +1,45 @@
+/* MyNavbar.css
+
+.navbar {
+  background: transparent;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-brand {
+  font-weight: bold;
+  color: #6c63ff !important;
+  font-size: 1.5rem;
+}
+
+.btn-create-event {
+  background-color: #a78bfa;
+  border: none;
+  transition: background-color 0.3s ease;
+  color: white;
+}
+
+.btn-create-event:hover {
+  background-color: #8b5cf6;
+}
+
+.btn-outline-primary {
+  border-color: #6c63ff !important;
+  color: #6c63ff !important;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+  background-color: #6c63ff !important;
+  color: white !important;
+}
+
+.dropdown-toggle {
+  background: none !important;
+  box-shadow: none !important;
+  transition: all 0.3s ease;
+}
+
+.dropdown-menu {
+  min-width: 180px;
+  font-size: 0.95rem;
+} */

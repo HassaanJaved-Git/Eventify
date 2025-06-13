@@ -6,3 +6,28 @@
   transform: translate(-50%, -50%);
   font-size: 24px;
 }
+
+.profile-events-list{
+  display: grid;
+  grid-template-columns: 32% 32% 32%;
+  gap: 17px;
+}
+
+.overlay {
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.overlay-show {
+  pointer-events: auto;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.overlay-hide {
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.95);
+}
