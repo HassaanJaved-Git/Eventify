@@ -53,7 +53,7 @@ useEffect(() => {
 <button type="button" className="btn btn-outline-light btn-sm me-3" onClick={() => navigate('/login')}>
   Login
 </button>
-<button type="button" className="btn btn-sm me-3" onClick={() => alert('profile page added soon')}>
+<button type="button" className="btn btn-sm me-3" onClick={() => navigate('/profile')}>
   <img className="w-7" src={user} alt="User profile" />
 </button>
 
