@@ -1,10 +1,12 @@
 import React from "react";
 import { Container, Navbar, Card } from "react-bootstrap";
 import { FaCalendarAlt } from "react-icons/fa";
+import ProfileChild1 from "./Profile-Childs/ProfileChild";
 
 const ProfilePage = () => {
   return (
-    <div className=" text-white min-vh-100">
+    <>
+    <div className=" text-white my-4">
     
 
       {/* Profile Section */}
@@ -25,7 +27,7 @@ const ProfilePage = () => {
             </div>
 
             {/* User Info */}
-            <h4 className="mb-1 text-dark">Hassan Ajmal</h4>
+            <h4 className="mb-1 text-dark">User Name</h4>
             <p className="text-muted mb-3">
               <FaCalendarAlt className="me-1" />
               Joined May 2025
@@ -40,10 +42,24 @@ const ProfilePage = () => {
                 <strong>0</strong> Attended
               </span>
             </div>
+
           </div>
         </Card>
       </Container>
     </div>
+       <div className='col-12 col-lg-10 col-md-10 col-sm-12 m-auto text-light Parent-div p-lg-5 p-md-3 p-sm-2'>
+          <div className='col-12 d-flex justify-content-between align-items-center'>
+
+           <div className='d-flex gap-2'>
+           <button className='btn btn-primary'>My Events</button>
+           <button className='btn btn-secondary'>Attended Events</button>
+           </div>
+           </div>
+
+              
+          <ProfileChild1 />
+        </div>
+      </>
   );
 };
 

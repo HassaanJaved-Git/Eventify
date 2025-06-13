@@ -20,7 +20,7 @@ import UserName from './Component/UserName/UserName'
 import { AuthProvider } from "./Context/AuthContext";
 import Settings from './Pages/Setting';
 
-// import ProfilePage from './Pages/ProfilePage';
+import ProfilePage from './Pages/ProfilePage/ProfilePage.jsx';
 
 function App() {
   return (
@@ -44,8 +44,8 @@ function App() {
             <Route path='/username' element={<UserName />}/>
             <Route path="/create-event" element={<CreateEventPage />} />
             <Route path="/forget-password" element={<ForgetPassword />} />
-             <Route path="/settings" element={<Settings />} />
-                  {/* <Route path="/profile" element={<ProfilePage />} /> */}
+            <Route path="/settings" element={<Settings />} />
+            <Route path="/profile" element={<ProfilePage />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
