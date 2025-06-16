@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Child1Child = ({ title, description, image, date, organizer, location }) => {
+const Child1Child = ({ title, description, image, date, startTime, endTime, organizer, location }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -29,7 +29,7 @@ const Child1Child = ({ title, description, image, date, organizer, location }) =
               <div className="additional-details mt-3">
                 <h6>Event Details</h6>
                 <p><strong>Date:</strong> {new Date(date).toLocaleDateString()}</p>
-                <p><strong>Time:</strong> {new Date(date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</p>
+                <p><strong>Time:</strong> {startTime} - {endTime}</p>
                 <p><strong>Location:</strong> {location}</p>
                 <p><strong>Description:</strong> {description}</p>
               </div>
