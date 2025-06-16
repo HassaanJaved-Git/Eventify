@@ -19,6 +19,13 @@ import { AuthProvider } from "./Context/AuthContext";
 import Settings from './Pages/Setting';
 
 import ProfilePage from './Pages/ProfilePage/ProfilePage.jsx';
+import AboutTab from './Component/Settings/About.jsx';
+import HelpTab from './Component/Settings/Help.jsx';
+import BillingTab from './Component/Settings/Billing.jsx';
+import SecurityTab from './Component/Settings/Security.jsx';
+import PrivacyTab from './Component/Settings/Privacy.jsx';
+import AccountTab from './Component/Settings/Account.jsx';
+import NotificationsTab from './Component/Settings/Notifications.jsx';
 
 function App() {
   return (
@@ -43,7 +50,15 @@ function App() {
             <Route path="/signup" element={<SignUp />} />
             <Route path="/create-event" element={<CreateEventPage />} />
             <Route path="/forget-password" element={<ForgetPassword />} />
-            <Route path="/settings" element={<Settings />} />
+            <Route path="/settings" element={<Settings />}>
+              <Route path='about' element={<AboutTab/>}/>
+              <Route path='help' element={<HelpTab/>}/>
+              <Route path='billing' element={<BillingTab/>}/>
+              <Route path='security' element={<SecurityTab/>}/>
+              <Route path='privacy' element={<PrivacyTab/>}/>
+              <Route path='account' element={<AccountTab/>}/>
+              <Route path='notification' element={<NotificationsTab/>}/>
+            </Route>
             <Route path="/:userName" element={<ProfilePage />} />
           </Routes>
         </AuthProvider>
