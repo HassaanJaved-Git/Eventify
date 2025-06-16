@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -9,21 +9,40 @@ import 'react-toastify/dist/ReactToastify.css';
 import { FaUser, FaUserTie, FaLock } from "react-icons/fa";
 import { MdMarkEmailUnread } from "react-icons/md";
 import './SignUp.css';
+import debounce from 'lodash.debounce';
 import GoogleOAuth from '../GoogleOAuth/GoogleOAuth';
 
 
 const SignUp = () => {
     const navigate = useNavigate();
-       useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-          navigate('/'); // Or navigate('/dashboard')
-        }
-      }, [navigate]);
+    const [usernameAvailable, setUsernameAvailable] = useState(null);
+    const [checking, setChecking] = useState(false);
+
+        useEffect(() => {
+            const token = localStorage.getItem('token');
+            if (token) {
+            navigate('/');
+            }
+        }, [navigate]);
+
+    const checkUsername = useCallback(
+        debounce(async (username) => {
+            try {
+                setChecking(true);
+                const res = await axios.post("http://localhost:5000/api/user/check-username", { userName: username } );
+                setUsernameAvailable(res.data.available); 
+            } catch (err) {
+                console.error("Check username error", err);
+                setUsernameAvailable(false);
+            } finally {
+                setChecking(false);
+            }
+        }, 500), []);
 
     const signUpSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
         email: Yup.string().email('Invalid email').required('Email is required'),
+        userName: Yup.string().min(3, 'At least 3 characters').max(20, 'Max 20 characters').matches(/^[a-zA-Z0-9_.-]+$/, 'Invalid characters').required('Required'),
         password: Yup.string().min(8, 'Password must be at least 8 characters').max(32, 'Password must be at most 32 characters').matches(/[A-Z]/, 'Password must contain at least one uppercase letter').matches(/[a-z]/, 'Password must contain at least one lowercase letter').matches(/[0-9]/, 'Password must contain at least one number').matches(/[@$!%*?&]/, 'Password must contain at least one special character').required('Password is required'),
     });
 
@@ -32,11 +51,9 @@ const SignUp = () => {
         .then((response) => {
             toast.success('User registered successfully!', { position: 'top-center' });
             resetForm();
-            setTimeout(() => navigate('/username'), 1000);
-            const { token, user } = response.data
-            const { name, email } = user
+            setTimeout(() => navigate('/'), 1000);
+            const { token } = response.data
             localStorage.setItem('token', token)
-            localStorage.setItem('user', JSON.stringify({ name, email }))
         })
         .catch ((error) => {
             console.error('Registration error:', error.response?.data || error.message);
@@ -63,7 +80,7 @@ const SignUp = () => {
                     <div className="card signup-login-card p-4">
                         <h2 className="text-center mb-4 signup-login-title"> Sign Up</h2>
 
-                        <Formik initialValues = {{ name: '', email: '', password: '' }} validationSchema = {signUpSchema} onSubmit = {handleSubmit} >
+                        <Formik initialValues = {{ name: '', email: '', userName: '', password: '' }} validationSchema = {signUpSchema} onSubmit = {handleSubmit} >
                             {({ isSubmitting }) => (
                                 <Form>
                                     <div className="mb-3 position-relative">
@@ -76,6 +93,25 @@ const SignUp = () => {
                                         <MdMarkEmailUnread className="icon" />
                                         <ErrorMessage name="email" component="div" className="text-danger mt-1 error-message" />
                                     </div>
+                                    {({ isSubmitting, values, handleChange }) => {
+                                        useEffect(() => {
+                                            if (values.userName.trim().length >= 3) {
+                                                checkUsername(values.userName);
+                                            } else {
+                                                setUsernameAvailable(null);
+                                            }
+                                        }, [values.userName]);
+                                        <div className="mb-3 position-relative">
+                                            <Field type="text" name="userName" placeholder="Enter Username" className="form-control signup-login-input pe-5" onChange={handleChange} />
+                                            <FaUserTie className="icon" />
+                                            <ErrorMessage name="userName" component="div" className="text-danger mt-1 error-message" />
+                                        
+                                            {checking && <div className="text-info mt-1">Checking availability...</div>}
+                                            {usernameAvailable === false && <div className="text-danger mt-1">Username is taken</div>}
+                                            {usernameAvailable === true && <div className="text-success mt-1">Username is available</div>}
+                                        </div>
+                                    }}
+
                                     <div className="mb-3 position-relative">
                                         <Field type="password" name="password" placeholder="Enter Password" className="form-control signup-login-input pe-5" />
                                         <FaLock className='icon' />

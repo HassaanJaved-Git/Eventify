@@ -1,20 +1,54 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Nav, Tab, Row, Col } from "react-bootstrap";
+import { Outlet, useNavigate, useLocation } from "react-router-dom";
 
 const tabItems = [
   { eventKey: "account", title: "Account" },
+  { eventKey: "notifications", title: "Notifications" },
+  { eventKey: "privacy", title: "Privacy" },
+  { eventKey: "security", title: "Security" },
+  { eventKey: "billing", title: "Billing" },
+  { eventKey: "help", title: "Help" },
+  { eventKey: "about", title: "About" },
 ];
 
-
 export default function Settings() {
-  const [activeTab, setActiveTab] = useState("account");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const token = localStorage.getItem("token");
+
+  
+  const [activeTab, setActiveTab] = useState(() => {
+    const path = location.pathname.split("/").pop();
+    return tabItems.some((tab) => tab.eventKey === path) ? path : "account"; 
+  });
+
+  
+  useEffect(() => {
+    if (!token) {
+      navigate("/login", { state: { fromSettings: true } });
+    }
+  }, [token, navigate]);
+
+
+  useEffect(() => {
+    const path = location.pathname.split("/").pop();
+    if (tabItems.some((tab) => tab.eventKey === path)) {
+      setActiveTab(path);
+    }
+  }, [location.pathname]);
 
   return (
-    <div className="container py-5 text-light"style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", minHeight: "100vh", width: "53%" }}
->
+    <div
+      className="container-Fluid py-5 text-light"
+      style={{
+        backgroundColor: "rgba(11, 11, 11, 0.1)",
+        minHeight: "100vh",
+      }}
+    >
       <h2 className="fw-bold mb-4 text-muted">Settings</h2>
 
-      <Tab.Container activeKey={activeTab} onSelect={(k) => setActiveTab(k)}>
+      <Tab.Container activeKey={activeTab}>
         <Row>
           <Col sm={3}>
             <Nav variant="pills" className="flex-column mb-4">
@@ -23,7 +57,14 @@ export default function Settings() {
                   <Nav.Link
                     eventKey={tab.eventKey}
                     className="text-start text-light"
-                    style={{ backgroundColor: activeTab === tab.eventKey ? "#1c1c1c" : "transparent" }}
+                    style={{
+                      backgroundColor:
+                        activeTab === tab.eventKey ? "#1c1c1c" : "transparent",
+                    }}
+                    onClick={() => {
+                      setActiveTab(tab.eventKey);
+                      navigate(`/settings/${tab.eventKey}`);
+                    }}
                   >
                     {tab.title}
                   </Nav.Link>
@@ -33,88 +74,11 @@ export default function Settings() {
           </Col>
           <Col sm={9}>
             <Tab.Content>
-              <Tab.Pane eventKey="account">
-                <AccountForm />
-              </Tab.Pane>
+              <Outlet /> 
             </Tab.Content>
           </Col>
         </Row>
       </Tab.Container>
-    </div>
-  );
-}
-
-function AccountForm() {
-  const [profileImage, setProfileImage] = useState("https://i.imgur.com/bFzCzjW.png");
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setProfileImage(imageUrl);
-    }
-  };
-
-  return (
-    <div>
-      <h5 className="fw-bold mb-3 text-muted ">Your Profile</h5>
-      <p className="text-muted">Choose how you are displayed as a host or guest.</p>
-
-      <div className="row mb-3">
-        <div className="col-md-6 mb-3">
-          <label className="form-label text-muted">First Name</label>
-          <input type="text" className="form-control  text-light border-secondary" defaultValue="Hassan" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)"}} />
-        </div>
-        <div className="col-md-6 mb-3">
-          <label className="form-label text-muted">Last Name</label>
-          <input type="text" className="form-control  text-light border-secondary" defaultValue="Ajmal" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)"}} />
-        </div>
-      </div>
-
-      <div className="mb-3">
-        <label className="form-label text-muted">Username</label>
-        <div className="input-group">
-          <span className="input-group-text  text-secondary border-secondary" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)"}}>@</span>
-          <input type="text" className="form-control  text-light border-secondary" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)"}} />
-        </div>
-      </div>
-
-      <div className="mb-3">
-        <label className="form-label text-muted">Bio</label>
-        <textarea
-          className="form-control  text-light border-secondary"
-          rows="3"
-          placeholder="Share a little about your background and interests."
-          style={{ backgroundColor: "rgba(11, 11, 11, 0.1)"}}
-        ></textarea>
-      </div>
-
-      <div className="mb-4">
-        <label className="form-label text-muted d-block">Profile Picture</label>
-        <div className="position-relative d-inline-block">
-          <img
-            src={profileImage}
-            alt="Profile"
-            className="rounded-circle"
-            width="100"
-            height="100"
-          />
-          <label
-            htmlFor="profileUpload"
-            className="btn btn-light rounded-circle position-absolute"
-            style={{ bottom: 0, right: 0, cursor: 'pointer' }}
-          >
-            ↑
-          </label>
-          <input
-            type="file"
-            id="profileUpload"
-            accept="image/*"
-            onChange={handleImageChange}
-            style={{ display: "none" }}
-          />
-        </div>
-      </div>
     </div>
   );
 }
