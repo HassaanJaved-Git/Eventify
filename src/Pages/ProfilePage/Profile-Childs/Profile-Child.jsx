@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const ChildOfChild = ({ user, image }) => {
+const ChildOfChild = ({ event }) => {
   const [isEnlarged, setIsEnlarged] = useState(false);
 
   const handleShowDetails = () => {
@@ -15,9 +15,9 @@ const ChildOfChild = ({ user, image }) => {
     <>
       {/* Card Component */}
       <div className="card bg-dark text-white" style={{ width: '18rem' }} onClick={handleShowDetails}>
-        <img src={image} className="card-img-top" alt="Event Picture" />
+        <img src={event?.image?.imageURL} className="card-img-top" alt="Event Picture" />
         <div className="card-body">
-          <h5 className="card-title">{user.name}</h5>
+          <h5 className="card-title">{event.title}</h5>
         </div>
       </div>
 
@@ -37,17 +37,22 @@ const ChildOfChild = ({ user, image }) => {
           >
             &times;
           </button>
-          <h3 className="text-2xl font-bold mb-4">{user.name}</h3>
+          <h3 className="text-2xl font-bold mb-4">{event?.title}</h3>
           <img
-            src={image}
+            src={event?.image?.imageURL}
             className="w-full h-64 object-cover rounded mb-4"
             alt="Event Picture"
           />
           <div className="card-text">
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Bio:</strong> {user.bio || 'No bio available.'}</p>
-            <p><strong>Date:</strong> 16 May 2025</p>
-            <p><strong>Last Date:</strong> 17 May 2025</p>
+            <div>
+              {event?.description}
+            </div>
+            <div>
+              {event?.date}
+            </div>
+            <div>
+              {event?.eventType}
+            </div>
           </div>
           <button
             className="btn btn-primary mt-4 w-full"

@@ -8,7 +8,7 @@ const ContentChild1 = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:5000/api/event/") // Replace with your actual backend URL
+    fetch("http://localhost:5000/api/event/")
       .then((res) => res.json())
       .then((data) => {
         setEvents(data.events || []);
@@ -37,8 +37,7 @@ const ContentChild1 = () => {
     description={event.description}
     /* 👇 pick Cloudinary URL when present */
     image={
-      event.image?.imageURL ||
-      `http://localhost:5000/uploads/${event.image?.fileName}`
+      event.image?.imageURL
     }
     date={event.date}
     startTime={event.startTime}

@@ -27,7 +27,6 @@ import SecurityTab from './Component/Settings/Security.jsx';
 import PrivacyTab from './Component/Settings/Privacy.jsx';
 import AccountTab from './Component/Settings/Account.jsx';
 import NotificationsTab from './Component/Settings/notifications.jsx';
-import TicketData from './Component/Tickets/Ticket.jsx'
 
 function App() {
   return (
@@ -65,8 +64,7 @@ function App() {
               <Route path='notifications' element={<NotificationsTab/>}/>
             </Route>
             <Route path="/:userName" element={<ProfilePage />} />
-            <Route path="/404" element={"404"}/>
-               <Route path="/TicketData" element={<TicketData />} />
+            <Route path="/404" element={<Errorpage />}/>
           </Routes>
         </AuthProvider>
       </BrowserRouter>

@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    setIsLoggedIn(!!token); // true if token exists
+    setIsLoggedIn(!!token); 
   }, []);
 
   const login = (token) => {
@@ -18,7 +18,6 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem("token");
-    localStorage.removeItem("user");
     setIsLoggedIn(false);
   };
 
