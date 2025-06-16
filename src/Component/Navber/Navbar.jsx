@@ -21,6 +21,7 @@ const MyNavbar = () => {
         <Navbar.Brand as={Link} to="/" className="text-primary fw-bold">
           Eventify
         </Navbar.Brand>
+        
 
         {/* Toggle for mobile */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -42,6 +43,7 @@ const MyNavbar = () => {
               >
                 Create Event
               </Button>
+              
             )}
 
             {/* User Dropdown or Login */}

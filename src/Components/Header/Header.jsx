@@ -40,6 +40,8 @@ useEffect(() => {
 
         
           <h2 className="text-white">EVENTIFY</h2>
+            <button as={Link} to="/Ticket"variant="outline-primary"className="px-3">Login</button>
+                   
 
       </div>
 

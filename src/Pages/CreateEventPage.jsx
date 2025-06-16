@@ -172,7 +172,23 @@ function CreateEventPage() {
                     ></textarea>
                   </div>
 
+
                   <div className="mb-4">
+  <label className="form-label fw-bold">Event Type</label>
+  <select
+    className="form-select"
+    name="eventType"
+    value={formData.eventType}
+    onChange={handleChange}
+    style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
+  >
+    <option value="public">Public</option>
+    <option value="private">Private</option>
+  </select>
+</div>
+
+
+                  {/* <div className="mb-4">
                     <label className="form-label fw-bold">Event Type</label>
                     <select
                       className="form-select"
@@ -184,7 +200,7 @@ function CreateEventPage() {
                       <option value="in-person">Public</option>
                       <option value="online">Private</option>
                     </select>
-                  </div>
+                  </div> */}
 
                   <div className="mb-4">
                     <label className="form-label fw-bold">Cover Image</label>
