@@ -15,8 +15,6 @@ import Content from './Components/Content/Content'
 import Footer from './Components/Footer/Footer'
 import Header from './Components/Header/Header.jsx';
 
-import UserName from './Component/UserName/UserName'
-
 import { AuthProvider } from "./Context/AuthContext";
 import Settings from './Pages/Setting';
 
@@ -24,11 +22,13 @@ import ProfilePage from './Pages/ProfilePage/ProfilePage.jsx';
 
 function App() {
   return (
-    <Suspense fallback={<div className="d-flex justify-content-center align-items-center vh-100">
-      <div className="spinner-border text-primary">
-        <span className="visually-hidden">Loading...</span>
-      </div>
-    </div>} >
+    <Suspense
+      fallback={
+        <div className="loader-container">
+          <div className="loader"></div>
+        </div>
+      }
+    >
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <BrowserRouter>
         <AuthProvider>
@@ -41,11 +41,10 @@ function App() {
             </layout>} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUp />} />
-            <Route path='/username' element={<UserName />}/>
             <Route path="/create-event" element={<CreateEventPage />} />
             <Route path="/forget-password" element={<ForgetPassword />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/profile" element={<ProfilePage />} />
+            <Route path="/:userName" element={<ProfilePage />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
