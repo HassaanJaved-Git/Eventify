@@ -41,11 +41,14 @@ function App() {
         <AuthProvider>
           <Header />
           <Routes>
-            <Route path="/*" element={"404"}/>
-            <Route path="/" element={<layout>
-              <Content />
-              <Footer />
-            </layout>} />
+            <Route path="/" 
+              element={
+                <layout>
+                  <Content />
+                  <Footer />
+                </layout>
+              } 
+            />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/signup" element={<SignUp />} />
             <Route path="/create-event" element={<CreateEventPage />} />
@@ -60,6 +63,7 @@ function App() {
               <Route path='notification' element={<NotificationsTab/>}/>
             </Route>
             <Route path="/:userName" element={<ProfilePage />} />
+            <Route path="/404" element={"404"}/>
           </Routes>
         </AuthProvider>
       </BrowserRouter>
