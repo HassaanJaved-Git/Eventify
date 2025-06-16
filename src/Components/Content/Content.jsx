@@ -1,7 +1,6 @@
-import {React, useEffect, useState} from 'react'
+import { React } from 'react'
 import '../../Allcss/Content.css'
 import ContentChild1 from './Content-Childs/Content-Child-1'
-import axios from 'axios';
 
 
 const Content = () => {
@@ -18,7 +17,6 @@ const Content = () => {
            </div>
            </div>
 
-              
           <ContentChild1 />
         </div>
     </div>
