@@ -6,3 +6,54 @@
   transform: translate(-50%, -50%);
   font-size: 24px;
 }
+
+.profile-events-list{
+  display: grid;
+  grid-template-columns: 32% 32% 32%;
+  gap: 17px;
+}
+
+.overlay {
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.overlay-show {
+  pointer-events: auto;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.overlay-hide {
+  pointer-events: none;
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+
+
+.loader-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f4f6f8;
+}
+
+.loader {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: conic-gradient(#007bff 0deg, #ffffff 90deg);
+  animation: rotate 1s linear infinite;
+  mask: radial-gradient(farthest-side, transparent calc(100% - 10px), black 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 10px), black 0);
+}
+
+@keyframes rotate {
+  to {
+    transform: rotate(1turn);
+  }
+}
