@@ -91,7 +91,7 @@ useEffect(() => {
               </button>
           ) : (
             <>
-              <button  type="button" className="btn btn-outline-light btn-sm me-3" onClick={() => navigate('/settings')}>
+              <button  type="button" className="btn btn-outline-light btn-sm me-3" onClick={() => navigate('/settings/account')}>
                 Settings
               </button>
               <button type="button" className="btn btn-sm me-3" onClick={() => navigate(`/${userName?.userName}`)}>

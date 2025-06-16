@@ -40,11 +40,10 @@ export default function Settings() {
 
   return (
     <div
-      className="container py-5 text-light"
+      className="container-Fluid py-5 text-light"
       style={{
         backgroundColor: "rgba(11, 11, 11, 0.1)",
         minHeight: "100vh",
-        width: "53%",
       }}
     >
       <h2 className="fw-bold mb-4 text-muted">Settings</h2>
