@@ -2,6 +2,10 @@
     background-color: rgb(19, 21, 23);
 }
 
+.main-container{
+  height: 100vh;
+}
+
 .empty-image{
     height: 200px;
     margin: auto;
