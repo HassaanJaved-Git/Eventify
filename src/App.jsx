@@ -17,6 +17,7 @@ import Header from './Components/Header/Header.jsx';
 
 import { AuthProvider } from "./Context/AuthContext";
 import Settings from './Pages/Setting';
+import Errorpage from './Pages/ErrorPage.jsx'
 
 import ProfilePage from './Pages/ProfilePage/ProfilePage.jsx';
 import AboutTab from './Component/Settings/About.jsx';
@@ -25,7 +26,7 @@ import BillingTab from './Component/Settings/Billing.jsx';
 import SecurityTab from './Component/Settings/Security.jsx';
 import PrivacyTab from './Component/Settings/Privacy.jsx';
 import AccountTab from './Component/Settings/Account.jsx';
-import NotificationsTab from './Component/Settings/Notifications.jsx';
+import NotificationsTab from './Component/Settings/notifications.jsx';
 
 function App() {
   return (
@@ -60,7 +61,7 @@ function App() {
               <Route path='security' element={<SecurityTab/>}/>
               <Route path='privacy' element={<PrivacyTab/>}/>
               <Route path='account' element={<AccountTab/>}/>
-              <Route path='notification' element={<NotificationsTab/>}/>
+              <Route path='notifications' element={<NotificationsTab/>}/>
             </Route>
             <Route path="/:userName" element={<ProfilePage />} />
             <Route path="/404" element={"404"}/>
