@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Navbar, Nav, Container, Button, Dropdown, Image } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import Background from "three/src/renderers/common/Background.js";
+// import Background from "three/src/renderers/common/Background.js";
 
 import { AuthContext } from "../../Context/AuthContext"; // Make sure casing is correct
-
+import './Navber.css'
 const MyNavbar = () => {
   const { isLoggedIn, logout } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -25,11 +25,11 @@ const MyNavbar = () => {
         {/* Toggle for mobile */}
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-        <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
-          <Nav className="me-auto" />
+        <Navbar.Collapse id="basic-navbar-nav" className="">
+          <Nav className="" />
 
           {/* Right side */}
-          <div className="d-flex align-items-center gap-3">
+          <div className="">
             {/* Create Event button if logged in */}
             {isLoggedIn && (
               <Button

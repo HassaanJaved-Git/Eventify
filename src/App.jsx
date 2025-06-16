@@ -7,7 +7,7 @@ import { GoogleOAuthProvider } from "@react-oauth/google";
 
 const SignUp = lazy(()=>import('./Component/SignUp/SignUp'));
 const LoginPage = lazy(()=>import('./Component/Login/Login'));
-const Dashboard = lazy(()=>import('./Component/Dashboard/dashboard'));
+// const Dashboard = lazy(()=>import('./Component/Dashboard/dashboard'));
 const CreateEventPage = lazy(()=>import('./Pages/CreateEventPage'));
 const ForgetPassword = lazy(()=>import('./Component/Forget-Password/ForgetPassword'))
 
