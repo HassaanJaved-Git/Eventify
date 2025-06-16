@@ -8,7 +8,7 @@ const ContentChild1 = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetch("http://localhost:5000/api/event/") // Replace with your actual backend URL
+    fetch("http://localhost:5000/api/event/")
       .then((res) => res.json())
       .then((data) => {
         setEvents(data.events || []);

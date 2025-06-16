@@ -1,32 +1,29 @@
-import {React, useState, useEffect, useContext } from 'react'
+import {React, useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 import '../../Allcss/Header.css'
 import axios from 'axios';
-// import user from '../../assets/user.png'
+import defaultUserPic from '../../assets/user.png'
 import logo from '../../assets/webLogo.png'
-
-import { AuthContext } from '../../Context/AuthContext'
 
 const Header = () => {
   const navigate = useNavigate();
   const [userName, setUserName] = useState('');
-  const { user } = useContext(AuthContext);
+  const [ profileImageURL, setProfileImageURL ] = useState('');
 
   const token = localStorage.getItem('token');
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log("Token =====>>> " + token);
     const fetchUserName = async (token) => {
       try {
         if (token) {
-          const response = await axios.get('http://localhost:5000/api/user/getUserName', {
+          const response = await axios.get('http://localhost:5000/api/user/get-UserName-ProfilePic', {
             headers: {
               Authorization: `Bearer ${token}`
             }
           });
-          console.log('User Name:', response);
           setUserName(response.data.userName);
+          setProfileImageURL(response.data.profileImageURL);
         }
       } catch (error) {
         console.error('Error fetching userName:', error.response?.data || error.message);
@@ -34,7 +31,7 @@ const Header = () => {
     };
 
     fetchUserName(token);
-  }, [token] );
+  }, [] );
 
   const createEvent  = () => {
     if (!token) {
@@ -94,8 +91,8 @@ useEffect(() => {
               <button  type="button" className="btn btn-outline-light btn-sm me-3" onClick={() => navigate('/settings')}>
                 Settings
               </button>
-              <button type="button" className="btn btn-sm me-3" onClick={() => navigate(`/${userName?.userName}`)}>
-                <img className="w-7 rounded-circle" src={user?.profileImage || '/default-avatar.png'} alt="User profile" />
+              <button type="button" className="btn btn-sm me-3" onClick={() => navigate(`/${userName}`)}>
+                <img className="w-7 rounded-circle" src={profileImageURL || defaultUserPic } alt="User profile" />
               </button>
             </>
           )}
