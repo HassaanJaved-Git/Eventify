@@ -64,7 +64,7 @@ function App() {
               <Route path='notifications' element={<NotificationsTab/>}/>
             </Route>
             <Route path="/:userName" element={<ProfilePage />} />
-            <Route path="/404" element={"404"}/>
+            <Route path="/404" element={<Errorpage />}/>
           </Routes>
         </AuthProvider>
       </BrowserRouter>
