@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from "react";
 import axios from 'axios';
-import { useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
 import { Container, Navbar, Card } from "react-bootstrap";
 import { FaCalendarAlt } from "react-icons/fa";
 
@@ -12,6 +11,7 @@ import SkeletonCard from "../../Components/Content/Content-Childs/Child1-Childs/
 import ChildOfChild from "./Profile-Childs/Profile-Child";
 
 const ProfilePage = () => {
+  const navigate = useNavigate()
   const { userName } = useParams();
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
@@ -23,7 +23,11 @@ const ProfilePage = () => {
         const res = await axios.get(`http://localhost:5000/api/user/${userName}`);
         setData(res.data); 
       } catch (err) {
-        console.error("Error fetching user data:", err);
+        if (err.response && err.response.status === 404) {
+          navigate('/404');
+        } else {
+          console.error("Error fetching user data:", err);
+        }
       } finally {
         setLoading(false);
       }
