@@ -119,7 +119,7 @@ function CreateEventPage() {
     <ToastContainer position="top-center" autoClose={3000} theme="colored" />
     <div className="container w-50">
       <div className="row justify-content-center">
-        <div className="col-12 col-lg-8">
+        <div className="col-12 col-lg-12">
           <div className="rounded-4 shadow p-4 p-md-5" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)" }}>
             <h1 className="fw-bold mb-4">Create New Event</h1>
 
