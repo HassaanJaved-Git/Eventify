@@ -1,19 +1,16 @@
-import React, { useState } from 'react';
-const Child1Child = ({ title, description, image, date, startTime, endTime, organizer, location }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
+import React from 'react';
+
+const Child1Child = ({ id, title, description, image, date, startTime, endTime, organizer, location, expandedEventId, setExpandedEventId }) => {
+  const isExpanded = expandedEventId === id;
 
   const toggleExpand = () => {
-    setIsExpanded(!isExpanded);
+    setExpandedEventId(isExpanded ? null : id);
   };
 
   return (
-    <div
-      className={`card mb-3 text-light ${isExpanded ? 'expanded-card' : ''}`}
-      style={{ cursor: 'pointer', minHeight: '250px' }}
-      onClick={toggleExpand}
-    >
+    <div className={`card mb-3 text-light ${isExpanded ? 'expanded-card' : ''}`} style={{ cursor: 'pointer', minHeight: '250px' }} onClick={toggleExpand} >
       <div className="row g-0">
-        <div className="col-md-4" style={{ height: '250px'}}>
+        <div className="col-md-4" style={{ height: '250px' }}>
           <img style={{ height: '100%' }} src={image} className="img-fluid rounded-start" alt="Event" />
         </div>
         <div className="col-md-8">
