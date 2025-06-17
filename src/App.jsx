@@ -27,6 +27,7 @@ import SecurityTab from './Component/Settings/Security.jsx';
 import PrivacyTab from './Component/Settings/Privacy.jsx';
 import AccountTab from './Component/Settings/Account.jsx';
 import NotificationsTab from './Component/Settings/notifications.jsx';
+import Ticket from './Component/Tickets/Ticket.jsx'
 
 function App() {
   return (
@@ -65,6 +66,7 @@ function App() {
             </Route>
             <Route path="/:userName" element={<ProfilePage />} />
             <Route path="/404" element={<Errorpage />}/>
+             <Route path="/TicketData" element={<Ticket />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
