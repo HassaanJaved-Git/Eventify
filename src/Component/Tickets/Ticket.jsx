@@ -1,7 +1,7 @@
 import React from 'react';
 import './Tickets.css'; // Ensure this CSS file is correctly linked
 
-const Apps = () => {
+const Ticket = () => {
   const TicketData = {
     title: 'Cyberfest 2025',
     date: 'May 3, 2025, 9:00 AM GMT+5',
@@ -74,4 +74,4 @@ const Apps = () => {
   );
 };
 
-export default Apps;
+export default Ticket;
