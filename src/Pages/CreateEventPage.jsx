@@ -117,7 +117,7 @@ function CreateEventPage() {
   return (
     <>
     <ToastContainer position="top-center" autoClose={3000} theme="colored" />
-    <div className="container w-50">
+    <div className="m-auto w-50">
       <div className="row justify-content-center">
         <div className="col-12 col-lg-12">
           <div className="rounded-4 shadow p-4 p-md-5" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)" }}>
@@ -232,18 +232,6 @@ function CreateEventPage() {
                     />
                   </div>
 
-                  {/* <div className="mb-4">
-                    <label className="form-label fw-bold">End Date</label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      name="endDate"
-                      value={formData.endDate}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div> */}
-
                   <div className="mb-4">
                     <label className="form-label fw-bold">End Time</label>
                     <input
@@ -312,7 +300,7 @@ function CreateEventPage() {
                       name="country"
                       value={formData.country}
                       onChange={handleChange}
-                      placeholder="e.g. India, USA"
+                      placeholder="e.g. Pakistan, USA"
                       required
                     />
                   </div>
