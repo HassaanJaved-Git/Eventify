@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 const Child1Child = ({ title, description, image, date, startTime, endTime, organizer, location }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -10,12 +9,12 @@ const Child1Child = ({ title, description, image, date, startTime, endTime, orga
   return (
     <div
       className={`card mb-3 text-light ${isExpanded ? 'expanded-card' : ''}`}
-      style={{ cursor: 'pointer' }}
+      style={{ cursor: 'pointer', minHeight: '250px' }}
       onClick={toggleExpand}
     >
       <div className="row g-0">
-        <div className="col-md-4">
-          <img src={image} className="img-fluid rounded-start" alt="Event" />
+        <div className="col-md-4" style={{ height: '250px'}}>
+          <img style={{ height: '100%' }} src={image} className="img-fluid rounded-start" alt="Event" />
         </div>
         <div className="col-md-8">
           <div className="card-body">

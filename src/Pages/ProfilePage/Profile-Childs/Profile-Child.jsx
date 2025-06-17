@@ -15,7 +15,7 @@ const ChildOfChild = ({ event }) => {
     <>
       {/* Card Component */}
       <div className="card bg-dark text-white" style={{ width: '18rem' }} onClick={handleShowDetails}>
-        <img src={event?.image?.imageURL} className="card-img-top" alt="Event Picture" />
+        <img src={event?.image?.imageURL} className="card-img-top" alt="Event Picture" style={{ height: '150px' }} />
         <div className="card-body">
           <h5 className="card-title">{event.title}</h5>
         </div>
