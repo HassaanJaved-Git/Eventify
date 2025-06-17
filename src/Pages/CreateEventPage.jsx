@@ -34,6 +34,34 @@ function CreateEventPage() {
     price: 0,
   });
 
+
+  const validateStep = (currentStep) => {
+    if (currentStep === 1) {
+      if (!formData.title.trim()) return "Event Title is required";
+      if (!formData.description.trim()) return "Description is required";
+      if (!formData.eventType) return "Event Type is required";
+      return "";
+    }
+    if (currentStep === 2) {
+      if (!formData.eventDate) return "Event Date is required";
+      if (!formData.startTime) return "Start Time is required";
+      if (!formData.endTime) return "End Time is required";
+      if (!formData.address.trim()) return "Address is required";
+      if (!formData.city.trim()) return "City is required";
+      if (!formData.state.trim()) return "State is required";
+      if (!formData.zipCode.trim()) return "Zip Code is required";
+      if (!formData.country.trim()) return "Country is required";
+      return "";
+    }
+    if (currentStep === 3) {
+      if (!formData.capacity || formData.capacity < 1) return "Capacity must be at least 1";
+      if (formData.price < 0) return "Price cannot be negative";
+      return "";
+    }
+    return "";
+  };
+
+
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
     setFormData(prev => ({
@@ -43,6 +71,11 @@ function CreateEventPage() {
   };
 
   const handleNextStep = () => {
+    const errorMessage = validateStep(step);
+    if (errorMessage) {
+      toast.error(errorMessage, { position: 'top-center' });
+      return;
+    }
     setStep(step + 1);
     window.scrollTo(0, 0);
   };
@@ -53,8 +86,14 @@ function CreateEventPage() {
   };
 
   const handleSubmit = async (e) => {
+    const errorMessage = validateStep(step);
+    if (errorMessage) {
+      toast.error(errorMessage, { position: 'top-center' });
+      return;
+    }
     e.preventDefault();
     setIsSubmitting(true);
+
 
     const token = localStorage.getItem("token");
 
@@ -180,6 +219,7 @@ function CreateEventPage() {
                       value={formData.eventType}
                       onChange={handleChange}
                       style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
+                      required
                     >
                       <option value="in-person">Public</option>
                       <option value="online">Private</option>
@@ -289,6 +329,7 @@ function CreateEventPage() {
                       name="zipCode"
                       value={formData.zipCode}
                       onChange={handleChange}
+                      required
                     />
                   </div>
 
