@@ -7,7 +7,7 @@ import './Account.css';
 
 const ProfileForm = () => {
   const [previewImage, setPreviewImage] = useState(null);
-  const [userData, setUserData] = useState(  {name: '',
+  const [userData, setUserData] = useState(  {name: '',   
   userName: '',
   bio: '',
   profileImageURL: ''});
