@@ -9,7 +9,7 @@ import './Account.css'; // Ensure this CSS file is created
 // ProfileForm component
 const ProfileForm = () => {
   const [previewImage, setPreviewImage] = useState(null);
-  const [userData, setUserData] = useState(  {name: '',
+  const [userData, setUserData] = useState(  {name: '',   
   userName: '',
   bio: '',
   profileImageURL: ''});
