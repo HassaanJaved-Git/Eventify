@@ -197,8 +197,10 @@ const AccountTab = () => {
   return (
     <div className="account-container">
       <ProfileForm />
+      <p>Wanna Logout</p>
       <button className="btn btn-danger mb-3 mt-4" onClick={logout}>Logout</button>
       <hr />
+      <p>Wanna Del your Acc</p>
       <button className="btn btn-danger mb-3" onClick={delAccount}>Delete Account</button>
     </div>
   );
