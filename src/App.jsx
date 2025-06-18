@@ -66,7 +66,7 @@ function App() {
             </Route>
             <Route path="/:userName" element={<ProfilePage />} />
             <Route path="/404" element={<Errorpage />}/>
-             <Route path="/TicketData" element={<Ticket />} />
+              <Route path="/TicketData" element={<Ticket />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
