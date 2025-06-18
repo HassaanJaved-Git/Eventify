@@ -160,4 +160,47 @@ const ProfileForm = () => {
   );
 };
 
-export default ProfileForm;
+// AccountTab component
+const AccountTab = () => {
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    navigate("/login", {
+      state: { fromSettings: true }
+    });
+  };
+
+  const delAccount = async () => {
+    const token = localStorage.getItem("token");
+    const userConfirmed = window.confirm("Are you sure you want to delete your account?");
+    if (userConfirmed) {
+      try {
+        await axios.delete("http://localhost:5000/api/user/delete", {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+        localStorage.removeItem("token");
+        logout();
+      } catch (error) {
+        console.error("Error deleting account:", error);
+        alert("Failed to delete account. Please try again later.");
+      }
+    }
+  };
+
+  return (
+    <div className="account-container">
+      <ProfileForm />
+      <p>Wanna Logout</p>
+      <button className="btn btn-danger mb-3 mt-4" onClick={logout}>Logout</button>
+      <hr />
+      <p>Wanna Del your Acc</p>
+      <button className="btn btn-danger mb-3" onClick={delAccount}>Delete Account</button>
+    </div>
+  );
+};
+
+export default AccountTab;
