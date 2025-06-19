@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import { toast } from 'react-toastify';
+import defaultUserPic from '../../assets/user.png'; // Default user image
 import './Account.css';
 
 const ProfileForm = () => {
