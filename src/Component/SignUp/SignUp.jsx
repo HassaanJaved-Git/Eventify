@@ -28,12 +28,14 @@ const SignUp = () => {
   // Debounced username check
   const checkUsername = useCallback(
     debounce(async (username) => {
+         setChecking(true);
       try {
-        setChecking(true);
         const res = await axios.post('http://localhost:5000/api/user/check-username', {
           userName: username,
         });
+        if (username === watchedUsername) {
         setUsernameAvailable(res.data.available);
+      }
       } catch (err) {
         console.error("Check username error", err);
         setUsernameAvailable(false);
@@ -41,13 +43,14 @@ const SignUp = () => {
         setChecking(false);
       }
     }, 500),
-    []
+    [watchedUsername]
   );
 
   // Reactively check username on change
   useEffect(() => {
-    if (watchedUsername.trim().length >= 3) {
-      checkUsername(watchedUsername);
+    const currentCheck = watchedUsername.trim();
+    if (currentCheck.length >= 3) {
+      checkUsername(currentCheck);
     } else {
       setUsernameAvailable(null);
     }
@@ -72,8 +75,12 @@ const SignUp = () => {
   });
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    axios
-      .post('http://localhost:5000/api/user/register', values)
+    if (usernameAvailable === false) {
+    toast.error('Username is already taken.', { position: 'top-center' });
+    setSubmitting(false);
+    return;
+  }
+    axios.post('http://localhost:5000/api/user/register', values)
       .then((response) => {
         toast.success('User registered successfully!', {
           position: 'top-center',
@@ -111,7 +118,7 @@ const SignUp = () => {
               validationSchema={signUpSchema}
               onSubmit={handleSubmit}
             >
-              {({ isSubmitting, values, handleChange }) => (
+              {({ isSubmitting, handleChange }) => (
                 <Form>
                   <div className="mb-3 position-relative">
                     <Field
