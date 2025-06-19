@@ -28,7 +28,7 @@ const SignUp = () => {
   // Debounced username check
   const checkUsername = useCallback(
     debounce(async (username) => {
-         setChecking(true);
+      setChecking(true);
       try {
         const res = await axios.post('http://localhost:5000/api/user/check-username', {
           userName: username,
@@ -76,10 +76,10 @@ const SignUp = () => {
 
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     if (usernameAvailable === false) {
-    toast.error('Username is already taken.', { position: 'top-center' });
-    setSubmitting(false);
-    return;
-  }
+      toast.error('Username is already taken.', { position: 'top-center' });
+      setSubmitting(false);
+      return;
+    }
     axios.post('http://localhost:5000/api/user/register', values)
       .then((response) => {
         toast.success('User registered successfully!', {
@@ -151,9 +151,6 @@ const SignUp = () => {
                       onChange={(e) => {
                         handleChange(e);
                         setWatchedUsername(e.target.value);
-
-
-                        
                       }}
                     />
                     <FaUserTie className="icon" />
