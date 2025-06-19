@@ -2,12 +2,9 @@ import React, { useState, useEffect } from 'react'; // Added useState import
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import defaultUserPic from '../../assets/user.png'; // Ensure this image exists
-import './Account.css'; // Ensure this CSS file is created
+import { toast } from 'react-toastify';
+import './Account.css';
 
-// ProfileForm component
 const ProfileForm = () => {
   const [previewImage, setPreviewImage] = useState(null);
   const [userData, setUserData] = useState(  {name: '',   
@@ -77,7 +74,7 @@ const ProfileForm = () => {
 
   return (
     <div className="container">
-      <div className="profile-card" >
+      <div className="profile-card">
         <h2 className="title">Your Profile</h2>
         <p className="subtitle">Choose how you are displayed as a host or guest.</p>
         <Formik initialValues={userData} onSubmit={handleSubmit} enableReinitialize={true}>
@@ -159,7 +156,6 @@ const ProfileForm = () => {
           )}
         </Formik>
       </div>
-      <ToastContainer />
     </div>
   );
 };
