@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Formik, Form, Field } from 'formik';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import defaultUserPic from '../../assets/user.png'; // Ensure this image exists
 import './Account.css'; // Ensure this CSS file is created
 
 // ProfileForm component
@@ -30,7 +31,7 @@ const ProfileForm = () => {
           name: data.name || '',
           userName: data.userName || '',
           bio: data.bio || '',
-          profileImageURL: data.profileImageURL || ''
+          profileImageURL: data.profileImageURL || defaultUserPic // Default image path
         });
 
         setPreviewImage(data.profileImageURL);
