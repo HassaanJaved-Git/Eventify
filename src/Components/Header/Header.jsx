@@ -17,7 +17,7 @@ const Header = () => {
     const fetchUserName = async (token) => {
       try {
         if (token) {
-          const response = await axios.get('http://localhost:5000/api/user/get-UserName-ProfilePic', {
+          const response = await axios.get('http://localhost:5000/api/user/get-Name-Email-UserName-ProfilePic', {
             headers: {
               Authorization: `Bearer ${token}`
             }
@@ -50,7 +50,6 @@ const Header = () => {
   }) 
 
 useEffect(() => {
-    
     const intervalId = setInterval(() => {
       const now = new Date();
       updateTime({
