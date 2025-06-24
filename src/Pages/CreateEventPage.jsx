@@ -178,7 +178,7 @@ function CreateEventPage() {
                 ></div>
               </div>
               <div className="d-flex justify-content-between mt-2">
-                <span className={`small ${step >= 1 ? 'fw-bold' : 'text-muted'}`}>Basic Info</span>
+                <span className={`small  ${step >= 1 ? 'fw-bold' : 'text-muted'}`}>Basic Info</span>
                 <span className={`small ${step >= 2 ? 'fw-bold' : 'text-muted'}`}>Date & Location</span>
                 <span className={`small ${step >= 3 ? 'fw-bold' : 'text-muted'}`}>Settings</span>
               </div>
