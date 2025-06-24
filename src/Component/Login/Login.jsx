@@ -62,9 +62,9 @@ const Login = () => {
       <ToastContainer position="top-center" autoClose={3000} theme="colored" />
 
       <div className="signup-login-background">
-        <div className="col-12 h-100 d-flex align-items-center justify-content-center">
-          <div className="card login-card p-4">
-            <h2 className="text-center mb-4 login-title">Login</h2>
+        <div className="container h-100 d-flex align-items-center justify-content-center">
+          <div className="card col-12 login-card p-4">
+            <h2 className="text-center text-white mb-4 login-title">Login</h2>
 
             <Formik initialValues={{ email: '', password: '' }} validationSchema={loginSchema} onSubmit={handleSubmit} >
             

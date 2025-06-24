@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -155,6 +156,9 @@ function CreateEventPage() {
 
   return (
     <>
+    <Helmet>
+      <title>Create Event</title>
+    </Helmet>
     <ToastContainer position="top-center" autoClose={3000} theme="colored" />
     <div className="m-auto w-50">
       <div className="row justify-content-center">
@@ -174,7 +178,7 @@ function CreateEventPage() {
                 ></div>
               </div>
               <div className="d-flex justify-content-between mt-2">
-                <span className={`small ${step >= 1 ? 'fw-bold' : 'text-muted'}`}>Basic Info</span>
+                <span className={`small  ${step >= 1 ? 'fw-bold' : 'text-muted'}`}>Basic Info</span>
                 <span className={`small ${step >= 2 ? 'fw-bold' : 'text-muted'}`}>Date & Location</span>
                 <span className={`small ${step >= 3 ? 'fw-bold' : 'text-muted'}`}>Settings</span>
               </div>
