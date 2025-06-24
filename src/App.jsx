@@ -11,9 +11,10 @@ const LoginPage = lazy(()=>import('./Component/Login/Login'));
 const CreateEventPage = lazy(()=>import('./Pages/CreateEventPage'));
 const ForgetPassword = lazy(()=>import('./Component/Forget-Password/ForgetPassword'))
 
+import Layout from './Component/Layout/Layout';
+
 import Content from './Components/Content/Content'
-import Footer from './Components/Footer/Footer'
-import Header from './Components/Header/Header.jsx';
+
 
 import { AuthProvider } from "./Context/AuthContext";
 import Settings from './Pages/Setting';
@@ -41,32 +42,26 @@ function App() {
     <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
       <BrowserRouter>
         <AuthProvider>
-          <Header />
           <Routes>
-            <Route path="/" 
-              element={
-                <layout>
-                  <Content />
-                  <Footer />
-                </layout>
-              } 
-            />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/create-event" element={<CreateEventPage />} />
-            <Route path="/forget-password" element={<ForgetPassword />} />
-            <Route path="/settings" element={<Settings />}>
-              <Route path='about' element={<AboutTab/>}/>
-              <Route path='help' element={<HelpTab/>}/>
-              <Route path='billing' element={<BillingTab/>}/>
-              <Route path='security' element={<SecurityTab/>}/>
-              <Route path='privacy' element={<PrivacyTab/>}/>
-              <Route path='account' element={<AccountTab/>}/>
-              <Route path='notifications' element={<NotificationsTab/>}/>
+            <Route path="/" element={<Layout/>} >
+              <Route index element={<Content />} />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/create-event" element={<CreateEventPage />} />
+              <Route path="/forget-password" element={<ForgetPassword />} />
+              <Route path="/settings" element={<Settings />}>
+                <Route path='about' element={<AboutTab/>}/>
+                <Route path='help' element={<HelpTab/>}/>
+                <Route path='billing' element={<BillingTab/>}/>
+                <Route path='security' element={<SecurityTab/>}/>
+                <Route path='privacy' element={<PrivacyTab/>}/>
+                <Route path='account' element={<AccountTab/>}/>
+                <Route path='notifications' element={<NotificationsTab/>}/>
+              </Route>
+              <Route path="/:userName" element={<ProfilePage />} />
+              <Route path="/404" element={<Errorpage />}/>
+              <Route path="/ticketData" element={<Ticket />} />
             </Route>
-            <Route path="/:userName" element={<ProfilePage />} />
-            <Route path="/404" element={<Errorpage />}/>
-              <Route path="/TicketData" element={<Ticket />} />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
