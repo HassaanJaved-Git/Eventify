@@ -15,7 +15,8 @@ const SecurityTab = () => {
       try {
         const token = localStorage.getItem('token');
         const response = await axios.get('http://localhost:5000/api/user/get-Name-Email-UserName-ProfilePic', {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}`,
+         withCredentials: true  },
         });
         setEmail(response.data.email);
       } catch (err) {
@@ -39,6 +40,7 @@ const SecurityTab = () => {
 
       const response = await axios.post(
         'http://localhost:5000/api/user/send-OTP-with-Token',
+        {},
         {
           headers: { Authorization: `Bearer ${token}` },
           withCredentials: true 

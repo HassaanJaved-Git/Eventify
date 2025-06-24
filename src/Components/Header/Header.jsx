@@ -50,7 +50,6 @@ const Header = () => {
   }) 
 
 useEffect(() => {
-    
     const intervalId = setInterval(() => {
       const now = new Date();
       updateTime({
