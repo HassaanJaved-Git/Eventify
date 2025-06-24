@@ -240,14 +240,13 @@ const ProfileForm = () => {
 
 // AccountTab component
 const AccountTab = () => {
+  
+  const { logout } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
-    navigate("/login", {
-      state: { fromSettings: true }
-    });
+  const handleLogout  = () => {
+    logout();
+    navigate('/login');
   };
 
   const delAccount = async () => {
@@ -273,7 +272,7 @@ const AccountTab = () => {
     <div className="account-container">
       <ProfileForm />
       <p>Wanna Logout</p>
-      <button className="btn btn-danger mb-3 mt-4" onClick={logout}>Logout</button>
+      <button className="btn btn-danger mb-3 mt-4" onClick={handleLogout}>Logout</button>
       <hr />
       <p>Wanna Del your Acc</p>
       <button className="btn btn-danger mb-3" onClick={delAccount}>Delete Account</button>
