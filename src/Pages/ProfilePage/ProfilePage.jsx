@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Navbar, Card } from "react-bootstrap";
 import { FaCalendarAlt } from "react-icons/fa";
-
+import { Helmet } from "react-helmet";
 
 import defaultUserPic from '../../assets/user.png'
 
@@ -38,6 +38,10 @@ const ProfilePage = () => {
 
   return (
     <>
+      <Helmet>
+        <title>Profile</title>
+      </Helmet>
+
       <div className=" text-white my-4">
         <Container
           className="d-flex justify-content-center "

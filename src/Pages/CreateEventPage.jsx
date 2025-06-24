@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -155,6 +156,9 @@ function CreateEventPage() {
 
   return (
     <>
+    <Helmet>
+      <title>Create Event</title>
+    </Helmet>
     <ToastContainer position="top-center" autoClose={3000} theme="colored" />
     <div className="m-auto w-50">
       <div className="row justify-content-center">

@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react'; // Added useState import
+import React, { useCallback, useState, useEffect, useContext } from 'react'; // Added useState import
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
@@ -10,7 +10,10 @@ import debounce from 'lodash.debounce';
 import 'react-toastify/dist/ReactToastify.css';
 import './Account.css';
 
+import { AuthContext } from "../../Context/AuthContext";
+
 const ProfileForm = () => {
+  const { refreshUserData } = useContext(AuthContext);
   const [previewImage, setPreviewImage] = useState(null);
   const [userData, setUserData] = useState({
     name: '',   
@@ -120,6 +123,7 @@ const ProfileForm = () => {
         },
       });
       toast.success('Profile updated successfully');
+      refreshUserData();
       fetchUserData();
     } catch (error) {
       console.error('Update failed:', error);
