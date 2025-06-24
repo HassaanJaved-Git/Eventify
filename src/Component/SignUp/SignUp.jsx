@@ -78,7 +78,7 @@ const SignUp = () => {
             <div className="signup-login-background">
                 <div className="col-12 h-100 d-flex align-items-center justify-content-center">
                     <div className="card signup-login-card p-4">
-                        <h2 className="text-center mb-4 signup-login-title"> Sign Up</h2>
+                        <h2 className="text-center mb-4 text-white signup-login-title"> Sign Up</h2>
 
                         <Formik initialValues = {{ name: '', email: '', userName: '', password: '' }} validationSchema = {signUpSchema} onSubmit = {handleSubmit} >
                             {({ isSubmitting }) => (
