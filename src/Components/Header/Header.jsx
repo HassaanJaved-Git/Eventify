@@ -1,47 +1,61 @@
-import {React, useState, useEffect } from 'react'
+import {React, useState, useEffect, useContext } from 'react'
 import { useNavigate } from "react-router-dom";
 import '../../Allcss/Header.css'
-import axios from 'axios';
 import defaultUserPic from '../../assets/user.png'
 import logo from '../../assets/webLogo.png'
 
+import { AuthContext } from '../../Context/AuthContext';
+
 const Header = () => {
+  const { isLoggedIn, user } = useContext(AuthContext);
+
   const navigate = useNavigate();
-  const [userName, setUserName] = useState('');
-  const [ profileImageURL, setProfileImageURL ] = useState('');
+  // const [userName, setUserName] = useState('');
+  // const [ profileImageURL, setProfileImageURL ] = useState('');
+  // const [token, setToken] = useState(localStorage.getItem('token'));
 
-  const token = localStorage.getItem('token');
+  // useEffect(() => {
+  //   const handleStorageChange = () => {
+  //     const newToken = localStorage.getItem('token');
+  //     setToken(newToken);
+  //   };
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    const fetchUserName = async (token) => {
-      try {
-        if (token) {
-          const response = await axios.get('http://localhost:5000/api/user/get-Name-Email-UserName-ProfilePic', {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-          setUserName(response.data.userName);
-          setProfileImageURL(response.data.profileImageURL);
-        }
-      } catch (error) {
-        console.error('Error fetching userName:', error.response?.data || error.message);
-      }
-    };
+  //   window.addEventListener('storage', handleStorageChange);
 
-    fetchUserName(token);
-  }, [] );
+  //   // Optional: You can trigger setToken from login/logout too if both are in React
+  //   return () => window.removeEventListener('storage', handleStorageChange);
+  // }, []);
 
-  const createEvent  = () => {
-    if (!token) {
-      navigate('/login', {
-        state: { fromCreateEvent: true }
-      });
+  // useEffect(() => {
+  //   const fetchUserInfo = async () => {
+  //     if (!token) {
+  //       setUserName('');
+  //       setProfileImageURL('');
+  //       return;
+  //     }
+
+  //     try {
+  //       const res = await axios.get('http://localhost:5000/api/user/get-Name-Email-UserName-ProfilePic', {
+  //         headers: { Authorization: `Bearer ${token}` }
+  //       });
+
+  //       setUserName(res.data.userName);
+  //       setProfileImageURL(res.data.profileImageURL);
+  //     } catch (err) {
+  //       console.error('Error fetching user info:', err);
+  //     }
+  //   };
+
+  //   fetchUserInfo();
+  // }, [token]);
+
+  const createEvent = () => {
+    if (!isLoggedIn) {
+      navigate("/login", { state: { fromCreateEvent: true } });
     } else {
-      navigate('/create-event');
+      navigate("/create-event");
     }
-  }
+  };
 
   const [time,updateTime] = useState({
     hours:'00',
@@ -82,7 +96,7 @@ useEffect(() => {
           <button type="button" className="btn btn-outline-light btn-sm me-3" onClick={createEvent}>
             Create Event
           </button>
-          {!token ? (
+          {!isLoggedIn  ? (
               <button type="button" className="btn btn-outline-light btn-sm me-3" onClick={() => navigate('/login')}>
                 Login
               </button>
@@ -91,8 +105,8 @@ useEffect(() => {
               <button  type="button" className="btn btn-outline-light btn-sm me-3" onClick={() => navigate('/settings/account')}>
                 Settings
               </button>
-              <button type="button" className="btn btn-sm me-3" onClick={() => navigate(`/${userName}`)}>
-                <img className="w-7 rounded-circle" src={profileImageURL || defaultUserPic } alt="User profile" />
+              <button type="button" className="btn btn-sm me-3" onClick={() => navigate(`/${user?.userName}`)}>
+                <img className="w-7 rounded-circle" src={user?.profileImageURL || defaultUserPic} alt="User profile" />
               </button>
             </>
           )}
