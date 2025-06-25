@@ -13,8 +13,10 @@ const VerifyOTP = ({ setShowOTPComponent }) => {
       const res = await axios.post(
         'http://localhost:5000/api/user/change-email',
         { otp, newEmail },
-        { headers: { Authorization: `Bearer ${token}`,
-        withCredentials: true } }
+        {
+  headers: { Authorization: `Bearer ${token}` },
+  withCredentials: true
+}
       );
       setMessage(res.data.message);
       setError('');

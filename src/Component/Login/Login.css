@@ -79,7 +79,7 @@
 .icon {
   position: absolute;
   right: 1rem;
-  top: 50%;
+  top: 30%;
   transform: translateY(-50%);
   color: #6b7280;
   font-size: 1.25rem;
