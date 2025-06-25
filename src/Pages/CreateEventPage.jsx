@@ -43,17 +43,25 @@ function CreateEventPage() {
       if (!formData.eventType) return "Event Type is required";
       return "";
     }
-    if (currentStep === 2) {
-      if (!formData.eventDate) return "Event Date is required";
-      if (!formData.startTime) return "Start Time is required";
-      if (!formData.endTime) return "End Time is required";
-      if (!formData.address.trim()) return "Address is required";
-      if (!formData.city.trim()) return "City is required";
-      if (!formData.state.trim()) return "State is required";
-      if (!formData.zipCode.trim()) return "Zip Code is required";
-      if (!formData.country.trim()) return "Country is required";
-      return "";
-    }
+     if (currentStep === 2) {
+    if (!formData.eventDate) return "Event Date is required";
+
+    // ✅ Prevent past date
+    const selectedDate = new Date(formData.eventDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Ignore time portion
+
+    if (selectedDate < today) return "Event date cannot be in the past";
+
+    if (!formData.startTime) return "Start Time is required";
+    if (!formData.endTime) return "End Time is required";
+    if (!formData.address.trim()) return "Address is required";
+    if (!formData.city.trim()) return "City is required";
+    if (!formData.state.trim()) return "State is required";
+    if (!formData.zipCode.trim()) return "Zip Code is required";
+    if (!formData.country.trim()) return "Country is required";
+    return "";
+  }
     if (currentStep === 3) {
       if (!formData.capacity || formData.capacity < 1) return "Capacity must be at least 1";
       if (formData.price < 0) return "Price cannot be negative";
