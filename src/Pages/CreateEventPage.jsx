@@ -45,22 +45,28 @@ function CreateEventPage() {
     }
 if (currentStep === 2) {
   if (!formData.eventDate) return "Event Date is required";
-
-  const selectedDate = new Date(formData.eventDate);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-
-  if (selectedDate < today) return "Event date cannot be in the past";
-
   if (!formData.startTime) return "Start Time is required";
   if (!formData.endTime) return "End Time is required";
-  if (selectedDate.getTime() === today.getTime()) {
-    const nowTime = new Date().toTimeString().slice(0, 5);
-    if (formData.startTime < nowTime) {
-      return "Start time cannot be in the past";
-    }
+
+  const now = new Date();
+  const selectedDate = new Date(formData.eventDate);
+  selectedDate.setHours(0, 0, 0, 0);
+
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  if (selectedDate < today) return "Event date cannot be in the past";
+  const [startHour, startMinute] = formData.startTime.split(":").map(Number);
+  const eventStartDateTime = new Date(formData.eventDate);
+  eventStartDateTime.setHours(startHour, startMinute, 0, 0);
+
+  if (eventStartDateTime < now) {
+    return "Event start time cannot be in the past";
   }
-  if (formData.endTime <= formData.startTime) {
+  const [endHour, endMinute] = formData.endTime.split(":").map(Number);
+  const eventEndDateTime = new Date(formData.eventDate);
+  eventEndDateTime.setHours(endHour, endMinute, 0, 0);
+
+  if (eventEndDateTime <= eventStartDateTime) {
     return "End time must be after start time";
   }
 
@@ -72,6 +78,7 @@ if (currentStep === 2) {
 
   return "";
 }
+
 
     if (currentStep === 3) {
       if (!formData.capacity || formData.capacity < 1) return "Capacity must be at least 1";
