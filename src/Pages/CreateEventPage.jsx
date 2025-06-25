@@ -1,16 +1,16 @@
-import { useState, useEffect } from 'react';
-import { Helmet } from 'react-helmet';
-import { useNavigate } from 'react-router-dom';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
+import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function CreateEventPage() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (!token) {
-      navigate('/login');
+      navigate("/login");
     }
   }, [navigate]);
 
@@ -18,23 +18,22 @@ function CreateEventPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    eventType: 'public',
-    eventDate: '',
-    endDate: '',
-    startTime: '',
-    endTime: '',
-    address: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    country: '',
-    image: '',
+    title: "",
+    description: "",
+    eventType: "public",
+    eventDate: "",
+    endDate: "",
+    startTime: "",
+    endTime: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    country: "",
+    image: "",
     capacity: 100,
     price: 0,
   });
-
 
   const validateStep = (currentStep) => {
     if (currentStep === 1) {
@@ -43,64 +42,65 @@ function CreateEventPage() {
       if (!formData.eventType) return "Event Type is required";
       return "";
     }
-if (currentStep === 2) {
-  if (!formData.eventDate) return "Event Date is required";
-  if (!formData.startTime) return "Start Time is required";
-  if (!formData.endTime) return "End Time is required";
+    if (currentStep === 2) {
+      if (!formData.eventDate) return "Event Date is required";
+      if (!formData.startTime) return "Start Time is required";
+      if (!formData.endTime) return "End Time is required";
 
-  const now = new Date();
-  const selectedDate = new Date(formData.eventDate);
-  selectedDate.setHours(0, 0, 0, 0);
+      const now = new Date();
+      const selectedDate = new Date(formData.eventDate);
+      selectedDate.setHours(0, 0, 0, 0);
 
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  if (selectedDate < today) return "Event date cannot be in the past";
-  const [startHour, startMinute] = formData.startTime.split(":").map(Number);
-  const eventStartDateTime = new Date(formData.eventDate);
-  eventStartDateTime.setHours(startHour, startMinute, 0, 0);
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      if (selectedDate < today) return "Event date cannot be in the past";
+      const [startHour, startMinute] = formData.startTime
+        .split(":")
+        .map(Number);
+      const eventStartDateTime = new Date(formData.eventDate);
+      eventStartDateTime.setHours(startHour, startMinute, 0, 0);
 
-  if (eventStartDateTime < now) {
-    return "Event start time cannot be in the past";
-  }
-  const [endHour, endMinute] = formData.endTime.split(":").map(Number);
-  const eventEndDateTime = new Date(formData.eventDate);
-  eventEndDateTime.setHours(endHour, endMinute, 0, 0);
+      if (eventStartDateTime < now) {
+        return "Event start time cannot be in the past";
+      }
+      const [endHour, endMinute] = formData.endTime.split(":").map(Number);
+      const eventEndDateTime = new Date(formData.eventDate);
+      eventEndDateTime.setHours(endHour, endMinute, 0, 0);
 
-  if (eventEndDateTime <= eventStartDateTime) {
-    return "End time must be after start time";
-  }
+      if (eventEndDateTime <= eventStartDateTime) {
+        return "End time must be after start time";
+      }
 
-  if (!formData.address.trim()) return "Address is required";
-  if (!formData.city.trim()) return "City is required";
-  if (!formData.state.trim()) return "State is required";
-  if (!formData.zipCode.trim()) return "Zip Code is required";
-  if (!formData.country.trim()) return "Country is required";
+      if (!formData.address.trim()) return "Address is required";
+      if (!formData.city.trim()) return "City is required";
+      if (!formData.state.trim()) return "State is required";
+      if (!formData.zipCode.trim()) return "Zip Code is required";
+      if (!formData.country.trim()) return "Country is required";
 
-  return "";
-}
-
+      return "";
+    }
 
     if (currentStep === 3) {
-      if (!formData.capacity || formData.capacity < 1) return "Capacity must be at least 1";
+      if (!formData.capacity || formData.capacity < 1)
+        return "Capacity must be at least 1";
       if (formData.price < 0) return "Price cannot be negative";
       return "";
     }
     return "";
   };
 
-
   const handleChange = (e) => {
     const { name, value, type, files } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === 'file' ? files[0] : value,
+      [name]: type === "file" ? files[0] : value,
     }));
   };
 
   const handleNextStep = () => {
     const errorMessage = validateStep(step);
     if (errorMessage) {
-      toast.error(errorMessage, { position: 'top-center' });
+      toast.error(errorMessage, { position: "top-center" });
       return;
     }
     setStep(step + 1);
@@ -115,12 +115,11 @@ if (currentStep === 2) {
   const handleSubmit = async (e) => {
     const errorMessage = validateStep(step);
     if (errorMessage) {
-      toast.error(errorMessage, { position: 'top-center' });
+      toast.error(errorMessage, { position: "top-center" });
       return;
     }
     e.preventDefault();
     setIsSubmitting(true);
-
 
     const token = localStorage.getItem("token");
 
@@ -132,18 +131,23 @@ if (currentStep === 2) {
 
     // Combine date + time
     const startISO = new Date(`${formData.eventDate}T${formData.startTime}`);
-    const endISO = new Date(`${formData.endDate || formData.eventDate}T${formData.endTime}`);
+    const endISO = new Date(
+      `${formData.endDate || formData.eventDate}T${formData.endTime}`
+    );
 
     form.append("startTime", startISO.toISOString());
     form.append("endTime", endISO.toISOString());
 
-    form.append("location", JSON.stringify({
-      address: formData.address,
-      city: formData.city,
-      state: formData.state,
-      zipCode: formData.zipCode,
-      country: formData.country || 'Pakistan', // Default fallback
-    }));
+    form.append(
+      "location",
+      JSON.stringify({
+        address: formData.address,
+        city: formData.city,
+        state: formData.state,
+        zipCode: formData.zipCode,
+        country: formData.country || "Pakistan", // Default fallback
+      })
+    );
 
     form.append("category", "General");
     form.append("price", formData.price);
@@ -158,8 +162,8 @@ if (currentStep === 2) {
         method: "POST",
         body: form,
         headers: {
-          Authorization: `Bearer ${token}`
-        }
+          Authorization: `Bearer ${token}`,
+        },
       });
 
       const data = await res.json();
@@ -170,7 +174,7 @@ if (currentStep === 2) {
         // toast.success('Event Added Successfully', { position: 'top-center' });
         navigate(`/`);
       } else {
-        toast.error('Error Creating Event', { position: 'top-center' });
+        toast.error("Error Creating Event", { position: "top-center" });
         console.error("Create event failed:", data);
       }
     } catch (err) {
@@ -182,267 +186,316 @@ if (currentStep === 2) {
 
   return (
     <>
-    <Helmet>
-      <title>Create Event</title>
-    </Helmet>
-    <ToastContainer position="top-center" autoClose={3000} theme="colored" />
-    <div className="m-auto w-50">
-      <div className="row justify-content-center">
-        <div className="col-12 col-lg-12">
-          <div className="rounded-4 shadow p-4 p-md-5" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)" }}>
-            <h1 className="fw-bold mb-4">Create New Event</h1>
+      <Helmet>
+        <title>Create Event</title>
+      </Helmet>
+      <ToastContainer position="top-center" autoClose={3000} theme="colored" />
+      <div className="m-auto w-50">
+        <div className="row justify-content-center">
+          <div className="col-12 col-lg-12">
+            <div
+              className="rounded-4 shadow p-4 p-md-5"
+              style={{ backgroundColor: "rgba(11, 11, 11, 0.1)" }}
+            >
+              <h1 className="fw-bold mb-4">Create New Event</h1>
 
-            <div className="mb-4">
-              <div className="progress" style={{ height: '8px' }}>
-                <div
-                  className="progress-bar"
-                  role="progressbar"
-                  style={{ width: `${step * 33.33}%` }}
-                  aria-valuenow={step * 33.33}
-                  aria-valuemin="0"
-                  aria-valuemax="100"
-                ></div>
+              <div className="mb-4">
+                <div className="progress" style={{ height: "8px" }}>
+                  <div
+                    className="progress-bar"
+                    role="progressbar"
+                    style={{ width: `${step * 33.33}%` }}
+                    aria-valuenow={step * 33.33}
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+                <div className="d-flex justify-content-between mt-2">
+                  <span
+                    className={`small  ${step >= 1 ? "fw-bold" : "text-muted"}`}
+                  >
+                    Basic Info
+                  </span>
+                  <span
+                    className={`small ${step >= 2 ? "fw-bold" : "text-muted"}`}
+                  >
+                    Date & Location
+                  </span>
+                  <span
+                    className={`small ${step >= 3 ? "fw-bold" : "text-muted"}`}
+                  >
+                    Settings
+                  </span>
+                </div>
               </div>
-              <div className="d-flex justify-content-between mt-2">
-                <span className={`small  ${step >= 1 ? 'fw-bold' : 'text-muted'}`}>Basic Info</span>
-                <span className={`small ${step >= 2 ? 'fw-bold' : 'text-muted'}`}>Date & Location</span>
-                <span className={`small ${step >= 3 ? 'fw-bold' : 'text-muted'}`}>Settings</span>
-              </div>
+
+              <form onSubmit={handleSubmit}>
+                {step === 1 && (
+                  <div>
+                    <div className="mb-4">
+                      <label className="form-label fw-bold">Event Title</label>
+                      <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        name="title"
+                        value={formData.title}
+                        onChange={handleChange}
+                        placeholder="Give your event a title"
+                        required
+                        style={{
+                          backgroundColor: "rgba(11, 11, 11, 0.1)",
+                          border: "none",
+                        }}
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="form-label fw-bold">Description</label>
+                      <textarea
+                        className="form-control"
+                        name="description"
+                        rows="5"
+                        value={formData.description}
+                        onChange={handleChange}
+                        placeholder="Describe your event"
+                        required
+                        style={{
+                          backgroundColor: "rgba(11, 11, 11, 0.1)",
+                          border: "none",
+                        }}
+                      ></textarea>
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="form-label fw-bold">Event Type</label>
+                      <select
+                        className="form-select"
+                        name="eventType"
+                        value={formData.eventType}
+                        onChange={handleChange}
+                        style={{
+                          backgroundColor: "rgba(11, 11, 11, 0.1)",
+                          border: "none",
+                        }}
+                        required
+                      >
+                        <option value="in-person">Public</option>
+                        <option value="online">Private</option>
+                      </select>
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="form-label fw-bold">Cover Image</label>
+                      <input
+                        type="file"
+                        className="form-control"
+                        name="image"
+                        onChange={handleChange}
+                        style={{
+                          backgroundColor: "rgba(11, 11, 11, 0.1)",
+                          border: "none",
+                        }}
+                      />
+                      <div className="form-text">
+                        Select a cover image for your event
+                      </div>
+                    </div>
+
+                    <div className="d-flex justify-content-end">
+                      <button
+                        type="button"
+                        className="btn btn-primary px-4"
+                        onClick={handleNextStep}
+                      >
+                        Next
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {step === 2 && (
+                  <div>
+                    <div className="mb-4">
+                      <label className="form-label fw-bold">Event Date</label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        name="eventDate"
+                        value={formData.eventDate}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="form-label fw-bold">Start Time</label>
+                      <input
+                        type="time"
+                        className="form-control"
+                        name="startTime"
+                        value={formData.startTime}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="form-label fw-bold">End Time</label>
+                      <input
+                        type="time"
+                        className="form-control"
+                        name="endTime"
+                        value={formData.endTime}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="form-label fw-bold">Address</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="address"
+                        value={formData.address}
+                        onChange={handleChange}
+                        placeholder="Venue Address"
+                        required
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="form-label fw-bold">City</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="city"
+                        value={formData.city}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="form-label fw-bold">State</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="state"
+                        value={formData.state}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="form-label fw-bold">Zip Code</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="zipCode"
+                        value={formData.zipCode}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="form-label fw-bold">Country</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="country"
+                        value={formData.country}
+                        onChange={handleChange}
+                        placeholder="e.g. Pakistan, USA"
+                        required
+                      />
+                    </div>
+
+                    <div className="d-flex justify-content-between">
+                      <button
+                        type="button"
+                        className="btn btn-outline-secondary px-4"
+                        onClick={handlePrevStep}
+                      >
+                        Back
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-primary px-4"
+                        onClick={handleNextStep}
+                      >
+                        Next
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {step === 3 && (
+                  <div>
+                    <div className="mb-4">
+                      <label className="form-label fw-bold">Capacity</label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="capacity"
+                        min="1"
+                        value={formData.capacity}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+
+                    <div className="mb-4">
+                      <label className="form-label fw-bold">Price ($)</label>
+                      <input
+                        type="number"
+                        className="form-control"
+                        name="price"
+                        min="0"
+                        step="0.01"
+                        value={formData.price}
+                        onChange={handleChange}
+                        required
+                      />
+                      <div className="form-text">Set to 0 for free events</div>
+                    </div>
+
+                    <div className="d-flex justify-content-between">
+                      <button
+                        type="button"
+                        className="btn btn-outline-secondary px-4"
+                        onClick={handlePrevStep}
+                      >
+                        Back
+                      </button>
+                      <button
+                        type="submit"
+                        className="btn btn-success px-4"
+                        disabled={isSubmitting}
+                      >
+                        {isSubmitting ? (
+                          <>
+                            <span
+                              className="spinner-border spinner-border-sm me-2"
+                              role="status"
+                              aria-hidden="true"
+                            ></span>
+                            Creating...
+                          </>
+                        ) : (
+                          "Create Event"
+                        )}
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </form>
             </div>
-
-            <form onSubmit={handleSubmit}>
-              {step === 1 && (
-                <div>
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">Event Title</label>
-                    <input
-                      type="text"
-                      className="form-control form-control-lg"
-                      name="title"
-                      value={formData.title}
-                      onChange={handleChange}
-                      placeholder="Give your event a title"
-                      required
-                      style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
-                    />
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">Description</label>
-                    <textarea
-                      className="form-control"
-                      name="description"
-                      rows="5"
-                      value={formData.description}
-                      onChange={handleChange}
-                      placeholder="Describe your event"
-                      required
-                      style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
-                    ></textarea>
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">Event Type</label>
-                    <select
-                      className="form-select"
-                      name="eventType"
-                      value={formData.eventType}
-                      onChange={handleChange}
-                      style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
-                      required
-                    >
-                      <option value="in-person">Public</option>
-                      <option value="online">Private</option>
-                    </select>
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">Cover Image</label>
-                    <input
-                      type="file"
-                      className="form-control"
-                      name="image"
-                      onChange={handleChange}
-                      style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", border: "none" }}
-                    />
-                    <div className="form-text">Select a cover image for your event</div>
-                  </div>
-
-                  <div className="d-flex justify-content-end">
-                    <button type="button" className="btn btn-primary px-4" onClick={handleNextStep}>
-                      Next
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {step === 2 && (
-                <div>
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">Event Date</label>
-                    <input
-                      type="date"
-                      className="form-control"
-                      name="eventDate"
-                      value={formData.eventDate}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">Start Time</label>
-                    <input
-                      type="time"
-                      className="form-control"
-                      name="startTime"
-                      value={formData.startTime}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">End Time</label>
-                    <input
-                      type="time"
-                      className="form-control"
-                      name="endTime"
-                      value={formData.endTime}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">Address</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="address"
-                      value={formData.address}
-                      onChange={handleChange}
-                      placeholder="Venue Address"
-                      required
-                    />
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">City</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="city"
-                      value={formData.city}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">State</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="state"
-                      value={formData.state}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">Zip Code</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="zipCode"
-                      value={formData.zipCode}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">Country</label>
-                    <input
-                      type="text"
-                      className="form-control"
-                      name="country"
-                      value={formData.country}
-                      onChange={handleChange}
-                      placeholder="e.g. Pakistan, USA"
-                      required
-                    />
-                  </div>
-
-                  <div className="d-flex justify-content-between">
-                    <button type="button" className="btn btn-outline-secondary px-4" onClick={handlePrevStep}>
-                      Back
-                    </button>
-                    <button type="button" className="btn btn-primary px-4" onClick={handleNextStep}>
-                      Next
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {step === 3 && (
-                <div>
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">Capacity</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      name="capacity"
-                      min="1"
-                      value={formData.capacity}
-                      onChange={handleChange}
-                      required
-                    />
-                  </div>
-
-                  <div className="mb-4">
-                    <label className="form-label fw-bold">Price ($)</label>
-                    <input
-                      type="number"
-                      className="form-control"
-                      name="price"
-                      min="0"
-                      step="0.01"
-                      value={formData.price}
-                      onChange={handleChange}
-                      required
-                    />
-                    <div className="form-text">Set to 0 for free events</div>
-                  </div>
-
-                  <div className="d-flex justify-content-between">
-                    <button type="button" className="btn btn-outline-secondary px-4" onClick={handlePrevStep}>
-                      Back
-                    </button>
-                    <button
-                      type="submit"
-                      className="btn btn-success px-4"
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                          Creating...
-                        </>
-                      ) : (
-                        'Create Event'
-                      )}
-                    </button>
-                  </div>
-                </div>
-              )}
-            </form>
           </div>
         </div>
       </div>
-    </div>
     </>
   );
 }

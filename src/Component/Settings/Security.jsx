@@ -61,7 +61,7 @@ const SecurityTab = () => {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '400px', margin: 'auto' }}>
+    <div style={{ padding: '20px', maxWidth: '400px', margin: 'auto', borderRadius: '4px', backgroundColor: 'rgba(11, 11, 11, 0.1)'  , height: '50vh' }}>
       {showOTPComponent ? (
         <VerifyOTP setShowOTPComponent={setShowOTPComponent} />
       ) : (
@@ -73,14 +73,14 @@ const SecurityTab = () => {
               type="email"
               value={email}
               disabled
-              style={{ width: '100%', padding: '8px', margin: '8px 0' }}
+              style={{ width: '100%', padding: '8px', margin: '8px 0', border: '1px solid #ccc', borderRadius: '4px' }}
             />
           </div>
           {error && <p style={{ color: 'red' }}>{error}</p>}
           <button
             onClick={handleSendOTP}
             disabled={loading}
-            style={{ padding: '10px 20px', marginTop: '10px' }}
+            style={{ padding: '10px 20px', marginTop: '50px', backgroundColor: '#007BFF', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
           >
             {loading ? 'Sending OTP...' : 'Change Email'}
           </button>
