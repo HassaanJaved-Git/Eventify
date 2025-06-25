@@ -52,7 +52,7 @@ function CreateEventPage() {
     today.setHours(0, 0, 0, 0); // Ignore time portion
 
     if (selectedDate < today) return "Event date cannot be in the past";
-
+    if(selectedDate == today && formData.startTime < new Date().toISOString().slice(11, 16)) return "Event date cannot be in the past";
     if (!formData.startTime) return "Start Time is required";
     if (!formData.endTime) return "End Time is required";
     if (!formData.address.trim()) return "Address is required";
