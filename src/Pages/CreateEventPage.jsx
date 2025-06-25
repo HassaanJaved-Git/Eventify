@@ -242,10 +242,6 @@ function CreateEventPage() {
                         onChange={handleChange}
                         placeholder="Give your event a title"
                         required
-                        style={{
-                          backgroundColor: "rgba(11, 11, 11, 0.1)",
-                          border: "none",
-                        }}
                       />
                     </div>
 
@@ -259,10 +255,6 @@ function CreateEventPage() {
                         onChange={handleChange}
                         placeholder="Describe your event"
                         required
-                        style={{
-                          backgroundColor: "rgba(11, 11, 11, 0.1)",
-                          border: "none",
-                        }}
                       ></textarea>
                     </div>
 
@@ -273,10 +265,6 @@ function CreateEventPage() {
                         name="eventType"
                         value={formData.eventType}
                         onChange={handleChange}
-                        style={{
-                          backgroundColor: "rgba(11, 11, 11, 0.1)",
-                          border: "none",
-                        }}
                         required
                       >
                         <option value="in-person">Public</option>
