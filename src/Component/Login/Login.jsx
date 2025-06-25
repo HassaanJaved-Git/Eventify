@@ -1,49 +1,57 @@
-import React, { useContext, useEffect} from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import axios from 'axios';
-import { toast, ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { MdMarkEmailUnread } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 
-import { AuthContext } from "../../Context/AuthContext"; 
-import GoogleOAuth from '../GoogleOAuth/GoogleOAuth';
+import { AuthContext } from "../../Context/AuthContext";
+import GoogleOAuth from "../GoogleOAuth/GoogleOAuth";
 
-import './Login.css';
+import "./Login.css";
 const Login = () => {
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext); 
-   useEffect(() => {
-    const token = localStorage.getItem('token');
+  const { login } = useContext(AuthContext);
+  useEffect(() => {
+    const token = localStorage.getItem("token");
     if (token) {
-      navigate('/'); 
+      navigate("/");
     }
   }, [navigate]);
   const loginSchema = Yup.object().shape({
-    email: Yup.string().required('Email or Username is required'),
-    password: Yup.string().min(8, 'Password must be at least 8 characters').required('Password is required'),
+    email: Yup.string().required("Email or Username is required"),
+    password: Yup.string()
+      .min(8, "Password must be at least 8 characters")
+      .required("Password is required"),
   });
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    axios.post('http://localhost:5000/api/user/login', values)
-    
+    axios
+      .post("http://localhost:5000/api/user/login", values)
+
       .then((response) => {
-        toast.success('Login successful!', { position: 'top-center' });
+        toast.success("Login successful!", {
+          position: "top-center",
+        });
+
         resetForm();
         const { token } = response.data;
 
         login(token);
 
-
-        setTimeout(() => navigate('/'), 1000);
+        setTimeout(() => navigate("/"), 1000);
       })
-      .catch(error => {
-        console.error('Login error:', error.response?.data || error.message);
-        toast.error('Login failed: ' + (error.response?.data?.message || error.message), {
-          position: 'top-center',
-        });
+      .catch((error) => {
+        console.error("Login error:", error.response?.data || error.message);
+        toast.error(
+          "Login failed: " + (error.response?.data?.message || error.message),
+          {
+            position: "top-center",
+          }
+        );
       })
       .finally(() => {
         setSubmitting(false);
@@ -59,69 +67,99 @@ const Login = () => {
           rel="stylesheet"
         />
       </Helmet>
-      <ToastContainer position="top-center" autoClose={3000} theme="colored" />
 
       <div className="signup-login-background">
         <div className="container h-100 d-flex align-items-center justify-content-center">
           <div className="card col-12 login-card p-4">
             <h2 className="text-center text-white mb-4 login-title">Login</h2>
 
-            <Formik initialValues={{ email: '', password: '' }} validationSchema={loginSchema} onSubmit={handleSubmit} >
-            
+            <Formik
+              initialValues={{ email: "", password: "" }}
+              validationSchema={loginSchema}
+              onSubmit={handleSubmit}
+            >
               {({ isSubmitting }) => (
                 <Form>
                   <div className="mb-3 position-relative">
-                    <Field type="text" name="email" placeholder="Enter Email or Username" className="form-control signup-login-input pe-5" />
+                    <Field
+                      type="text"
+                      name="email"
+                      placeholder="Enter Email or Username"
+                      className="form-control signup-login-input pe-5"
+                    />
                     <MdMarkEmailUnread className="icon1 icon" />
-                    <ErrorMessage name="email" component="div" className="text-danger mt-1 error-message" />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className="text-danger mt-1 error-message"
+                    />
                   </div>
                   <div className="mb-3 position-relative">
-                    <Field type="password" name="password" placeholder="Enter Password" className="form-control signup-login-input pe-5" />
-                    <FaLock className='icon' />
+                    <Field
+                      type="password"
+                      name="password"
+                      placeholder="Enter Password"
+                      className="form-control signup-login-input pe-5"
+                    />
+                    <FaLock className="icon" />
                     <ErrorMessage
                       name="password"
                       component="div"
                       className="text-danger mt-1 error-message"
                     />
-                    <div className='forget'>
-                      <div className='forget-link'>
+                    <div className="forget">
+                      <div className="forget-link">
                         <button
-                      type="button"
-                      className='forgetpas btn btn-link'
-                      onClick={() => navigate('/forget-password')}
-                    >
-                      Forget password
-                    </button>
+                          type="button"
+                          className="forgetpas btn btn-link"
+                          onClick={() => navigate("/forget-password")}
+                        >
+                          Forget password
+                        </button>
                       </div>
                     </div>
                   </div>
-                  <button type="submit" className="btn signup-login-button w-100" disabled={isSubmitting} >
+                  <button
+                    type="submit"
+                    className="btn signup-login-button w-100"
+                    disabled={isSubmitting}
+                  >
                     {isSubmitting ? (
-                      <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                      <span
+                        className="spinner-border spinner-border-sm"
+                        role="status"
+                        aria-hidden="true"
+                      ></span>
                     ) : (
-                      'Login'
+                      "Login"
                     )}
                   </button>
                 </Form>
               )}
             </Formik>
 
-            <div className="text-center my-3">
-              OR
-            </div>
+            <div className="text-center my-3">OR</div>
 
             <GoogleOAuth />
 
             <div className="text-center mt-3">
-                <button type="button" className="btn btn-link"  onClick={() => navigate('/forget-password')} >
-                  Forget password
-                </button>
+              <button
+                type="button"
+                className="btn btn-link"
+                onClick={() => navigate("/forget-password")}
+              >
+                Forget password
+              </button>
             </div>
 
             <div className="text-center mt-1">
               <p>
                 Don't have an account?
-                <button type="button" onClick={() => navigate('/signup')} className="btn btn-link" >
+                <button
+                  type="button"
+                  onClick={() => navigate("/signup")}
+                  className="btn btn-link"
+                >
                   Sign Up
                 </button>
               </p>
