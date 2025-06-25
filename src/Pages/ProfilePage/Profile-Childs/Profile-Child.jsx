@@ -1,39 +1,29 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-
-const ChildOfChild = ({ event, onDelete, onUpdate }) => {
-  const token = localStorage.getItem("token");
+const ChildOfChild = ({ event, onDelete, onUpdate, isOwner }) => {
   const [isEnlarged, setIsEnlarged] = useState(false);
   const navigate = useNavigate();
-  const handleShowDetails = () => {
-    setIsEnlarged(true);
-  };
+console.log("isOwner:", isOwner, "event.organizer:", event?.organizer?._id);
 
-  const handleCloseDetails = () => {
-    setIsEnlarged(false);
-  };
-
-
-const handleEditEvent = () => {
-  navigate(`/edit-event/${event._id}`);
-};
-
-
+  const handleShowDetails = () => setIsEnlarged(true);
+  const handleCloseDetails = () => setIsEnlarged(false);
+  const handleEditEvent = () => navigate(`/edit-event/${event._id}`);
   const handleDeleteEvent = () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this event?");
-    if (!confirmDelete) return;
-
-    if (onDelete) {
-      onDelete(event._id); // ✅ Notify parent ONLY
+    if (window.confirm("Are you sure you want to delete this event?")) {
+      onDelete(event._id);
     }
   };
 
   return (
     <>
-      <div className="card bg-dark text-white" style={{ width: '18rem' }} onClick={handleShowDetails}>
-        <img src={event?.image?.imageURL} className="card-img-top" alt="Event" style={{ height: '150px' }} />
+      <div className="card bg-dark text-white" style={{ width: '18rem', cursor: 'pointer' }} onClick={handleShowDetails}>
+        <img
+          src={event?.image?.imageURL}
+          className="card-img-top"
+          alt={event?.title || "Event"}
+          style={{ height: '150px', objectFit: 'cover' }}
+        />
         <div className="card-body">
           <h5 className="card-title">{event.title}</h5>
         </div>
@@ -52,20 +42,27 @@ const handleEditEvent = () => {
               &times;
             </button>
             <h3 className="text-2xl font-bold mb-4">{event?.title}</h3>
-            <img src={event?.image?.imageURL} className="w-full h-64 object-cover rounded mb-4" alt="Event" />
-            <div className="card-text">
-              <div>{event?.description}</div>
-              <div>{event?.date}</div>
-              <div>{event?.eventType}</div>
+            <img
+              src={event?.image?.imageURL}
+              className="w-full h-64 object-cover rounded mb-4"
+              alt="Event"
+            />
+            <div className="card-text mb-3">
+              <div><strong>Description:</strong> {event?.description}</div>
+              <div><strong>Date:</strong> {event?.date?.slice(0, 10)}</div>
+              <div><strong>Type:</strong> {event?.eventType}</div>
             </div>
 
-            <button className="btn btn-primary mt-4 w-full" onClick={handleEditEvent}>
-  Edit Event
-</button>
-
-            <button className="btn btn-danger mt-2 w-full" onClick={handleDeleteEvent}>
-              Delete
-            </button>
+            {isOwner && (
+              <>
+                <button className="btn btn-primary mt-2 w-full" onClick={handleEditEvent}>
+                  Edit Event
+                </button>
+                <button className="btn btn-danger mt-2 w-full" onClick={handleDeleteEvent}>
+                  Delete
+                </button>
+              </>
+            )}
           </div>
         </div>
       )}

@@ -12,29 +12,36 @@ function EditEventPage() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
+
     fetch(`http://localhost:5000/api/event/${id}`, {
       headers: { Authorization: `Bearer ${token}` }
     })
       .then(res => res.json())
-      .then(data => {
+      .then(({ event }) => {
+        if (!event) throw new Error("Event not found");
+
         setFormData({
-          title: data.title,
-          description: data.description,
-          eventType: data.eventType,
-          eventDate: data.date,
-          startTime: new Date(data.startTime).toISOString().slice(11, 16),
-          endTime: new Date(data.endTime).toISOString().slice(11, 16),
-          address: data.location?.address || '',
-          city: data.location?.city || '',
-          state: data.location?.state || '',
-          zipCode: data.location?.zipCode || '',
-          country: data.location?.country || '',
-          price: data.price,
-          capacity: data.totalTickets,
+          title: event.title,
+          description: event.description,
+          eventType: event.eventType,
+          eventDate: event.date?.slice(0, 10),
+          startTime: new Date(event.startTime).toISOString().slice(11, 16),
+          endTime: new Date(event.endTime).toISOString().slice(11, 16),
+          address: event.location?.address || '',
+          city: event.location?.city || '',
+          state: event.location?.state || '',
+          zipCode: event.location?.zipCode || '',
+          country: event.location?.country || '',
+          price: event.price,
+          capacity: event.totalTickets,
         });
         setLoading(false);
       })
-      .catch(() => toast.error("Failed to load event"));
+      .catch((err) => {
+        toast.error("Failed to load event");
+        console.error(err);
+        setLoading(false);
+      });
   }, [id]);
 
   const handleChange = (e) => {
@@ -78,9 +85,10 @@ function EditEventPage() {
         toast.success('Event updated successfully');
         navigate('/');
       } else {
-        toast.error('Failed to update');
+        toast.error('Failed to update event');
       }
     } catch (err) {
+      console.error(err);
       toast.error('Error updating event');
     } finally {
       setSaving(false);
@@ -88,6 +96,7 @@ function EditEventPage() {
   };
 
   if (loading) return <div>Loading...</div>;
+  if (!formData) return <div>Failed to load event data.</div>;
 
   return (
     <div className="container mt-5">
@@ -102,8 +111,8 @@ function EditEventPage() {
         <div className="col-md-6">
           <label className="form-label">Event Type</label>
           <select name="eventType" className="form-select" value={formData.eventType} onChange={handleChange}>
-            <option value="in-person">In Person</option>
-            <option value="online">Online</option>
+            <option value="in-person">Public</option>
+            <option value="online">Private</option>
           </select>
         </div>
 

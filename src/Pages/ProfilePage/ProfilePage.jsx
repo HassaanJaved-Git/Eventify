@@ -1,11 +1,12 @@
 import { React, useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Container, Card } from "react-bootstrap";
 import { FaCalendarAlt } from "react-icons/fa";
 import { Helmet } from "react-helmet";
+import { jwtDecode } from "jwt-decode"; // ✅ Correct named import
 
-import defaultUserPic from '../../assets/user.png';
+import defaultUserPic from "../../assets/user.png";
 import SkeletonCard from "../../Components/Content/Content-Childs/Child1-Childs/Skeleton-Card";
 import ChildOfChild from "./Profile-Childs/Profile-Child";
 
@@ -14,7 +15,20 @@ const ProfilePage = () => {
   const { userName } = useParams();
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(true);
-  const token = localStorage.getItem("token"); // ✅ Get token once
+  const token = localStorage.getItem("token");
+
+  let loggedInUserId = null;
+
+  // ✅ Decode JWT to get the logged-in user ID
+  if (token) {
+    try {
+      const decoded = jwtDecode(token);
+      loggedInUserId = decoded.id; // ✅ Correct field from token
+      console.log("✅ Logged in User ID from token:", loggedInUserId);
+    } catch (err) {
+      console.error("❌ Invalid token", err);
+    }
+  }
 
   useEffect(() => {
     const fetchUserProfile = async () => {
@@ -24,7 +38,7 @@ const ProfilePage = () => {
         setData(res.data);
       } catch (err) {
         if (err.response && err.response.status === 404) {
-          navigate('/404');
+          navigate("/404");
         } else {
           console.error("Error fetching user data:", err);
         }
@@ -36,13 +50,10 @@ const ProfilePage = () => {
     fetchUserProfile();
   }, [userName]);
 
-  // ✅ DELETE function with token
   const handleDeleteEvent = async (eventId) => {
     try {
       await axios.delete(`http://localhost:5000/api/event/${eventId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       });
 
       alert("Event deleted successfully!");
@@ -75,9 +86,13 @@ const ProfilePage = () => {
       {/* Profile Card */}
       <div className="text-white my-4">
         <Container className="d-flex justify-content-center" style={{ width: "49%" }}>
-          <Card className="text-white p-4 rounded-4" style={{ width: "400px", backgroundColor: "rgba(180, 180, 180, 0.4)" }}>
+          <Card
+            className="text-white p-4 rounded-4"
+            style={{ width: "400px", backgroundColor: "rgba(180, 180, 180, 0.4)" }}
+          >
             <div className="d-flex flex-column align-items-center">
-              <div className="rounded-circle d-flex justify-content-center align-items-center mb-3"
+              <div
+                className="rounded-circle d-flex justify-content-center align-items-center mb-3"
                 style={{
                   width: "130px",
                   height: "130px",
@@ -97,7 +112,7 @@ const ProfilePage = () => {
               <h4 className="mb-1 text-dark">{data?.user?.userName}</h4>
               <p className="text-muted mb-3">
                 <FaCalendarAlt className="me-1" />
-                {data?.user?.createdAt}
+                {data?.user?.createdAt?.slice(0, 10)}
               </p>
 
               <div className="d-flex justify-content-between w-75 text-muted">
@@ -122,6 +137,7 @@ const ProfilePage = () => {
                   event={event}
                   onDelete={handleDeleteEvent}
                   onUpdate={handleUpdateEvent}
+                  isOwner={event?.organizer === loggedInUserId}
                 />
               ))
             ) : (
