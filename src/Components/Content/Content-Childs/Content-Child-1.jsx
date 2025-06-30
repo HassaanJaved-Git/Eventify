@@ -40,6 +40,7 @@ const ContentChild1 = ({ type }) => {
                   key={event._id} 
                   id={event._id} 
                   title={event.title} 
+                  price= {event.price}
                   description={event.description} 
                   image={event.image?.imageURL} 
                   date={event.date} 

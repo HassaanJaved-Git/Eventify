@@ -19,7 +19,7 @@ import Content from './Components/Content/Content'
 import { AuthProvider } from "./Context/AuthContext";
 import Settings from './Pages/Setting';
 import Errorpage from './Pages/ErrorPage.jsx'
-
+// import Stripe from './Components/Stripe.jsx'
 import ProfilePage from './Pages/ProfilePage/ProfilePage.jsx';
 import AboutTab from './Component/Settings/About.jsx';
 import HelpTab from './Component/Settings/Help.jsx';
@@ -30,6 +30,7 @@ import AccountTab from './Component/Settings/Account.jsx';
 import NotificationsTab from './Component/Settings/notifications.jsx';
 import Ticket from './Component/Tickets/Ticket.jsx'
 import EditEventPage from './Pages/EditPage.jsx'
+import Stripe from './Components/Stripe.jsx';
 
 function App() {
   return (
@@ -61,8 +62,9 @@ function App() {
               </Route>
               <Route path="/:userName" element={<ProfilePage />} />
               <Route path="/404" element={<Errorpage />}/>
-              <Route path="/ticketData" element={<Ticket />} />
+              <Route path="/ticket/:id" element={<Ticket />} />
               <Route path="/edit-event/:id" element={<EditEventPage />} />
+               <Route path="/stripe" element={<Stripe />} />
             </Route>
           </Routes>
         </AuthProvider>
