@@ -10,6 +10,11 @@ function EditEventPage() {
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
 
+
+    // const navigate = useNavigate();
+
+ 
+
   useEffect(() => {
     const token = localStorage.getItem('token');
 
@@ -167,6 +172,16 @@ function EditEventPage() {
         </div>
 
         <div className="col-12 text-end">
+  <button 
+  type="button" 
+  className="btn btn-secondary" 
+  onClick={() => navigate('/private')} 
+  style={{ marginLeft: 0 }}
+>
+  Cancel
+</button>
+
+
           <button type="submit" className="btn btn-success" disabled={saving}>
             {saving ? 'Saving...' : 'Save Changes'}
           </button>

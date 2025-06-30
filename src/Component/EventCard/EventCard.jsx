@@ -31,6 +31,7 @@ function EventCard({ event }) {
               </div>
             )}
           </div>
+            <button>Buy Now</button>
           
           <h5 className="card-title">
             <Link to={`/event/${event.id}`} className="text-decoration-none text-dark">
@@ -65,7 +66,6 @@ function EventCard({ event }) {
               />
               <span className="small text-muted">{event.host.name}</span>
             </div>
-            
             <div>
               {event.attendees > 0 && (
                 <span className="small text-muted">
@@ -74,6 +74,8 @@ function EventCard({ event }) {
                 </span>
               )}
             </div>
+         
+    
           </div>
         </div>
       </div>
