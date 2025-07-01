@@ -35,9 +35,12 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
           { headers }
         );
 
-        setTicketId(response.data.ticketId);
+        // setTicketId(response.data.ticketId);
+        // alert("Free ticket booked!");
+        // navigate(`/ticket/${ticketId}`);
+        const ticketIdFromResponse = response.data.ticketId;
         alert("Free ticket booked!");
-        navigate(`/ticket/${ticketId}`);
+        navigate(`/ticket/${ticketIdFromResponse}`);
       } else {
         const payfastResponse = await axios.post(
           `http://localhost:5000/api/payment/initiate-payment`,
