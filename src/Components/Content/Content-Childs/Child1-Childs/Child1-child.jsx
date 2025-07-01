@@ -28,10 +28,10 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
       {eventId: id},
       {
         headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-
+          Authorization: `Bearer ${token}`, 
+        },  
+      } 
+          
       
     );
     console.log("Purchase successful:", response.data);
