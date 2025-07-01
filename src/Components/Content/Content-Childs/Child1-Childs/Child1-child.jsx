@@ -17,9 +17,14 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
   const handleBuyNow = async () => {
   try {
     const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please log in to purchase tickets.");
+      navigate("/login");
+      return;
+    }
     if(price == 0){
       const response = await axios.post(
-      `http://localhost:5000/api/ticket/book-ticket`, // yeh example endpoint hai
+      `http://localhost:5000/api/ticket/book-ticket`, 
       {eventId: id},
       {
         headers: {
@@ -40,8 +45,9 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
     
     
   } catch (error) {
-    console.error("Error during purchase:", error);
-    alert("Purchase failed. Please try again.");
+    const errorMessage = error.response?.data?.message || "Purchase failed. Please try again.";
+    console.error(errorMessage);
+    alert(errorMessage);
   }
 };
 
