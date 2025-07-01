@@ -4,18 +4,13 @@ import {lazy,Suspense} from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { GoogleOAuthProvider } from "@react-oauth/google";
-
 const SignUp = lazy(()=>import('./Component/SignUp/SignUp'));
 const LoginPage = lazy(()=>import('./Component/Login/Login'));
 // const Dashboard = lazy(()=>import('./Component/Dashboard/dashboard'));
 const CreateEventPage = lazy(()=>import('./Pages/CreateEventPage'));
 const ForgetPassword = lazy(()=>import('./Component/Forget-Password/ForgetPassword'))
-
 import Layout from './Component/Layout/Layout';
-
 import Content from './Components/Content/Content'
-
-
 import { AuthProvider } from "./Context/AuthContext";
 import Settings from './Pages/Setting';
 import Errorpage from './Pages/ErrorPage.jsx'
@@ -31,7 +26,6 @@ import NotificationsTab from './Component/Settings/notifications.jsx';
 import Ticket from './Component/Tickets/Ticket.jsx'
 import EditEventPage from './Pages/EditPage.jsx'
 import Stripe from './Components/Stripe.jsx';
-
 function App() {
   return (
     <Suspense
