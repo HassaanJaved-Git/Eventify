@@ -36,8 +36,9 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
     );
     console.log("Purchase successful:", response.data);
     alert("Purchase successful!");
-    setTicketId(response.data.ticket._id)
-    navigate(`/ticket/${response.data.ticket._id}`)
+   const ticketId = response.data.ticketId; // ✅ Use correct field
+      setTicketId(ticketId);
+      navigate(`/ticket/${ticketId}`);
     }
     else{
      navigate(`/stripe`) 
@@ -71,7 +72,10 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
 <button 
   className="btn btn-primary position-absolute top-0 end-0 m-2"
   style={{ zIndex: 1 }}
-  onClick={handleBuyNow}
+  onClick={(e) => {
+    e.stopPropagation(); 
+    handleBuyNow();      
+  }}
 >
   Buy Now
 </button>
