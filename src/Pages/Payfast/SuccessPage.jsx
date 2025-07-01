@@ -22,7 +22,7 @@ const SuccessPage = () => {
     }, []);
 
     return (
-        <div className="p-4">
+        <div className="p-4" style={{ height: "100vh" }}>
         <h2>Thank you for your purchase!</h2>
         </div>
     );
