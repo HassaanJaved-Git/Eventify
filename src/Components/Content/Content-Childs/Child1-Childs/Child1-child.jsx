@@ -15,6 +15,7 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
 
 
   const handleBuyNow = async () => {
+<<<<<<< HEAD
   try {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -38,18 +39,51 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
     alert("Purchase successful!");
     setTicketId(response.data.ticket._id)
     navigate(`/ticket/${response.data.ticket._id}`)
+=======
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Please log in to purchase tickets.");
+        navigate("/login");
+        return;
+      }
+
+      const headers = {
+        Authorization: `Bearer ${token}`,
+      };
+
+      // 👇 If event is free, book directly
+      if (price === 0) {
+        const response = await axios.post(
+          `http://localhost:5000/api/ticket/book-ticket`,
+          { eventId: id },
+          { headers }
+        );
+
+        setTicketId(response.data.ticketId);
+        alert("Free ticket booked!");
+        navigate(`/ticket/${ticketId}`);
+      } else {
+        const payfastResponse = await axios.post(
+          `http://localhost:5000/api/payment/initiate-payment`,
+          { eventId: id },
+          { headers }
+        );
+
+        if (payfastResponse.data.url) {
+          window.location.href = payfastResponse.data.url; 
+        } else {
+          throw new Error("Failed to get PayFast URL");
+        }
+      }
+    } catch (error) {
+      console.error("Buy Now Error:", error);
+      const message =
+        error.response?.data?.message || "Something went wrong. Try again.";
+      alert(message);
+>>>>>>> cc67e2bc11da3d061b652da6f7c322a8d431911b
     }
-    else{
-     navigate(`/stripe`) 
-    }
-    
-    
-  } catch (error) {
-    const errorMessage = error.response?.data?.message || "Purchase failed. Please try again.";
-    console.error(errorMessage);
-    alert(errorMessage);
-  }
-};
+  };
 
 
   return (
@@ -68,13 +102,16 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
               <small className="text-body-light">Event by {organizer}</small>
             </p>
       {/* Buy Now Button - Top Right */}
-<button 
-  className="btn btn-primary position-absolute top-0 end-0 m-2"
-  style={{ zIndex: 1 }}
-  onClick={handleBuyNow}
->
-  Buy Now
-</button>
+          <button 
+            className="btn btn-primary position-absolute top-0 end-0 m-2"
+            style={{ zIndex: 1 }}
+            onClick={(e) => {
+              e.stopPropagation(); 
+              handleBuyNow();      
+            }}
+          >
+            Buy Now
+          </button>
             {isExpanded && (
               <div className="additional-details mt-3">
                 <h6>Event Details</h6>
