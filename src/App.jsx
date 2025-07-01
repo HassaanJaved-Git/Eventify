@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { GoogleOAuthProvider } from "@react-oauth/google";
 const SignUp = lazy(()=>import('./Component/SignUp/SignUp'));
 const LoginPage = lazy(()=>import('./Component/Login/Login'));
-// const Dashboard = lazy(()=>import('./Component/Dashboard/dashboard'));
 const CreateEventPage = lazy(()=>import('./Pages/CreateEventPage'));
 const ForgetPassword = lazy(()=>import('./Component/Forget-Password/ForgetPassword'))
 import Layout from './Component/Layout/Layout';
@@ -14,7 +13,6 @@ import Content from './Components/Content/Content'
 import { AuthProvider } from "./Context/AuthContext";
 import Settings from './Pages/Setting';
 import Errorpage from './Pages/ErrorPage.jsx'
-// import Stripe from './Components/Stripe.jsx'
 import ProfilePage from './Pages/ProfilePage/ProfilePage.jsx';
 import AboutTab from './Component/Settings/About.jsx';
 import HelpTab from './Component/Settings/Help.jsx';
@@ -25,7 +23,9 @@ import AccountTab from './Component/Settings/Account.jsx';
 import NotificationsTab from './Component/Settings/notifications.jsx';
 import Ticket from './Component/Tickets/Ticket.jsx'
 import EditEventPage from './Pages/EditPage.jsx'
-import Stripe from './Components/Stripe.jsx';
+import CancelPage from "./pages/Payfast/CancelPage";
+import SuccessPage from "./pages/Payfast/SuccessPage";
+ 
 function App() {
   return (
     <Suspense
@@ -58,7 +58,8 @@ function App() {
               <Route path="/404" element={<Errorpage />}/>
               <Route path="/ticket/:id" element={<Ticket />} />
               <Route path="/edit-event/:id" element={<EditEventPage />} />
-               <Route path="/stripe" element={<Stripe />} />
+              <Route path="/payment/cancel" element={<CancelPage />} />
+              <Route path="/payment/success" element={<SuccessPage />} />
             </Route>
           </Routes>
         </AuthProvider>
