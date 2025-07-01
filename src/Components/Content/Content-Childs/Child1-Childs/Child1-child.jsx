@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Child1Child = ({ id, title, description,price, image, date, startTime, endTime, organizer, location, expandedEventId, setExpandedEventId }) => {
   const isExpanded = expandedEventId === id;
   const [ticketId, setTicketId] = useState();
+  console.log("=============================================",ticketId);
 
   const toggleExpand = () => {
     setExpandedEventId(isExpanded ? null : id);
@@ -34,9 +35,11 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
           { eventId: id },
           { headers }
         );
+        console.log("Ticket ID:==========================123", ticketId);
 
         setTicketId(response.data.ticketId);
         alert("Free ticket booked!");
+        console.log("Ticket ID:", ticketId);
         navigate(`/ticket/${ticketId}`);
       } else {
         const payfastResponse = await axios.post(
