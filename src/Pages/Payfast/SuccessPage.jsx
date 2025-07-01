@@ -10,19 +10,26 @@ const SuccessPage = () => {
         const transactionId = params.get("transactionId");
         if (!transactionId) return;
 
-        axios.post("http://localhost:5000/api/payment/update-status", {
-        transactionId,
-        status: "completed", // in real use, confirm via IPN
-        }).then(() => {
-        alert("Payment successful! Your ticket is confirmed.");
-        // navigate to ticket view page maybe
-        }).catch(err => {
-        alert("Payment succeeded but could not confirm ticket.");
-        });
+        const confirmPayment = async () => {
+        try {
+            const res = await axios.post("http://localhost:5000/api/payment/update-status", {
+            transactionId,
+            status: "completed"
+            });
+
+            alert("Payment successful! Your ticket is confirmed.");
+            navigate(`/ticket/${res.data.ticket}`);
+        } catch (err) {
+            console.error("Ticket confirmation error:", err);
+            alert("Payment succeeded but could not confirm ticket.");
+        }
+        };
+
+        confirmPayment();
     }, []);
 
     return (
-        <div className="p-4">
+        <div className="p-4" style={{ height: "100vh" }}>
         <h2>Thank you for your purchase!</h2>
         </div>
     );
