@@ -16,31 +16,6 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
 
 
   const handleBuyNow = async () => {
-<<<<<<< HEAD
-  try {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("Please log in to purchase tickets.");
-      navigate("/login");
-      return;
-    }
-    if(price == 0){
-      const response = await axios.post(
-      `http://localhost:5000/api/ticket/book-ticket`, 
-      {eventId: id},
-      {
-        headers: {
-          Authorization: `Bearer ${token}`, 
-        },  
-      } 
-          
-      
-    );
-    console.log("Purchase successful:", response.data);
-    alert("Purchase successful!");
-    setTicketId(response.data.ticket._id)
-    navigate(`/ticket/${response.data.ticket._id}`)
-=======
     try {
       const token = localStorage.getItem("token");
       if (!token) {
@@ -86,7 +61,6 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
       const message =
         error.response?.data?.message || "Something went wrong. Try again.";
       alert(message);
->>>>>>> cc67e2bc11da3d061b652da6f7c322a8d431911b
     }
   };
 
