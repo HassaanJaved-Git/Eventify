@@ -2,18 +2,28 @@ import React, { useState } from 'react';
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-const Child1Child = ({ id, title, description,price, image, date, startTime, endTime, organizer, location, expandedEventId, setExpandedEventId }) => {
+const Child1Child = ({
+  id,
+  title,
+  description,
+  price,
+  image,
+  date,
+  startTime,
+  endTime,
+  organizer,
+  location,
+  expandedEventId,
+  setExpandedEventId,
+  isPast
+}) => {
   const isExpanded = expandedEventId === id;
   const [ticketId, setTicketId] = useState();
-  console.log("=============================================",ticketId);
+  const navigate = useNavigate();
 
   const toggleExpand = () => {
     setExpandedEventId(isExpanded ? null : id);
   };
-
-
-  const navigate = useNavigate();
-
 
   const handleBuyNow = async () => {
     try {
@@ -28,18 +38,13 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
         Authorization: `Bearer ${token}`,
       };
 
-      // 👇 If event is free, book directly
       if (price === 0) {
         const response = await axios.post(
           `http://localhost:5000/api/ticket/book-ticket`,
           { eventId: id },
           { headers }
         );
-        console.log("Ticket ID:==========================123", ticketId);
 
-        // setTicketId(response.data.ticketId);
-        // alert("Free ticket booked!");
-        // navigate(`/ticket/${ticketId}`);
         const ticketIdFromResponse = response.data.ticketId;
         alert("Free ticket booked!");
         navigate(`/ticket/${ticketIdFromResponse}`);
@@ -51,7 +56,7 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
         );
 
         if (payfastResponse.data.url) {
-          window.location.href = payfastResponse.data.url; 
+          window.location.href = payfastResponse.data.url;
         } else {
           throw new Error("Failed to get PayFast URL");
         }
@@ -64,33 +69,51 @@ const Child1Child = ({ id, title, description,price, image, date, startTime, end
     }
   };
 
-
   return (
-    <div className={`card mb-3 text-light ${isExpanded ? 'expanded-card' : ''}`} style={{ cursor: 'pointer', minHeight: '250px' }} onClick={toggleExpand} >
+    <div
+      className={`card mb-3 text-light ${isExpanded ? 'expanded-card' : ''}`}
+      style={{ cursor: 'pointer', minHeight: '250px' }}
+      onClick={toggleExpand}
+    >
       <div className="row g-0">
         <div className="col-md-4" style={{ height: '250px' }}>
-          <img style={{ height: '100%' }} src={image} className="img-fluid rounded-start" alt="Event" />
+          <img
+            style={{ height: '100%' }}
+            src={image}
+            className="img-fluid rounded-start"
+            alt="Event"
+          />
         </div>
         <div className="col-md-8">
           <div className="card-body">
             <h5 className="card-title">{title}</h5>
+
             <p className="card-text">{description.slice(0, 100)}...</p>
-            <p>Rs {price}/<small className='small'> ticket</small></p>
-             <p><strong>Date:</strong> {new Date(date).toLocaleDateString()}</p>
+            <p>Rs {price}/<small className="small"> ticket</small></p>
+            <p><strong>Date:</strong> {new Date(date).toLocaleDateString()}</p>
             <p className="card-text">
               <small className="text-body-light">Event by {organizer}</small>
             </p>
-      {/* Buy Now Button - Top Right */}
-          <button 
-            className="btn btn-primary position-absolute top-0 end-0 m-2"
-            style={{ zIndex: 1 }}
-            onClick={(e) => {
-              e.stopPropagation(); 
-              handleBuyNow();      
-            }}
-          >
-            Buy Now
-          </button>
+
+            {isPast && (
+              <span className="badge bg-secondary position-absolute top-0 end-0 m-2">
+                Past Event
+              </span>
+            )}
+
+            {!isPast && (
+              <button
+                className="btn btn-primary position-absolute top-0 end-0 m-2"
+                style={{ zIndex: 1 }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleBuyNow();
+                }}
+              >
+                Buy Now
+              </button>
+            )}
+
             {isExpanded && (
               <div className="additional-details mt-3">
                 <h6>Event Details</h6>

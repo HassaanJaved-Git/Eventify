@@ -65,7 +65,7 @@ const OrganizerTicketVerify = () => {
   }
 
   return (
-    <div className="max-w-md mx-auto p-6 mt-10 border rounded-xl shadow-lg bg-white">
+    <div className="max-w-md mx-auto p-6 mt-10 border rounded-xl shadow-lg text-dark" style={{ backgroundColor: 'white' , height: '60vh', marginTop: '10vh', marginBottom: '10vh'}}>
       <ToastContainer />
       <h2 className="text-2xl font-bold mb-4 text-center text-green-600">🎫 Ticket Verification</h2>
 

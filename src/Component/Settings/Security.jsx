@@ -2,12 +2,15 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import VerifyOTP from './VerifyOTP';
+import ChangePasswordForm from './ChangePasswordForm';
 
 const SecurityTab = () => {
   const [showOTPComponent, setShowOTPComponent] = useState(false);
+  const [showPasswordForm, setShowPasswordForm] = useState(false);
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [otpType, setOtpType] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -15,8 +18,8 @@ const SecurityTab = () => {
       try {
         const token = localStorage.getItem('token');
         const response = await axios.get('http://localhost:5000/api/user/get-Name-Email-UserName-ProfilePic', {
-          headers: { Authorization: `Bearer ${token}`,
-         withCredentials: true  },
+          headers: { Authorization: `Bearer ${token}` },
+          withCredentials: true,
         });
         setEmail(response.data.email);
       } catch (err) {
@@ -43,11 +46,12 @@ const SecurityTab = () => {
         {},
         {
           headers: { Authorization: `Bearer ${token}` },
-          withCredentials: true 
+          withCredentials: true,
         }
       );
 
       if (response.data.message === 'OTP sent successfully') {
+        setOtpType('email');
         setShowOTPComponent(true);
       } else {
         setError(response.data.error || 'Failed to send OTP');
@@ -61,12 +65,14 @@ const SecurityTab = () => {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '400px', margin: 'auto', borderRadius: '4px', backgroundColor: 'rgba(11, 11, 11, 0.1)'  , height: '50vh' }}>
+    <div style={{ padding: '20px', maxWidth: '400px', margin: 'auto', borderRadius: '4px', backgroundColor: 'rgba(11, 11, 11, 0.1)', height: 'auto' }}>
       {showOTPComponent ? (
-        <VerifyOTP setShowOTPComponent={setShowOTPComponent} />
+        <VerifyOTP setShowOTPComponent={setShowOTPComponent} otpType="email" email={email} />
+      ) : showPasswordForm ? (
+        <ChangePasswordForm email={email} setShowPasswordForm={setShowPasswordForm} />
       ) : (
         <>
-          <h2>Change Email</h2>
+          <h2>Security Settings</h2>
           <div>
             <label>Email:</label>
             <input
@@ -84,6 +90,12 @@ const SecurityTab = () => {
           >
             {loading ? 'Sending OTP...' : 'Change Email'}
           </button>
+          <button
+            onClick={() => setShowPasswordForm(true)}
+            style={{ padding: '10px 20px', marginTop: '50px', marginLeft: '10px', backgroundColor: 'grey', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer' }}
+          >
+            Change Password
+          </button>
         </>
       )}
     </div>
@@ -91,4 +103,3 @@ const SecurityTab = () => {
 };
 
 export default SecurityTab;
-
