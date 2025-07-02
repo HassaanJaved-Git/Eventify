@@ -57,7 +57,7 @@ const OrganizerTicketVerify = () => {
 
   if (!ticket && !loading) {
     return (
-      <div className="p-6 mt-10 text-center bg-red-100 border border-red-300 rounded-lg max-w-md mx-auto text-red-700 font-semibold">
+      <div className="p-6 mt-10 text-center bg-red-100 border border-red-300 rounded-lg max-w-md mx-auto text-red-700 font-semibold" style={{ height: '50vh', marginTop: '10vh', marginBottom: '10vh', paddingTop: '10vh' }}>
         <h2 className="text-xl">⚠️ Ticket Invalid</h2>
         <p className="mt-2">{errorMessage || "Ticket not found or error occurred."}</p>
       </div>
