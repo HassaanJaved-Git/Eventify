@@ -26,6 +26,7 @@ import EditEventPage from './Pages/EditPage.jsx'
 import CancelPage from "./pages/Payfast/CancelPage";
 import SuccessPage from "./pages/Payfast/SuccessPage";
 import TicketVerify from "./Component/TicketVerify/TicketVerify.jsx"
+import FeedbackForm from "./Components/Feedback/Feedback.jsx"
  
 function App() {
   return (
@@ -62,6 +63,7 @@ function App() {
               <Route path="/payment/cancel" element={<CancelPage />} />
               <Route path="/payment/success" element={<SuccessPage />} />
               <Route path="/ticket/verify/:id" element={<TicketVerify />}/>
+                 <Route path="/FeedbackForm/:id" element={<FeedbackForm />}/>
             </Route>
           </Routes>
         </AuthProvider>
