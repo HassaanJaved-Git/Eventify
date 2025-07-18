@@ -26,6 +26,7 @@ import EditEventPage from './Pages/EditPage.jsx'
 import CancelPage from "./pages/Payfast/CancelPage";
 import SuccessPage from "./pages/Payfast/SuccessPage";
 import TicketVerify from "./Component/TicketVerify/TicketVerify.jsx"
+import Cummunity from './Pages/Cummunity.jsx';
  
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
               <Route path="/signup" element={<SignUp />} />
               <Route path="/create-event" element={<CreateEventPage />} />
               <Route path="/forget-password" element={<ForgetPassword />} />
+              <Route path="/cummunity" element={<Cummunity />} />
               <Route path="/settings" element={<Settings />}>
                 <Route path='about' element={<AboutTab/>}/>
                 <Route path='help' element={<HelpTab/>}/>

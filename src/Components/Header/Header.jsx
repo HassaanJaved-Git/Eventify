@@ -107,6 +107,9 @@ useEffect(() => {
               <button type="button" className="btn btn-sm me-3" onClick={() => navigate(`/${user?.userName}`)}>
                 <img className="w-7 rounded-circle" src={user?.profileImageURL || defaultUserPic} alt="User profile" />
               </button>
+              <button  type="button" className="btn btn-outline-light btn-sm me-3" onClick={() => navigate('/cummunity')}>
+                Cummunity
+              </button>
             </>
           )}
         </div>
