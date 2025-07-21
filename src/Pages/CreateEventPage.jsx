@@ -166,8 +166,9 @@ function CreateEventPage() {
         },
       });
 
-      const data = await res.json();
 
+      const data = await res.json();
+      console.log(data,'--------------------')
       if (res.ok) {
         console.log("Event created:", data);
         alert("Event Created Successfully");

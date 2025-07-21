@@ -61,6 +61,7 @@ const ContentChild1 = ({ type }) => {
                 expandedEventId={expandedEventId}
                 setExpandedEventId={setExpandedEventId}
                 isPast={isPastEvent}
+                  organizerRating={event.organizer?.avgRating || null} // ✅ Add this line
               />
             );
           })

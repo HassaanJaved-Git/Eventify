@@ -15,6 +15,7 @@ const Child1Child = ({
   location,
   expandedEventId,
   setExpandedEventId,
+  organizerRating,
   isPast
 }) => {
   const isExpanded = expandedEventId === id;
@@ -92,8 +93,19 @@ const Child1Child = ({
             <p>Rs {price}/<small className="small"> ticket</small></p>
             <p><strong>Date:</strong> {new Date(date).toLocaleDateString()}</p>
             <p className="card-text">
-              <small className="text-body-light">Event by {organizer}</small>
-            </p>
+  <small className="text-body-light">
+    Event by {organizer}
+    {organizerRating !== null && (
+      <>
+        &nbsp;|&nbsp;
+        <span className="text-warning">
+          ★ {organizerRating.toFixed(1)}
+        </span>
+      </>
+    )}
+  </small>
+</p>
+
 
             {isPast && (
               <span className="badge bg-secondary position-absolute top-0 end-0 m-2">

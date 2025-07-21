@@ -53,7 +53,7 @@ export default function Settings() {
         <Tab.Container activeKey={activeTab}>
           <Row>
             <Col sm={3}>
-            <div style={{ position: "sticky", top: "120px",  zIndex: 9, paddingRight: "15px", }}>
+            <div style={{ position: "sticky", top: "120px",  zIndex: 9, paddingRight: "15px",borderRight:"1px solid gray" }}>
               <Nav variant="pills" className="flex-column mb-4">
                 {tabItems.map((tab) => (
                   <Nav.Item key={tab.eventKey}>

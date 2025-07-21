@@ -1,26 +1,17 @@
-/* Login page styling with modern, clean design */
-/* .signup-login-background {
-  background-image:url('../../assets/prepared-wedding-hall.jpg');
-   background-position: fixed;
-   background-size: cover;
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1rem;
-} */
- body {
+/* Modern Login Page Styling */
+
+body {
   background: linear-gradient(
     -45deg,
-    rgb(81, 55, 19),  /* peach-cream */
-    #fcb69f,  /* soft coral */
-    #37265e,  /* pastel purple */
-    #3e0a2f,  /* cotton candy pink */
-    #671803,  /* blush pink */
-    #2c3440,  /* baby blue */
-    #093f58,  /* ice blue */
-    #314601,  /* spring green */
-    #216c2b   /* mint green */
+    rgb(81, 55, 19),
+    #fcb69f,
+    #37265e,
+    #3e0a2f,
+    #671803,
+    #2c3440,
+    #093f58,
+    #314601,
+    #216c2b
   );
   background-size: 600% 600%;
   animation: gradientBG 30s ease-in-out infinite;
@@ -32,15 +23,14 @@
 
 .container {
   max-width: 1200px;
-  width : 500px;
+  width: 500px;
   margin: 0 auto;
 }
 
 .login-card {
-  background: rgba(255, 255, 255, 0.1); 
-  backdrop-filter: blur(10px); 
-    border: 1px solid rgba(255, 255, 255, 0.2);
-
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 1rem;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   padding: 2rem;
@@ -54,7 +44,6 @@
 }
 
 .login-title {
-  font-family: 'Roboto', sans-serif;
   font-size: 2rem;
   font-weight: 700;
   color: #1f2937;
@@ -67,7 +56,6 @@
   padding: 0.75rem 1rem;
   font-size: 1rem;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  position: relative;
 }
 
 .signup-login-input:focus {
@@ -76,17 +64,33 @@
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
 }
 
-.icon {
+.input-icon {
   position: absolute;
-  right: 1rem;
-  top: 30%;
+  top: 25%;
   transform: translateY(-50%);
   color: #6b7280;
   font-size: 1.25rem;
+  z-index: 2;
 }
 
 .icon1 {
-  top: 45%;
+  right: 1rem;
+}
+
+.lock-icon {
+  right: 2.5rem;
+}
+
+.password-toggle-icon {
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  color: #6b7280;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.password-toggle-icon:hover {
+  color: #3b82f6;
 }
 
 .error-message {
