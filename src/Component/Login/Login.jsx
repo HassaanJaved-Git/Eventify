@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from "react-helmet";
 import { Formik, Form, Field, ErrorMessage } from "formik";
@@ -7,31 +7,39 @@ import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { MdMarkEmailUnread } from "react-icons/md";
-import { FaLock } from "react-icons/fa";
+import { FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
 
 import { AuthContext } from "../../Context/AuthContext";
 import GoogleOAuth from "../GoogleOAuth/GoogleOAuth";
 
 import "./Login.css";
+
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useContext(AuthContext);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       navigate("/");
     }
   }, [navigate]);
+
   const loginSchema = Yup.object().shape({
     email: Yup.string().required("Email or Username is required"),
     password: Yup.string()
       .min(8, "Password must be at least 8 characters")
       .required("Password is required"),
   });
+
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     axios
       .post("http://localhost:5000/api/user/login", values)
-
       .then((response) => {
         toast.success("Login successful!", {
           position: "top-center",
@@ -41,7 +49,6 @@ const Login = () => {
         const { token } = response.data;
 
         login(token);
-
         setTimeout(() => navigate("/"), 1000);
       })
       .catch((error) => {
@@ -87,21 +94,28 @@ const Login = () => {
                       placeholder="Enter Email or Username"
                       className="form-control signup-login-input pe-5"
                     />
-                    <MdMarkEmailUnread className="icon1 icon" />
+                    <MdMarkEmailUnread className="input-icon icon1" />
                     <ErrorMessage
                       name="email"
                       component="div"
                       className="text-danger mt-1 error-message"
                     />
                   </div>
+
                   <div className="mb-3 position-relative">
                     <Field
-                      type="password"
+                      type={showPassword ? "text" : "password"}
                       name="password"
                       placeholder="Enter Password"
                       className="form-control signup-login-input pe-5"
                     />
-                    <FaLock className="icon" />
+                    {/* <FaLock className="input-icon lock-icon" /> */}
+                    <span
+                      className="input-icon icon1 password-toggle-icon"
+                      onClick={togglePasswordVisibility}
+                    >
+                      {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </span>
                     <ErrorMessage
                       name="password"
                       component="div"
@@ -119,6 +133,7 @@ const Login = () => {
                       </div>
                     </div>
                   </div>
+
                   <button
                     type="submit"
                     className="btn signup-login-button w-100"

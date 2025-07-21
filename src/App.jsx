@@ -27,7 +27,8 @@ import CancelPage from "./pages/Payfast/CancelPage";
 import SuccessPage from "./pages/Payfast/SuccessPage";
 import TicketVerify from "./Component/TicketVerify/TicketVerify.jsx"
 import Cummunity from './Pages/Cummunity.jsx';
- 
+import ReviewPage from './Pages/ReviewPage.jsx';
+import CommunityChat from './Pages/CommunityChat.jsx';
 function App() {
   return (
     <Suspense
@@ -64,6 +65,8 @@ function App() {
               <Route path="/payment/cancel" element={<CancelPage />} />
               <Route path="/payment/success" element={<SuccessPage />} />
               <Route path="/ticket/verify/:id" element={<TicketVerify />}/>
+              <Route path="/events/:id/review" element={<ReviewPage />} />
+              <Route path="/community-chat/:communityId" element={<CommunityChat />} />
             </Route>
           </Routes>
         </AuthProvider>

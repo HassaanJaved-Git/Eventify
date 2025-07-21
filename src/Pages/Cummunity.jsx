@@ -1,180 +1,74 @@
-import React from 'react'
-import '../Allcss/Cummunity.css'
-import img from '../assets/dps/dp.png'
-import img1 from '../assets/dps/dp1.png'
-import imm2 from '../assets/dps/dp2.png'
-import img3 from '../assets/dps/dp3.png'
-import img4 from '../assets/dps/dp4.png'
-import img5 from '../assets/dps/dp5.png'
-import img6 from '../assets/dps/dp6.png'
+import React, { useEffect, useState, useContext } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../Context/AuthContext";
 
-const Cummunity = () => {
+const Community = () => {
+  const { token } = useContext(AuthContext);
+  const [communities, setCommunities] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchCommunities = async () => {
+      try {
+        const response = await axios.get(
+          `${import.meta.env.VITE_BACKEND_URL}/api/community/get-communities`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        setCommunities(response.data.communities);
+      } catch (error) {
+        console.error("Error fetching communities:", error);
+        setError("Failed to fetch communities");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (token) fetchCommunities();
+  }, [token]);
+
+  if (loading) return <div className="p-5">Loading communities...</div>;
+  if (error) return <div className="p-5 text-red-500">{error}</div>;
+
   return (
-<section className="gradient-custom">
-  <div className="container-fluid py-5">
-    <div className="row">
-      <div className="col-md-6 col-lg-6 col-xl-6 mb-4 mb-md-0">
-        <h5 className="font-weight-bold mb-3 text-center text-white">Member</h5>
-        <div className="card mask-custom">
-          <div className="card-body">
-            <ul className="list-unstyled mb-0">
-              {[...Array(6)].map((_, i) => (
-                <li
-                  key={i}
-                  className="p-2 border-bottom"
-                  style={{ borderBottom: "1px solid rgba(255,255,255,.3)" }}
-                >
-                  <a href="#!" className="d-flex justify-content-between link-light">
-                    <div className="d-flex flex-row">
-                      <img
-                        src={img}
-                        alt="avatar"
-                        className="rounded-circle d-flex align-self-center me-3 shadow-1-strong"
-                        width="60"
-                      />
-                      <div className="pt-1">
-                        <p className="fw-bold mb-0">Name {i + 1}</p>
-                        <p className="small text-white">Sample message</p>
-                      </div>
-                    </div>
-                    <div className="pt-1">
-                      <p className="small text-white mb-1">Just now</p>
-                      {i === 0 && (
-                        <span className="badge bg-danger float-end">1</span>
-                      )}
-                    </div>
-                  </a>
-                </li>
-              ))}
-              <li className="p-2">
-                <a href="#!" className="d-flex justify-content-between link-light">
-                  <div className="d-flex flex-row">
-                    <img
-                      src={img6}
-                      alt="avatar"
-                      className="rounded-circle d-flex align-self-center me-3 shadow-1-strong"
-                      width="60"
-                    />
-                    <div className="pt-1">
-                      <p className="fw-bold mb-0">Brad Pitt</p>
-                      <p className="small text-white">Lorem ipsum dolor sit.</p>
-                    </div>
-                  </div>
-                  <div className="pt-1">
-                    <p className="small text-white mb-1">5 mins ago</p>
-                    <span className="text-white float-end">
-                      <i className="fas fa-check" aria-hidden="true"></i>
-                    </span>
-                  </div>
-                </a>
-              </li>
-            </ul>
-          </div>
+    <div className="p-6">
+      <h1 className="text-3xl font-semibold mb-6">Your Communities</h1>
+      {!communities.length ? (
+        <p className="text-gray-500">You are not a member of any communities.</p>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {communities.map((community) => (
+            <div
+              key={community._id}
+              onClick={() => navigate(`/community-chat/${community._id}`)}
+              className="cursor-pointer bg-white border rounded-xl shadow hover:shadow-lg transition duration-300 p-4"
+            >
+              <h2 className="text-xl font-bold">{community.event?.title}</h2>
+              {community.event?.image?.imageURL && (
+                <img
+                  src={community.event.image.imageURL}
+                  alt={community.event.title}
+                  className="mt-2 w-full h-48 object-cover rounded-lg"
+                />
+              )}
+              <h3 className="font-semibold mt-4 mb-2">Members:</h3>
+              <ul className="text-sm text-gray-700 space-y-1">
+                {community.members.map((member) => (
+                  <li key={member.user._id}>
+                    <span className="font-medium">{member.user.name}</span> ({member.role})
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
-      </div>
-
-      {/* Chat Messages Section */}
-      <div className="col-md-6 col-lg-6 col-xl-6">
-        <ul className="list-unstyled text-white">
-          <li className="d-flex justify-content-between mb-4">
-            <img
-              src={img3}
-              alt="avatar"
-              className="rounded-circle d-flex align-self-start me-3 shadow-1-strong"
-              width="60"
-            />
-            <div className="card mask-custom">
-              <div
-                className="card-header d-flex justify-content-between p-3"
-                style={{ borderBottom: "1px solid rgba(255,255,255,.3)" }}
-              >
-                <p className="fw-bold mb-0">Brad Pitt</p>
-                <p className="text-light small mb-0">
-                  <i className="far fa-clock"></i> 12 mins ago
-                </p>
-              </div>
-              <div className="card-body">
-                <p className="mb-0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-                </p>
-              </div>
-            </div>
-          </li>
-
-          <li className="d-flex justify-content-between mb-4">
-            <div className="card mask-custom w-100">
-              <div
-                className="card-header d-flex justify-content-between p-3"
-                style={{ borderBottom: "1px solid rgba(255,255,255,.3)" }}
-              >
-                <p className="fw-bold mb-0">Lara Croft</p>
-                <p className="text-light small mb-0">
-                  <i className="far fa-clock"></i> 13 mins ago
-                </p>
-              </div>
-              <div className="card-body">
-                <p className="mb-0">
-                  Sed ut perspiciatis unde omnis iste natus error sit...
-                </p>
-              </div>
-            </div>
-            <img
-              src={img4}
-              alt="avatar"
-              className="rounded-circle d-flex align-self-start ms-3 shadow-1-strong"
-              width="60"
-            />
-          </li>
-
-          <li className="d-flex justify-content-between mb-4">
-            <img
-              src={img5}
-              alt="avatar"
-              className="rounded-circle d-flex align-self-start me-3 shadow-1-strong"
-              width="60"
-            />
-            <div className="card mask-custom">
-              <div
-                className="card-header d-flex justify-content-between p-3"
-                style={{ borderBottom: "1px solid rgba(255,255,255,.3)" }}
-              >
-                <p className="fw-bold mb-0">Brad Pitt</p>
-                <p className="text-light small mb-0">
-                  <i className="far fa-clock"></i> 10 mins ago
-                </p>
-              </div>
-              <div className="card-body">
-                <p className="mb-0">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit...
-                </p>
-              </div>
-            </div>
-          </li>
-
-          <li className="mb-3">
-            <div className="form-outline form-white">
-              <textarea
-                className="form-control"
-                id="textAreaExample3"
-                rows="4"
-                placeholder='Enter Your Messege'
-              ></textarea>
-            </div>
-          </li>
-
-          <button
-            type="button"
-            className="btn btn-light btn-lg btn-rounded float-end"
-          >
-            Send
-          </button>
-        </ul>
-      </div>
+      )}
     </div>
-  </div>
-</section>
+  );
+};
 
-  )
-}
-
-export default Cummunity
+export default Community;
