@@ -45,7 +45,7 @@ export default function Settings() {
       <Helmet>
         <title>Settings</title>
       </Helmet>
-      <div className="container-Fluid py-5 text-light" style={{ backgroundColor: "rgba(11, 11, 11, 0.1)", minHeight: "100vh", }} >
+      <div className="container-Fluid py-5" style={{ backgroundColor: "#F0F2F5", minHeight: "100vh",color:"black" }} >
       <div style={{ position: "sticky", top: "60px",  zIndex: 10, padding: "10px 0", }} >
         <h2 className="fw-bold mb-4 text-muted">Settings</h2>
       </div>
@@ -59,10 +59,12 @@ export default function Settings() {
                   <Nav.Item key={tab.eventKey}>
                     <Nav.Link
                       eventKey={tab.eventKey}
-                      className="text-start text-light"
+                      className="text-start"
                       style={{
                         backgroundColor:
                           activeTab === tab.eventKey ? "#1c1c1c" : "transparent",
+                        color:
+                          activeTab === tab.eventKey ? "white" : "black",
                       }}
                       onClick={() => {
                         setActiveTab(tab.eventKey);

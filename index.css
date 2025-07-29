@@ -7,7 +7,7 @@
     z-index: 2;
 }
 body {
-    background: linear-gradient(
+    /* background: linear-gradient(
         -45deg,
         #ffecd2,  
         #fcb69f,  
@@ -18,10 +18,11 @@ body {
         #c2e9fb,
         #d4fc79,
         #96e6a1
-    );
+    ); */
+    
     background-size: 600% 600%;
-    animation: gradientBG 30s ease-in-out infinite;
-    transition: background 0.5s ease;
+    /* animation: gradientBG 30s ease-in-out infinite; */
+    /* transition: background 0.5s ease; */
     position: relative;
     min-height: 100vh;
     font-family: 'Roboto', sans-serif;

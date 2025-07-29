@@ -79,13 +79,14 @@ const ProfilePage = () => {
 
   return (
     <>
+    <div className="mainn">
       <Helmet>
         <title>Profile</title>
       </Helmet>
 
       {/* Profile Card */}
-      <div className="text-white my-4">
-        <Container className="d-flex justify-content-center" style={{ width: "49%" }}>
+      <div className="text-white profile-page mb-4">
+        <Container className="d-flex justify-content-center" style={{ width: "49%",backgroundColor:"#F0F2F5" }}>
           <Card
             className="text-white p-4 rounded-4"
             style={{ width: "400px", backgroundColor: "rgba(180, 180, 180, 0.4)" }}
@@ -127,7 +128,7 @@ const ProfilePage = () => {
       {/* Events List */}
       <div className="col-12 col-lg-10 col-md-10 col-sm-12 m-auto text-light Parent-div p-lg-5 p-md-3 p-sm-2">
         <div className="col-lg-12 col-md-12 col-sm-12 col-12">
-          <div className="bg-dark text-light text-left py-5 rounded profile-events-list">
+          <div className="text-dark text-left py-5 rounded profile-events-list">
             {isLoading ? (
               [...Array(3)].map((_, i) => <SkeletonCard key={i} />)
             ) : data?.events?.length > 0 ? (
@@ -146,6 +147,7 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
+              </div>
     </>
   );
 };

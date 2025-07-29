@@ -31,11 +31,11 @@ const Community = () => {
     if (token) fetchCommunities();
   }, [token]);
 
-  if (loading) return <div className="p-5">Loading communities...</div>;
+  if (loading) return <div className="p-5 bg-light text-dark">Loading communities...</div>;
   if (error) return <div className="p-5 text-red-500">{error}</div>;
 
   return (
-    <div className="p-6">
+    <div className="p-6 bg-light text-dark">
       <h1 className="text-3xl font-semibold mb-6">Your Communities</h1>
       {!communities.length ? (
         <p className="text-gray-500">You are not a member of any communities.</p>

@@ -1,5 +1,11 @@
 .Content-main,.Parent-div{
-    background-color: rgb(19, 21, 23);
+    background-color:white ;
+}
+.h1-title{
+  color: rgb(19, 25, 62) ;;
+}
+.content-of-main{
+  /* background-color:  rgb(19, 25, 62); */
 }
 /* 
 .main-container{
@@ -11,8 +17,15 @@
     margin: auto;
 }
 
+.card-container{
+  /* background-color:   rgb(19, 25, 62); */
+  /* border: 1px solid lightgrey; */
+}
+
 .card{
-   background-color: rgb(19, 25, 62);
+  background-color: white;
+   /* background-color:#F0F2F5 ; */
+   /* color: #233b62; */
 }
 
 .card {
@@ -21,12 +34,21 @@
 }
 
 .expanded-card {
-  background-color: #233b62;
+  background-color:white ;
 }
 
 .additional-details {
   border-top: 1px solid #ffffff33;
   padding-top: 10px;
+}
+.Parent-div{
+  background-color: rgba(180, 180, 180, 0.4) ;
+  border: 1px solid lightgrey;
+  border-radius: 30px;
+}
+.mainn{
+  background-color: #F0F2F5 ;
+  padding: 20px;
 }
 
 .card:hover {

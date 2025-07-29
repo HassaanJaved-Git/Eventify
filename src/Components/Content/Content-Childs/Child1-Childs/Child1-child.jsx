@@ -72,7 +72,7 @@ const Child1Child = ({
 
   return (
     <div
-      className={`card mb-3 text-light ${isExpanded ? 'expanded-card' : ''}`}
+      className={`card mb-3 ${isExpanded ? 'expanded-card' : ''}`}
       style={{ cursor: 'pointer', minHeight: '250px' }}
       onClick={toggleExpand}
     >

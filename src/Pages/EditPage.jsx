@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
+import '../Allcss/editPage.css'
 import 'react-toastify/dist/ReactToastify.css';
 
 function EditEventPage() {
@@ -100,11 +101,12 @@ function EditEventPage() {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div className='bg-light text-dark'>Loading...</div>;
   if (!formData) return <div>Failed to load event data.</div>;
 
   return (
-    <div className="container mt-5">
+    <div className='bg-light py-5 text-dark'>
+    <div className="container edit-form text-dark">
       <ToastContainer position="top-center" autoClose={3000} />
       <h2>Edit Event</h2>
       <form onSubmit={handleSubmit} className="row g-3">
@@ -187,6 +189,7 @@ function EditEventPage() {
           </button>
         </div>
       </form>
+    </div>
     </div>
   );
 }

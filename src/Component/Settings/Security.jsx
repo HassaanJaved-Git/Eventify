@@ -65,7 +65,7 @@ const SecurityTab = () => {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '400px', margin: 'auto', borderRadius: '4px', backgroundColor: 'rgba(11, 11, 11, 0.1)', height: 'auto' }}>
+    <div style={{ padding: '20px', maxWidth: '400px', margin: 'auto', borderRadius: '4px', backgroundColor: 'white', height: 'auto' }}>
       {showOTPComponent ? (
         <VerifyOTP setShowOTPComponent={setShowOTPComponent} otpType="email" email={email} />
       ) : showPasswordForm ? (

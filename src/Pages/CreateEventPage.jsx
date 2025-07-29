@@ -187,18 +187,19 @@ function CreateEventPage() {
 
   return (
     <>
+    <div style={{ backgroundColor: "#F0F2F5" }}>
       <Helmet>
         <title>Create Event</title>
       </Helmet>
       <ToastContainer position="top-center" autoClose={3000} theme="colored" />
-      <div className="m-auto w-50">
+      <div  className="m-auto w-50">
         <div className="row justify-content-center">
           <div className="col-12 col-lg-12">
             <div
               className="rounded-4 shadow p-4 p-md-5"
-              style={{ backgroundColor: "rgba(11, 11, 11, 0.1)" }}
+              style={{ backgroundColor: "white" ,color:"black" }}
             >
-              <h1 className="fw-bold mb-4">Create New Event</h1>
+              <h1 className="fw-bold text-dark mb-4">Create New Event</h1>
 
               <div className="mb-4">
                 <div className="progress" style={{ height: "8px"}}>
@@ -484,6 +485,7 @@ function CreateEventPage() {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </>
   );

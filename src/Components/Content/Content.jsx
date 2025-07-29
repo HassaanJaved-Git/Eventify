@@ -17,8 +17,8 @@ const Content = () => {
     </Helmet>
     <div className='container-fluid Content-main'>
       <div className='main-container col-12 col-lg-10 col-md-10 col-sm-12 m-auto text-light Parent-div p-lg-5 p-md-3 p-sm-2'>
-        <div className='col-12 d-flex justify-content-between align-items-center'>
-          <h1 className='mb-0'>Events</h1>
+        <div className='col-12 d-flex justify-content-between content-of-main align-items-center'>
+          <h1 className='mb-0 h1-title'>Events</h1>
 
           <button
             className={`btn ${eventType === 'upcoming' ? 'btn-secondary' : 'btn-primary'}`}

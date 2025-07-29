@@ -1,7 +1,7 @@
 /* Modern Login Page Styling */
 
 body {
-  background: linear-gradient(
+  /* background: linear-gradient(
     -45deg,
     rgb(81, 55, 19),
     #fcb69f,
@@ -12,10 +12,11 @@ body {
     #093f58,
     #314601,
     #216c2b
-  );
+  ); */
   background-size: 600% 600%;
-  animation: gradientBG 30s ease-in-out infinite;
-  transition: background 0.5s ease;
+  background-color:#F0F2F5 ;
+  /* animation: gradientBG 30s ease-in-out infinite; */
+  /* transition: background 0.5s ease; */
   position: relative;
   min-height: 100vh;
   font-family: 'Roboto', sans-serif;
@@ -46,7 +47,7 @@ body {
 .login-title {
   font-size: 2rem;
   font-weight: 700;
-  color: #1f2937;
+  /* color:blue; */
   margin-bottom: 1.5rem;
 }
 
@@ -100,12 +101,11 @@ body {
 }
 
 .signup-login-button {
-  background-color: #3b82f6;
-  color: white;
+  background-color: rgb(19, 25, 62);
+  color: rgb(19, 25, 62);
   font-weight: 600;
   padding: 0.75rem;
   border-radius: 0.5rem;
-  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .signup-login-button:hover {
@@ -152,7 +152,7 @@ body {
 }
 
 .text-center {
-  color: #4b5563;
+  color: rgb(19, 25, 62);
 }
 
 .text-center p {

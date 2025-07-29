@@ -7,12 +7,18 @@
   font-size: 24px;
 }
 
+.footer{
+  background-color:  rgb(19, 25, 62);
+}
+
 .profile-events-list{
   display: grid;
   grid-template-columns: 32% 32% 32%;
   gap: 17px;
 }
-
+.profile-page{
+  background-color:#F0F2F5 ;
+}
 .overlay {
   pointer-events: none;
   opacity: 0;
@@ -32,8 +38,6 @@
   transform: scale(0.95);
 }
 
-
-
 .loader-container {
   display: flex;
   justify-content: center;
@@ -41,7 +45,6 @@
   height: 100vh;
   background: #f4f6f8;
 }
-
 
 .loader {
   width: 64px;

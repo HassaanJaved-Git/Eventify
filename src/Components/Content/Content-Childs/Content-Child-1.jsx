@@ -31,7 +31,7 @@ const ContentChild1 = ({ type }) => {
 
   return (
     <div className="col-lg-12 col-md-12 col-sm-12 col-12">
-      <div className="bg-dark text-light text-left py-5 rounded card-lists">
+      <div className="card-container text-light text-left py-5 rounded card-lists">
         {isLoading ? (
           [...Array(3)].map((_, i) => <SkeletonCard key={i} />)
         ) : events.length > 0 ? (

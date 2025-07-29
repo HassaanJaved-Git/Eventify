@@ -85,7 +85,7 @@
 .signup-title {
   font-weight: 700;
   font-size: 1.75rem;
-  color: #333;
+  color:  rgb(19, 25, 62);
 }
 
 .signup-input {
@@ -180,21 +180,8 @@
 }
 
 body {
-  background: linear-gradient(
-    -45deg,
-    rgb(81, 55, 19), 
-    #fcb69f,  
-    #37265e,  
-    #3e0a2f,  
-    #671803,  
-    #2c3440,  
-    #093f58,  
-    #314601,  
-    #216c2b   
-  );
+  background-color:#F0F2F5 ;;
   background-size: 600% 600%;
-  animation: gradientBG 30s ease-in-out infinite;
-  transition: background 0.5s ease;
   position: relative;
   min-height: 100vh;
   font-family: 'Roboto', sans-serif;

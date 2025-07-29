@@ -74,8 +74,9 @@ const CommunityChat = () => {
   };
 
   return (
-    <div className="max-w-3xl mx-auto p-4">
-      <h2 className="text-2xl font-bold mb-4">Community Chat</h2>
+    <div className="container-fluid bg-light">
+    <div style={{ backgroundColor: "#F0F2F5" }} className="max-w-3xl mx-auto p-4">
+      <h2 className="text-2xl text-dark font-bold mb-4">Community Chat</h2>
       <div className="border p-4 h-96 overflow-y-auto rounded shadow mb-4 bg-white">
         {messages.length === 0 ? (
           <p className="text-gray-500">No messages yet.</p>
@@ -118,6 +119,7 @@ const CommunityChat = () => {
         </button>
       </form>
     </div>
+        </div>
   );
 };
 

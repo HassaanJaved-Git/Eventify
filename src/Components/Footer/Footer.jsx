@@ -4,9 +4,9 @@ import logo from '../../assets/vite.svg'
 const Footer = () => {
   return (
    <>
-   <div className='container-fluid bg-dark'>
+   <div className='container-fluid footer'>
    <div className="container">
-  <footer className="bg-dark text-center text-white">
+  <footer className="text-center text-white">
     <div className="container p-4 pb-0">
       <section className="mb-4">
 
@@ -33,7 +33,7 @@ const Footer = () => {
       </section>
     </div>
 
-    <div className="text-center p-3">
+    <div className="text-white text-center p-3">
       © (2025) Thanks For Visiting Our Store
     </div>
   </footer>
