@@ -13,9 +13,11 @@ const SuccessPage = () => {
         const confirmPayment = async () => {
         try {
             const res = await axios.post("http://localhost:5000/api/payment/update-status", {
-            transactionId,
-            status: "completed"
-            });
+  transactionId,
+  status: "completed"
+});
+console.log("Server response:", res.data); // 👈 ADD THIS
+
 
             alert("Payment successful! Your ticket is confirmed.");
             navigate(`/ticket/${res.data.ticket}`);
