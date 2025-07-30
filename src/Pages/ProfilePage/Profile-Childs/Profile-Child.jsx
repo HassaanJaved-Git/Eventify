@@ -6,7 +6,10 @@ const ChildOfChild = ({ event, onDelete, onUpdate, isOwner }) => {
   const navigate = useNavigate();
 console.log("isOwner:", isOwner, "event.organizer:", event?.organizer?._id);
 
-  const handleShowDetails = () => setIsEnlarged(true);
+  // const handleShowDetails = () => setIsEnlarged(true);
+  const handleCardClick = () => {
+  navigate(`/organizer/event/${event._id}`);
+};
   const handleCloseDetails = () => setIsEnlarged(false);
   const handleEditEvent = () => navigate(`/edit-event/${event._id}`);
   const handleDeleteEvent = () => {
@@ -17,7 +20,7 @@ console.log("isOwner:", isOwner, "event.organizer:", event?.organizer?._id);
 
   return (
     <>
-      <div className="card bg-dark text-white" style={{ width: '18rem', cursor: 'pointer' }} onClick={handleShowDetails}>
+      {/* <div className="card bg-dark text-white" style={{ width: '18rem', cursor: 'pointer' }} onClick={handleShowDetails}>
         <img
           src={event?.image?.imageURL}
           className="card-img-top"
@@ -65,7 +68,22 @@ console.log("isOwner:", isOwner, "event.organizer:", event?.organizer?._id);
             )}
           </div>
         </div>
-      )}
+      )} */}
+       <div
+    className="card bg-dark text-white"
+    style={{ width: '18rem', cursor: 'pointer' }}
+    onClick={handleCardClick}
+  >
+    <img
+      src={event?.image?.imageURL}
+      className="card-img-top"
+      alt={event?.title || "Event"}
+      style={{ height: '150px', objectFit: 'cover' }}
+    />
+    <div className="card-body">
+      <h5 className="card-title">{event.title}</h5>
+    </div>
+  </div>
     </>
   );
 };

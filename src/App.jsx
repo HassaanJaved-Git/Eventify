@@ -29,6 +29,7 @@ import TicketVerify from "./Component/TicketVerify/TicketVerify.jsx"
 import Cummunity from './Pages/Cummunity.jsx';
 import ReviewPage from './Pages/ReviewPage.jsx';
 import CommunityChat from './Pages/CommunityChat.jsx';
+import EventDashboard from './Pages/EventDashboard.jsx';
 function App() {
   return (
     <Suspense
@@ -67,6 +68,8 @@ function App() {
               <Route path="/ticket/verify/:id" element={<TicketVerify />}/>
               <Route path="/events/:id/review" element={<ReviewPage />} />
               <Route path="/community-chat/:communityId" element={<CommunityChat />} />
+              <Route path="/organizer/event/:eventId" element={<EventDashboard />} />
+
             </Route>
           </Routes>
         </AuthProvider>
